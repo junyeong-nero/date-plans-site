@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+<title>압구정 데이트</title>
+<style>:root {
+  --bg: #fbfaf8; --fg: #1d1b18; --muted: #6d6862; --line: #e5e0d8;
+  --card: #ffffff; --link: #1f5fa8;
+  --ok: #1f7a45; --ok-bg: #e4f4ea;
+  --todo: #6d6862; --todo-bg: #efece7;
+  --risk: #9a5a06; --risk-bg: #fbeeda;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151a; --fg: #eceaf2; --muted: #a09aa8; --line: #302e38;
+    --card: #1f1e25; --link: #8ab6ef;
+    --ok: #7fd9a4; --ok-bg: #1a3a28;
+    --todo: #a09aa8; --todo-bg: #2a2830;
+    --risk: #f0b972; --risk-bg: #3d2c14;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto; max-width: 44rem; padding: 0 16px 64px;
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--link); }
+.top { padding: 24px 0 8px; }
+.top h1 { margin: 0 0 4px; font-size: 1.5rem; letter-spacing: -.01em; }
+.back { display: inline-block; margin-bottom: 12px; font-size: .875rem; text-decoration: none; }
+.range { margin: 0; color: var(--muted); font-size: .9375rem; }
+.checked { display: inline-block; margin: 10px 0 0; padding: 3px 9px;
+           border-radius: 999px; font-size: .8125rem; }
+.checked.ok { background: var(--ok-bg); color: var(--ok); }
+.checked.todo { background: var(--todo-bg); color: var(--todo); }
+.empty { color: var(--muted); }
+
+.plans { margin: 16px 0 0; padding: 0; list-style: none; }
+.plans li { position: relative; margin-bottom: 10px; background: var(--card);
+            border: 1px solid var(--line); border-radius: 12px; }
+.plans a { display: block; padding: 14px 16px; color: inherit; text-decoration: none; }
+.plans .t { display: block; font-weight: 600; padding-right: 4.5rem; }
+.plans .d { display: block; margin-top: 2px; color: var(--muted); font-size: .875rem; }
+.plans .checked { position: absolute; top: 13px; right: 12px; margin: 0; }
+details.past { margin-top: 20px; }
+details.past summary { padding: 6px 0; color: var(--muted); font-size: .9375rem; cursor: pointer; }
+
+.tabs { display: flex; gap: 8px; margin: 16px 0 4px; padding-bottom: 4px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabs button { flex: 0 0 auto; padding: 7px 14px; border: 1px solid var(--line);
+               border-radius: 999px; background: var(--card); color: var(--muted);
+               font: inherit; font-size: .875rem; cursor: pointer; }
+.tabs button.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+.day h2, .places h2 { margin: 24px 0 10px; color: var(--muted);
+                      font-size: 1rem; font-weight: 600; }
+
+.item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.item .time { flex: 0 0 3.5rem; padding-top: 1px; font-weight: 600;
+              font-size: 1.0625rem; font-variant-numeric: tabular-nums; }
+.item .body { flex: 1 1 auto; min-width: 0; }
+.item .label { font-weight: 600; }
+.item .place { margin-top: 1px; }
+.item .place a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.item .status { display: inline-block; margin-top: 6px; padding: 2px 8px;
+                border-radius: 999px; font-size: .75rem; }
+.item .status.ok { background: var(--ok-bg); color: var(--ok); }
+.item .status.todo { background: var(--todo-bg); color: var(--todo); }
+.item .status.risk { background: var(--risk-bg); color: var(--risk); }
+.item .note { margin-top: 6px; color: var(--muted); font-size: .875rem; }
+
+.place-card { margin-bottom: 10px; padding: 14px 16px; background: var(--card);
+              border: 1px solid var(--line); border-radius: 12px; scroll-margin-top: 12px; }
+.place-card h3 { margin: 0 0 8px; font-size: 1rem; }
+.place-card dl { display: grid; grid-template-columns: 4.5rem 1fr; gap: 4px 10px;
+                 margin: 0; font-size: .875rem; }
+.place-card dt { color: var(--muted); }
+.place-card dd { margin: 0; overflow-wrap: anywhere; }
+.map { display: inline-block; margin-top: 12px; padding: 8px 14px;
+       border: 1px solid var(--line); border-radius: 999px;
+       font-size: .875rem; text-decoration: none; }
+
+.place-card strong, .item .note strong { font-weight: 600; color: var(--fg); }
+.place-card code, .item code { padding: 1px 4px; border-radius: 4px;
+                               background: var(--todo-bg); font-size: .9em; }
+</style>
+</head>
+<body>
+<header class="top">
+<a class="back" href="../">← 전체 플랜</a>
+<h1>압구정 데이트</h1>
+<p class="range">2026년 8월 22일 (토)</p>
+<p class="checked ok">2026-08-17 검증됨</p>
+</header>
+<section class="day" data-day="">
+<article class="item"><div class="time">11:45</div><div class="body"><div class="label">점심</div><div class="place"><a href="#place-0">규카츠정 압구정로데오점</a></div><div class="status risk">⚠️리스크</div><div class="note">11:40 도착 예상, 예약 없으면 빠듯. 13:05까지는 나와야 함</div></div></article>
+<article class="item"><div class="time">13:20</div><div class="body"><div class="label">영화</div><div class="place"><a href="#place-1">CGV 청담씨네시티</a></div><div class="status todo">⏳미확인</div><div class="note">오디세이, 3관 스윗박스 프리미엄, 16:22 종료. 예매 전</div></div></article>
+<article class="item"><div class="time">16:30</div><div class="body"><div class="label">저녁 겸 만화카페</div><div class="place"><a href="#place-5">놀숲 더레이블도산점</a></div><div class="status todo">⏳미확인</div><div class="note">영업시간 미확인. 20:30에는 나와야 함</div></div></article>
+<article class="item"><div class="time">22:00</div><div class="body"><div class="label">방탈출</div><div class="place"><a href="#place-2">골든타임 이스케이프</a></div><div class="status ok">✅확정</div><div class="note">예약 완료</div></div></article>
+<article class="item"><div class="time">23:30</div><div class="body"><div class="label">칵테일</div><div class="place"><a href="#place-3">아쿠아라운지</a></div><div class="status todo">⏳미확인</div><div class="note">인허가 영업/정상, 토 19:00-02:00. 방탈출 종료에 따라 유동</div></div></article>
+<article class="item"><div class="time">02:10</div><div class="body"><div class="label">숙박</div><div class="place"><a href="#place-4">스파렉스사우나</a></div><div class="status todo">⏳미확인</div><div class="note">24시간, 야간요금 약 15,000원. 나만 이용</div></div></article>
+</section>
+<section class="places"><h2>장소</h2>
+<article class="place-card" id="place-0"><h3>규카츠정 압구정로데오점</h3><dl><dt>주소</dt><dd>서울 강남구 도산대로49길 34, 지하 1층</dd><dt>영업시간</dt><dd>11:00-21:00 (브레이크타임 15:00-17:00)</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%95%95%EA%B5%AC%EC%A0%95%20%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90">지도에서 열기</a></article>
+<article class="place-card" id="place-1"><h3>CGV 청담씨네시티</h3><dl><dt>주소</dt><dd>서울 강남구 도산대로 323 (신사동 651-21, 씨네시티빌딩)</dd></dl><a class="map" href="https://map.naver.com/p/search/CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0">지도에서 열기</a></article>
+<article class="place-card" id="place-2"><h3>골든타임 이스케이프</h3><dl><dt>주소</dt><dd>경기 수원시 영통구 반달로7번길 16, 402·403호 (영통동 998-4)</dd><dt>전화</dt><dd><a href="tel:050714135644">0507-1413-5644</a></dd></dl><a class="map" href="https://map.naver.com/p/entry/place/1805726840">지도에서 열기</a></article>
+<article class="place-card" id="place-3"><h3>아쿠아라운지</h3><dl><dt>주소</dt><dd>경기도 수원시 영통구 청명남로 50 (영통동 1038-1, 401호)</dd><dt>영업시간</dt><dd>월~토 19:00-02:00 (<strong>일요일 휴무</strong> — 8/22는 토요일이라 영업)</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%98%81%ED%86%B5%20%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80">지도에서 열기</a></article>
+<article class="place-card" id="place-4"><h3>스파렉스사우나</h3><dl><dt>주소</dt><dd>경기 수원시 영통구 봉영로 1569, 뉴월드프라자 7층 (영통동)</dd><dt>영업시간</dt><dd><strong>연중무휴 24시간</strong></dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%98%81%ED%86%B5%20%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98%20%EB%B4%89%EC%98%81%EB%A1%9C">지도에서 열기</a></article>
+<article class="place-card" id="place-5"><h3>놀숲 더레이블도산점</h3><dl><dt>주소</dt><dd>서울특별시 강남구 압구정로48길 35, 지하1층 (신사동)</dd><dt>영업시간</dt><dd><strong>미확인</strong> (다른 지점인 압구정역점은 금·토 11:30-22:00 / 평일 11:30-21:00)</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%95%95%EA%B5%AC%EC%A0%95%20%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90">지도에서 열기</a></article>
+</section>
+<script>(function () {
+  // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
+  var now = new Date();
+  var today = now.getFullYear() + '-' +
+              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+              String(now.getDate()).padStart(2, '0');
+
+  var list = document.getElementById('plans');
+  if (list) {
+    var past = Array.prototype.filter.call(list.children, function (li) {
+      return li.dataset.end < today;
+    });
+    if (past.length && past.length < list.children.length) {
+      var box = document.createElement('details');
+      box.className = 'past';
+      var summary = document.createElement('summary');
+      summary.textContent = '지난 플랜 ' + past.length + '개';
+      var ul = document.createElement('ul');
+      ul.className = 'plans';
+      past.forEach(function (li) { ul.appendChild(li); });
+      box.appendChild(summary);
+      box.appendChild(ul);
+      list.parentNode.insertBefore(box, list.nextSibling);
+    }
+  }
+
+  var tabs = document.querySelector('[data-tabs]');
+  if (!tabs) { return; }
+  var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
+
+  function show(day) {
+    days.forEach(function (s) { s.hidden = s.dataset.day !== day; });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.day === day); });
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { show(b.dataset.day); });
+  });
+
+  // 오늘이 일정 범위 안이면 그 날을 편다. 아니면 첫날.
+  var inRange = today >= tabs.dataset.start && today <= tabs.dataset.end;
+  var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
+  tabs.hidden = false;
+  show(inRange && hasToday ? today : buttons[0].dataset.day);
+})();
+</script>
+</body>
+</html>

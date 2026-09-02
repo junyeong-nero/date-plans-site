@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+<title>수원 2박 3일 — 마라탕·행궁동·광교</title>
+<style>:root {
+  --bg: #fbfaf8; --fg: #1d1b18; --muted: #6d6862; --line: #e5e0d8;
+  --card: #ffffff; --link: #1f5fa8;
+  --ok: #1f7a45; --ok-bg: #e4f4ea;
+  --todo: #6d6862; --todo-bg: #efece7;
+  --risk: #9a5a06; --risk-bg: #fbeeda;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151a; --fg: #eceaf2; --muted: #a09aa8; --line: #302e38;
+    --card: #1f1e25; --link: #8ab6ef;
+    --ok: #7fd9a4; --ok-bg: #1a3a28;
+    --todo: #a09aa8; --todo-bg: #2a2830;
+    --risk: #f0b972; --risk-bg: #3d2c14;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto; max-width: 44rem; padding: 0 16px 64px;
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--link); }
+.top { padding: 24px 0 8px; }
+.top h1 { margin: 0 0 4px; font-size: 1.5rem; letter-spacing: -.01em; }
+.back { display: inline-block; margin-bottom: 12px; font-size: .875rem; text-decoration: none; }
+.range { margin: 0; color: var(--muted); font-size: .9375rem; }
+.checked { display: inline-block; margin: 10px 0 0; padding: 3px 9px;
+           border-radius: 999px; font-size: .8125rem; }
+.checked.ok { background: var(--ok-bg); color: var(--ok); }
+.checked.todo { background: var(--todo-bg); color: var(--todo); }
+.empty { color: var(--muted); }
+
+.plans { margin: 16px 0 0; padding: 0; list-style: none; }
+.plans li { position: relative; margin-bottom: 10px; background: var(--card);
+            border: 1px solid var(--line); border-radius: 12px; }
+.plans a { display: block; padding: 14px 16px; color: inherit; text-decoration: none; }
+.plans .t { display: block; font-weight: 600; padding-right: 4.5rem; }
+.plans .d { display: block; margin-top: 2px; color: var(--muted); font-size: .875rem; }
+.plans .checked { position: absolute; top: 13px; right: 12px; margin: 0; }
+details.past { margin-top: 20px; }
+details.past summary { padding: 6px 0; color: var(--muted); font-size: .9375rem; cursor: pointer; }
+
+.tabs { display: flex; gap: 8px; margin: 16px 0 4px; padding-bottom: 4px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabs button { flex: 0 0 auto; padding: 7px 14px; border: 1px solid var(--line);
+               border-radius: 999px; background: var(--card); color: var(--muted);
+               font: inherit; font-size: .875rem; cursor: pointer; }
+.tabs button.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+.day h2, .places h2 { margin: 24px 0 10px; color: var(--muted);
+                      font-size: 1rem; font-weight: 600; }
+
+.item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.item .time { flex: 0 0 3.5rem; padding-top: 1px; font-weight: 600;
+              font-size: 1.0625rem; font-variant-numeric: tabular-nums; }
+.item .body { flex: 1 1 auto; min-width: 0; }
+.item .label { font-weight: 600; }
+.item .place { margin-top: 1px; }
+.item .place a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.item .status { display: inline-block; margin-top: 6px; padding: 2px 8px;
+                border-radius: 999px; font-size: .75rem; }
+.item .status.ok { background: var(--ok-bg); color: var(--ok); }
+.item .status.todo { background: var(--todo-bg); color: var(--todo); }
+.item .status.risk { background: var(--risk-bg); color: var(--risk); }
+.item .note { margin-top: 6px; color: var(--muted); font-size: .875rem; }
+
+.place-card { margin-bottom: 10px; padding: 14px 16px; background: var(--card);
+              border: 1px solid var(--line); border-radius: 12px; scroll-margin-top: 12px; }
+.place-card h3 { margin: 0 0 8px; font-size: 1rem; }
+.place-card dl { display: grid; grid-template-columns: 4.5rem 1fr; gap: 4px 10px;
+                 margin: 0; font-size: .875rem; }
+.place-card dt { color: var(--muted); }
+.place-card dd { margin: 0; overflow-wrap: anywhere; }
+.map { display: inline-block; margin-top: 12px; padding: 8px 14px;
+       border: 1px solid var(--line); border-radius: 999px;
+       font-size: .875rem; text-decoration: none; }
+
+.place-card strong, .item .note strong { font-weight: 600; color: var(--fg); }
+.place-card code, .item code { padding: 1px 4px; border-radius: 4px;
+                               background: var(--todo-bg); font-size: .9em; }
+</style>
+</head>
+<body>
+<header class="top">
+<a class="back" href="../">← 전체 플랜</a>
+<h1>수원 2박 3일 — 마라탕·행궁동·광교</h1>
+<p class="range">2026년 9월 4일 (금) – 9/6 (일)</p>
+<p class="checked todo">미검증 — 영업시간·날씨를 확인하지 않았다</p>
+</header>
+<nav class="tabs" data-tabs hidden data-start="2026-09-04" data-end="2026-09-06">
+<button type="button" data-day="2026-09-04">9/4 (금)</button>
+<button type="button" data-day="2026-09-05">9/5 (토)</button>
+<button type="button" data-day="2026-09-06">9/6 (일)</button>
+</nav>
+<section class="day" data-day="2026-09-04">
+<h2>2026년 9월 4일 (금)</h2>
+<article class="item"><div class="time">20:30</div><div class="body"><div class="label">저녁</div><div class="place"><a href="#place-0">진향원 마라탕</a></div><div class="status todo">⏳미확인</div><div class="note">시각은 임시값 — 동서울터미널 도착 시각에 달렸다</div></div></article>
+</section>
+<section class="day" data-day="2026-09-05">
+<h2>2026년 9월 5일 (토)</h2>
+<article class="item"><div class="time">12:00</div><div class="body"><div class="label">점심</div><div class="place"><a href="#place-1">몽상가옥</a></div><div class="status todo">⏳미확인</div><div class="note">파스타·리조또. 11:00-21:00 통영업, 브레이크 없음</div></div></article>
+<article class="item"><div class="time">13:45</div><div class="body"><div class="label">전시</div><div class="place"><a href="#place-2">수원시립미술관</a></div><div class="status todo">⏳미확인</div><div class="note">킨쉽 + 블랑 블랙 파노라마. 예약 불필요</div></div></article>
+<article class="item"><div class="time">15:30</div><div class="body"><div class="label">카페</div><div class="place"><a href="#place-3">룹 디저트하우스</a></div><div class="status todo">⏳미확인</div><div class="note">미술관 바로 옆. 디저트 11,000~12,000</div></div></article>
+<article class="item"><div class="time">16:45</div><div class="body"><div class="label">산책</div><div class="place"><a href="#place-4">수원화성 성곽길</a></div><div class="status todo">⏳미확인</div><div class="note">화서문 → 장안문 → 화홍문 → 방화수류정</div></div></article>
+<article class="item"><div class="time">18:15</div><div class="body"><div class="label">야간개장</div><div class="place"><a href="#place-5">화성행궁</a></div><div class="status todo">⏳미확인</div><div class="note">달빛화담. 18:00-21:30, 입장마감 21:00</div></div></article>
+<article class="item"><div class="time">20:00</div><div class="body"><div class="label">저녁</div><div class="place"><a href="#place-6">요모 수원행궁점</a></div><div class="status todo">⏳미확인</div><div class="note">야키토리 야장. 마지막 일정이라 시간 압박 없음</div></div></article>
+</section>
+<section class="day" data-day="2026-09-06">
+<h2>2026년 9월 6일 (일)</h2>
+<article class="item"><div class="time">11:30</div><div class="body"><div class="label">산책</div><div class="place"><a href="#place-7">광교호수공원</a></div><div class="status todo">⏳미확인</div><div class="note">앨리웨이 쪽 광장 입구로 진입</div></div></article>
+<article class="item"><div class="time">12:30</div><div class="body"><div class="label">점심</div><div class="place"><a href="#place-8">영통백합칼국수</a></div><div class="status todo">⏳미확인</div><div class="note">앨리웨이 광교 안. 전날 파스타와 안 겹친다</div></div></article>
+<article class="item"><div class="time">14:00</div><div class="body"><div class="label">해산</div><div class="place"><a href="#place-9">광교중앙역</a></div><div class="status todo">⏳미확인</div><div class="note">여기서 갈라진다 — 잠실 / 영통</div></div></article>
+</section>
+<section class="places"><h2>장소</h2>
+<article class="place-card" id="place-0"><h3>진향원 마라탕</h3><dl><dt>주소</dt><dd>경기도 수원시 영통구 반달로7번길 30, 르네상스 시티프라자 1층 102호 (영통동)</dd><dt>영업시간</dt><dd>미확인</dd><dt>가격</dt><dd>약 12,000/인 — 마라탕 시세 추정. <strong>무게로 계산하는 방식이면 담는 만큼 늘어난다</strong></dd></dl><a class="map" href="https://map.naver.com/p/entry/place/1150933179">지도에서 열기</a></article>
+<article class="place-card" id="place-1"><h3>몽상가옥</h3><dl><dt>주소</dt><dd>경기도 수원시 팔달구 화서문로32번길 13-8, 1층 (신풍동 75-3)</dd><dt>영업시간</dt><dd><strong>매일 11:00-21:00 / 라스트오더 20:30</strong> — 블로그 기준, 미검증. <strong>브레이크타임이 없다</strong></dd><dt>전화</dt><dd><a href="tel:050714321431">0507-1432-1431</a></dd><dt>가격</dt><dd>약 20,000/인 — 파스타 단품 기준 시세 추정. 세트로 가면 아래 메모 참고</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%88%98%EC%9B%90%20%ED%96%89%EA%B6%81%EB%8F%99%20%EB%AA%BD%EC%83%81%EA%B0%80%EC%98%A5">지도에서 열기</a></article>
+<article class="place-card" id="place-2"><h3>수원시립미술관</h3><dl><dt>주소</dt><dd>경기도 수원시 팔달구 정조로 833</dd><dt>영업시간</dt><dd><strong>10:00-19:00 / 매주 월요일 휴관</strong> — 블로그 기준, 미검증. 9/5는 토요일이라 무관</dd><dt>가격</dt><dd>4,000/인 — 성인. 블로그 기준. <strong>수원시민 25% 할인 (신분증 필수)</strong></dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%88%98%EC%9B%90%EC%8B%9C%EB%A6%BD%EB%AF%B8%EC%88%A0%EA%B4%80">지도에서 열기</a></article>
+<article class="place-card" id="place-3"><h3>룹 디저트하우스</h3><dl><dt>주소</dt><dd>경기도 수원시 팔달구 정조로 849, 2층</dd><dt>영업시간</dt><dd><strong>매일 11:00-22:00 / 라스트오더 21:30</strong> — 블로그 3건 일치. 다만 1건은 10:00-23:00이라 <strong>어긋난다</strong></dd><dt>전화</dt><dd><a href="tel:050713868913">0507-1386-8913</a></dd><dt>가격</dt><dd>약 15,000/인 — 디저트 11,000~12,000 + 음료. 블로그 메뉴 기준 추정</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%88%98%EC%9B%90%20%ED%96%89%EA%B6%81%EB%8F%99%20%EB%A3%B9%20%EB%94%94%EC%A0%80%ED%8A%B8%ED%95%98%EC%9A%B0%EC%8A%A4">지도에서 열기</a></article>
+<article class="place-card" id="place-4"><h3>수원화성 성곽길</h3><dl><dt>주소</dt><dd>화서문(팔달구 장안동) ~ 장안문 ~ 화홍문 ~ 방화수류정(팔달구 북수동) 구간</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%88%98%EC%9B%90%20%ED%99%94%EC%84%9C%EB%AC%B8">지도에서 열기</a></article>
+<article class="place-card" id="place-5"><h3>화성행궁</h3><dl><dt>주소</dt><dd>경기도 수원시 팔달구 정조로 825</dd><dt>영업시간</dt><dd>야간개장 <strong>달빛화담(花談)</strong> — 2026.05.01~11.01, <strong>금·토·일·공휴일 18:00-21:30, 입장마감 21:00</strong> — 블로그 기준, 미검증</dd><dt>가격</dt><dd>2,000/인 — 야간개장 성인. 블로그 기준 (청소년·군인 1,500 / 어린이 1,000)</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%88%98%EC%9B%90%20%ED%99%94%EC%84%B1%ED%96%89%EA%B6%81">지도에서 열기</a></article>
+<article class="place-card" id="place-6"><h3>요모 수원행궁점</h3><dl><dt>주소</dt><dd>경기도 수원시 팔달구 신풍로39번길 3-8, 1~2층 (신풍동)</dd><dt>영업시간</dt><dd>미확인</dd><dt>가격</dt><dd>약 20,000/인 — 블로그에 금액이 없어 야키토리 시세 추정</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%88%98%EC%9B%90%20%ED%96%89%EA%B6%81%EB%8F%99%20%EC%9A%94%EB%AA%A8">지도에서 열기</a></article>
+<article class="place-card" id="place-7"><h3>광교호수공원</h3><dl><dt>주소</dt><dd>경기도 수원시 영통구 원천동 일대 (앨리웨이 광교가 광교호수공원로 80)</dd><dt>가격</dt><dd>0 — 무료</dd></dl><a class="map" href="https://map.naver.com/p/search/%EA%B4%91%EA%B5%90%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90">지도에서 열기</a></article>
+<article class="place-card" id="place-8"><h3>영통백합칼국수</h3><dl><dt>주소</dt><dd>경기도 수원시 영통구 광교호수공원로 80, D동 2층 234-235호 (원천동, 광교아이파크)</dd><dt>영업시간</dt><dd>미확인 — 앨리웨이 광교 자체는 11:00-22:00이나 매장별로 다르다는 블로그 안내</dd><dt>가격</dt><dd>약 12,000/인 — 블로그에 금액이 없어 칼국수 시세 추정</dd></dl><a class="map" href="https://map.naver.com/p/search/%EA%B4%91%EA%B5%90%20%EC%98%81%ED%86%B5%EB%B0%B1%ED%95%A9%EC%B9%BC%EA%B5%AD%EC%88%98">지도에서 열기</a></article>
+<article class="place-card" id="place-9"><h3>광교중앙역</h3><dl><dt>주소</dt><dd>경기도 수원시 영통구 광교중앙로 일대</dd><dt>가격</dt><dd>0 — 이동 비용은 <code>## 비용</code>의 <code>- 기타:</code> 줄로 따로 잡았다</dd></dl><a class="map" href="https://map.naver.com/p/search/%EA%B4%91%EA%B5%90%EC%A4%91%EC%95%99%EC%97%AD">지도에서 열기</a></article>
+</section>
+<script>(function () {
+  // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
+  var now = new Date();
+  var today = now.getFullYear() + '-' +
+              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+              String(now.getDate()).padStart(2, '0');
+
+  var list = document.getElementById('plans');
+  if (list) {
+    var past = Array.prototype.filter.call(list.children, function (li) {
+      return li.dataset.end < today;
+    });
+    if (past.length && past.length < list.children.length) {
+      var box = document.createElement('details');
+      box.className = 'past';
+      var summary = document.createElement('summary');
+      summary.textContent = '지난 플랜 ' + past.length + '개';
+      var ul = document.createElement('ul');
+      ul.className = 'plans';
+      past.forEach(function (li) { ul.appendChild(li); });
+      box.appendChild(summary);
+      box.appendChild(ul);
+      list.parentNode.insertBefore(box, list.nextSibling);
+    }
+  }
+
+  var tabs = document.querySelector('[data-tabs]');
+  if (!tabs) { return; }
+  var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
+
+  function show(day) {
+    days.forEach(function (s) { s.hidden = s.dataset.day !== day; });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.day === day); });
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { show(b.dataset.day); });
+  });
+
+  // 오늘이 일정 범위 안이면 그 날을 편다. 아니면 첫날.
+  var inRange = today >= tabs.dataset.start && today <= tabs.dataset.end;
+  var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
+  tabs.hidden = false;
+  show(inRange && hasToday ? today : buttons[0].dataset.day);
+})();
+</script>
+</body>
+</html>
