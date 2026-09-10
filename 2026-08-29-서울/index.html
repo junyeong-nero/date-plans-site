@@ -6,279 +6,279 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
 <title>충무로·종로·익선동 1박 2일</title>
-<style>/* Claude.com에서 따온 크림 에디토리얼 시스템. 정본은 저장소 루트의 DESIGN.md.
-   값은 토큰에만 두고 컴포넌트에 hex를 박지 않는다. */
+<style>/* 토스 디자인 시스템(TDS). 정본은 저장소 루트의 DESIGN.md.
+   원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다. */
 :root {
   color-scheme: light;
 
-  /* 표면 — 크림 3단계 + 다크. 네 번째 색조를 늘리지 않는다 */
-  --canvas: #faf9f5;
-  --surface-soft: #f5f0e8;
-  --surface-card: #efe9de;
-  --surface-cream-strong: #e8e0d2;
-  --surface-dark: #181715;
-  --surface-dark-elevated: #252320;
-  --hairline: #e6dfd8;
-  --hairline-soft: #ebe6df;
+  /* base — 회색은 전부 차가운 navy 계열이다. 순수 검정은 쓰지 않는다 */
+  --white: #ffffff;
+  --grey-50: #f6f8fa;
+  --grey-100: #eef1f4;
+  --grey-200: #dee3e7;
+  --grey-300: #c5cbd2;
+  --grey-400: #a7b0b9;
+  --grey-500: #87919c;
+  --grey-600: #6a7480;
+  --grey-700: #4b5765;
+  --grey-900: #141f2c;
 
-  /* 글자 */
-  --ink: #141413;
-  --body: #3d3d3a;
-  --muted: #6c6a64;
-  --muted-soft: #8e8b82;
-  --on-primary: #ffffff;
-  --on-dark: #faf9f5;
-  --on-dark-soft: #a09d96;
+  /* brand — 문서가 명시한 공식 hex. OKLCH 앵커를 변환하면 미묘하게 어긋난다 */
+  --blue-500: #3182f6;
+  --blue-600: #1065cc;
+  --blue-50: #eaf5ff;
 
-  /* 브랜드 — 코랄은 인라인 링크와 주요 CTA에만. 뿌리지 않는다 */
-  --primary: #cc785c;
-  --primary-active: #a9583e;
-  --accent-teal: #5db8a6;
+  --green-500: #007738;
+  --orange-500: #ff8800;
+  --red-500: #f03848;
 
-  /* 시맨틱. 원문 값은 상태 점(dot)용이라 크림 위 글자로 쓰면 대비가 모자란다.
-     코랄에 primary-active가 있듯 글자용 어두운 변형을 따로 둔다 */
-  --success: #5db872;
-  --success-ink: #2f7d45;
-  --warning: #d4a017;
-  --warning-ink: #8a6410;
-  --error: #c64545;
+  /* badge washed — 공식 토큰이 없어 base hue에서 명도만 올린 추정값이다 */
+  --green-washed: #d7f6df;
+  --orange-washed: #ffe8d2;
 
-  /* 모양 */
-  --r-md: 8px;    /* 버튼 */
-  --r-lg: 12px;   /* 카드 */
-  --r-pill: 9999px;
+  --navy-900: #010a25;
+  --fg-tertiary: rgba(1, 10, 37, .58);
+  --line-subtle: rgba(0, 0, 0, .08);
+  --press-overlay: rgba(0, 0, 0, .26);
 
-  /* 밴드 간격. 원문은 96px이지만 폰에서 보는 일정표라 줄였다 */
-  --band: 56px;
+  /* semantic — product 표면은 base가 아니라 이쪽 이름으로 부른다 */
+  --fill-brand: var(--blue-500);
+  --fill-secondary: var(--grey-100);
+  --fill-weak: var(--grey-50);
+  --text-primary: var(--grey-900);
+  --text-secondary: var(--grey-700);
+  --text-tertiary: var(--fg-tertiary);
+  --text-alt: var(--white);
+  --text-brand: var(--blue-500);
+  --bg-primary: var(--white);
+  --line-default: var(--grey-200);
 
-  /* 라이선스 폰트라 받아올 수 없다. 한글은 원문 스택에 없어서 직접 넣었다.
-     iOS에는 한글 명조가 없어 제목 한글이 고딕으로 떨어질 수 있다 */
-  --font-serif: "Tiempos Headline", Copernicus, "Iowan Old Style", Charter,
-                Georgia, "Times New Roman", AppleMyungjo, "Nanum Myeongjo",
-                "Noto Serif KR", serif;
-  --font-sans: Inter, StyreneB, -apple-system, BlinkMacSystemFont, "Segoe UI",
-               "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* rounded ladder */
+  --r-xs: 4px; --r-s: 8px; --r-m: 12px; --r-l: 14px;
+  --r-xl: 16px; --r-2xl: 20px; --r-3xl: 24px; --r-full: 999px;
+
+  /* elevation — 평면이 기본이고 떠 있는 표면에만 쓴다 */
+  --shadow-1: 0 1px 2px rgba(1, 10, 37, .04), 0 1px 1px rgba(1, 10, 37, .04);
+  --shadow-2: 0 4px 12px rgba(1, 10, 37, .06), 0 1px 2px rgba(1, 10, 37, .04);
+
+  /* motion — 이 셋 밖으로 나가지 않는다 */
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+
+  /* TPS는 재배포가 막혀 있어 Pretendard가 1순위 대체다. 웹폰트는 받지 않는다 */
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+          "SF Pro Text", "SF Pro", "Apple SD Gothic Neo", "Noto Sans KR", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+
+  /* 화면 좌우 여백. 원문 룰 오브 섬은 24px인데 시각 칼럼까지 들어가면 폰에서 좁다 */
+  --gutter: 20px;
 }
 
 * { box-sizing: border-box; }
 
-/* 다크 푸터가 짧은 페이지에서도 바닥에 붙게 세로 flex로 둔다 */
 body {
-  display: flex; flex-direction: column;
-  min-height: 100vh; min-height: 100dvh;
-  margin: 0; padding: 0;
-  background: var(--canvas); color: var(--body);
-  font: 400 16px/1.55 var(--font-sans);
+  margin: 0; padding: 0 0 64px;
+  background: var(--bg-primary); color: var(--text-primary);
+  /* body-2 — 한글 가독성 때문에 1.5가 표준이다 */
+  font: 400 15px/1.5 var(--font);
+  letter-spacing: -.005em;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
-/* 본문은 하나의 에디토리얼 칼럼이다. 다크 푸터만 이 폭을 벗어난다.
-   body가 flex라 width:100%가 없으면 auto 마진이 블록을 내용 너비로 오그라뜨린다 */
+/* 모바일 단일 컬럼. 태블릿·데스크톱에서도 컬럼을 늘리지 않는다 */
 .top, .day, .places, .plans, .tabs, .empty, details.past {
-  width: 100%; max-width: 44rem; margin-left: auto; margin-right: auto;
-  padding-left: 20px; padding-right: 20px;
+  max-width: 30rem; margin-left: auto; margin-right: auto;
+  padding-left: var(--gutter); padding-right: var(--gutter);
 }
 
-a { color: inherit; }
-/* 코랄 인라인 링크. 시스템에서 가장 눈에 띄는 작은 디테일이다 */
-.item .place a, .place-card dd a {
-  color: var(--primary); text-decoration: none;
-}
-.item .place a:active, .place-card dd a:active {
-  color: var(--primary-active); text-decoration: underline;
-}
-::selection { background: var(--surface-cream-strong); color: var(--ink); }
-:focus-visible {
-  outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px;
-}
-
-/* 세리프 400 + 음수 자간. 굵게 쓰지 않는다 */
-h1, h2, h3 {
-  font-family: var(--font-serif); font-weight: 400; color: var(--ink);
-}
+a { color: inherit; text-decoration: none; }
+h1, h2, h3 { margin: 0; color: var(--text-primary); font-weight: 700; }
+:focus-visible { outline: 2px solid var(--fill-brand); outline-offset: 2px; border-radius: var(--r-s); }
+::selection { background: var(--blue-50); color: var(--text-primary); }
 
 /* ── 머리말 ─────────────────────────────────────────── */
-.top { padding-top: 40px; padding-bottom: 8px; }
-.top h1 {
-  margin: 0; font-size: clamp(1.75rem, 7vw, 2.75rem);
-  line-height: 1.12; letter-spacing: -.025em;
-}
+.top { padding-top: 12px; padding-bottom: 4px; }
+/* h1 — 28/700/-2% */
+.top h1 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.02em; }
+
+/* top-app-bar 자리의 뒤로가기. button-secondary S */
 .back {
-  display: inline-block; margin-bottom: 24px; padding: 9px 16px;
-  border: 1px solid var(--hairline); border-radius: var(--r-md);
-  background: var(--canvas); color: var(--ink);
-  font-size: .875rem; font-weight: 500; line-height: 1; text-decoration: none;
+  display: inline-flex; align-items: center; height: 32px; padding: 0 12px;
+  margin-bottom: 20px; border-radius: 10px;
+  background: var(--fill-secondary); color: var(--text-secondary);
+  font-size: .8125rem; font-weight: 600; letter-spacing: 0;
+  transition: background var(--dur-fast) var(--ease);
 }
-.back:active { background: var(--surface-card); }
-.range { margin: 12px 0 0; color: var(--muted); font-size: 1rem; }
+.back:active { background: var(--grey-200); }
 
+/* body-2 보조 텍스트 */
+.range { margin: 6px 0 0; color: var(--text-secondary); font-size: .9375rem; }
+
+/* badge — 22px, 6px radius, washed 배경 + 시맨틱 텍스트 */
 .checked {
-  display: inline-block; margin: 16px 0 0; padding: 5px 12px;
-  border-radius: var(--r-pill); background: var(--surface-card);
-  font-size: .8125rem; font-weight: 500; line-height: 1.4;
+  display: inline-flex; align-items: center; min-height: 22px;
+  margin: 14px 0 0; padding: 2px 8px; border-radius: 6px;
+  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0;
 }
-.checked.ok { color: var(--success-ink); }
-.checked.todo { color: var(--warning-ink); }
-.empty { color: var(--muted); }
+.checked.ok { background: var(--green-washed); color: var(--green-500); }
+.checked.todo { background: var(--orange-washed); color: #b35f00; }
+.empty { color: var(--text-secondary); }
 
-/* ── 플랜 목록 ──────────────────────────────────────── */
-.plans { display: grid; gap: 12px; margin: 28px 0 0; padding-top: 0; list-style: none; }
-.plans li {
-  position: relative; border-radius: var(--r-lg); background: var(--surface-card);
+/* ── 플랜 목록 (list-row) ───────────────────────────── */
+.plans { margin: 20px 0 0; padding-top: 0; list-style: none; }
+.plans li { position: relative; border-radius: var(--r-xl); }
+.plans li + li { margin-top: 2px; }
+.plans a {
+  display: block; padding: 14px 12px; border-radius: var(--r-xl);
+  transition: background var(--dur-fast) var(--ease);
 }
-.plans a { display: block; padding: 20px; text-decoration: none; }
+.plans a:active { background: var(--fill-secondary); }
+/* title-1 18/600 */
 .plans .t {
   display: block; padding-right: 4.5rem;
-  font-family: var(--font-serif); font-size: 1.375rem; font-weight: 400;
-  line-height: 1.25; letter-spacing: -.02em; color: var(--ink);
+  font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em;
 }
+/* body-3 13/400 */
 .plans .d {
-  display: block; margin-top: 6px; color: var(--muted); font-size: .875rem;
+  display: block; margin-top: 2px; color: var(--text-secondary);
+  font-size: .8125rem; letter-spacing: 0;
 }
-.plans .checked {
-  position: absolute; top: 18px; right: 18px; margin: 0;
-  padding: 4px 10px; font-size: .75rem; background: var(--canvas);
-}
+.plans .checked { position: absolute; top: 15px; right: 12px; margin: 0; }
 
-/* 오늘 걸린 플랜은 다크로 반전한다. 시스템에서 다크 표면이 곧 강조다 */
-.plans li.now { background: var(--surface-dark); }
-.plans li.now .t { color: var(--on-dark); }
-.plans li.now .d { color: var(--on-dark-soft); }
-.plans li.now .checked { background: var(--surface-dark-elevated); }
-.plans li.now .checked.ok { color: var(--success); }
-.plans li.now .checked.todo { color: var(--warning); }
+/* 오늘 걸린 플랜 — brand-weak 행. 이 화면의 유일한 강조다 */
+.plans li.now { background: var(--blue-50); }
+.plans li.now a:active { background: #dcedff; }
+.plans li.now .t { color: var(--text-brand); }
 .plans li.now .t::before {
-  content: ""; display: inline-block; width: 7px; height: 7px;
-  margin-right: 9px; border-radius: 50%; vertical-align: middle;
-  background: var(--accent-teal);
+  content: "오늘"; display: inline-block; margin-right: 6px; padding: 2px 7px;
+  border-radius: 6px; background: var(--fill-brand); color: var(--text-alt);
+  font-size: .6875rem; font-weight: 600; letter-spacing: 0; vertical-align: 2px;
 }
+.plans li.now .checked { background: var(--white); }
 
-details.past { margin-top: var(--band); }
+/* list-footer 성격의 더보기 행 */
+details.past { margin-top: 28px; }
 details.past summary {
-  display: inline-block; padding: 9px 16px;
-  border: 1px solid var(--hairline); border-radius: var(--r-md);
-  background: var(--canvas); color: var(--ink);
-  font-size: .875rem; font-weight: 500; line-height: 1;
-  cursor: pointer; list-style: none;
+  display: inline-flex; align-items: center; height: 40px; padding: 0 16px;
+  border-radius: var(--r-m); background: var(--fill-secondary);
+  color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
+  letter-spacing: -.005em; cursor: pointer; list-style: none;
 }
 details.past summary::-webkit-details-marker { display: none; }
-details.past .plans { margin-top: 16px; padding-left: 0; padding-right: 0; }
+details.past summary:active { background: var(--grey-200); }
+details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 
-/* ── 날짜 탭 ────────────────────────────────────────── */
+/* ── 날짜 선택 (segmented-control) ──────────────────── */
 .tabs {
-  display: flex; gap: 6px; position: sticky; top: 0; z-index: 5;
-  margin-top: 32px; padding-top: 12px; padding-bottom: 12px;
-  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-  background: var(--canvas); box-shadow: 0 1px 0 var(--hairline-soft);
+  display: flex; gap: 4px; position: sticky; top: 0; z-index: 5;
+  margin-top: 20px; padding-top: 12px; padding-bottom: 12px;
+  background: var(--bg-primary);
 }
-.tabs::-webkit-scrollbar { display: none; }
+.tabs::before {
+  content: ""; position: absolute; inset: 12px var(--gutter);
+  border-radius: var(--r-m); background: var(--fill-secondary);
+}
 .tabs button {
-  flex: 0 0 auto; padding: 8px 14px; border: 0; border-radius: var(--r-md);
-  background: transparent; color: var(--muted);
-  font: 500 .875rem/1.4 var(--font-sans); cursor: pointer;
+  position: relative; flex: 1 1 0; min-width: 0; height: 36px;
+  border: 0; border-radius: 10px; background: transparent;
+  color: var(--text-secondary);
+  font: 600 .8125rem/1.25 var(--font); letter-spacing: 0;
+  white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
 }
-.tabs button.on { background: var(--surface-cream-strong); color: var(--ink); }
+/* 선택된 분절만 흰 배경으로 떠오른다 */
+.tabs button.on {
+  background: var(--white); color: var(--text-primary); box-shadow: var(--shadow-1);
+}
 
-/* ── 일정 ───────────────────────────────────────────── */
+/* ── 일정 (list-row) ───────────────────────────────── */
 .day, .places { padding-top: 0; }
+/* h3 22/700 */
 .day h2, .places h2 {
-  margin: var(--band) 0 4px;
-  font-size: clamp(1.375rem, 5vw, 1.75rem); line-height: 1.2; letter-spacing: -.02em;
+  margin: 32px 0 4px; font-size: 1.375rem; line-height: 1.3; letter-spacing: -.015em;
 }
-.tabs + .day h2 { margin-top: 32px; }
+.tabs + .day h2 { margin-top: 20px; }
 
-/* 카드로 감싸지 않는다. hairline 한 줄이 에디토리얼 리듬에 맞다 */
-.item { display: flex; gap: 16px; padding: 18px 0; }
-.item + .item { border-top: 1px solid var(--hairline-soft); }
+.item { display: flex; gap: 14px; padding: 14px 0; }
+.item + .item { border-top: 1px solid var(--line-default); }
+/* 시각은 고정폭 숫자로. 실시간 데이터 칼럼과 같은 취급이다 */
 .item .time {
-  flex: 0 0 3.5rem; padding-top: 3px;
-  color: var(--muted-soft); font-size: .875rem; font-weight: 500;
-  font-variant-numeric: tabular-nums;
+  flex: 0 0 3.25rem; padding-top: 2px;
+  color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
+  font-variant-numeric: tabular-nums; letter-spacing: -.005em;
 }
 .item .body { flex: 1 1 auto; min-width: 0; }
-.item .label { color: var(--ink); font-size: 1.125rem; font-weight: 500; line-height: 1.4; }
-.item .place { margin-top: 2px; font-size: 1rem; }
+/* title-1 18/600 */
+.item .label { font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; }
+.item .place { margin-top: 2px; color: var(--text-secondary); font-size: .9375rem; }
+/* 행 전체가 아니라 장소만 눌리므로 chevron으로 눌린다는 걸 알린다 */
+.item .place a { color: var(--text-primary); font-weight: 500; }
+.item .place a::after { content: "\203A"; margin-left: 3px; color: var(--grey-400); }
+.item .place a:active { color: var(--text-secondary); }
 .item .status {
-  display: inline-block; margin-top: 10px; padding: 4px 11px;
-  border-radius: var(--r-pill); background: var(--surface-card);
-  font-size: .8125rem; font-weight: 500; line-height: 1.4;
+  display: inline-flex; align-items: center; min-height: 22px;
+  margin-top: 8px; padding: 2px 8px; border-radius: 6px;
+  background: var(--fill-secondary); color: var(--text-secondary);
+  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0;
 }
-.item .status.ok { color: var(--success-ink); }
-.item .status.todo { color: var(--muted); }
-.item .status.risk { color: var(--warning-ink); }
-.item .note { margin-top: 8px; color: var(--muted); font-size: .875rem; }
+.item .status.ok { background: var(--green-washed); color: var(--green-500); }
+.item .status.risk { background: var(--orange-washed); color: #b35f00; }
+/* body-3 */
+.item .note { margin-top: 6px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
 
 /* ── 장소 ───────────────────────────────────────────── */
-.places { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.places h2 { grid-column: 1 / -1; margin-bottom: 8px; }
+.places { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.places h2 { grid-column: 1 / -1; margin-bottom: 6px; }
 .place-card {
-  padding: 20px; border-radius: var(--r-lg); background: var(--surface-card);
-  scroll-margin-top: 72px;
+  padding: 18px; border-radius: var(--r-2xl); background: var(--fill-weak);
+  scroll-margin-top: 76px;
 }
-.place-card:target { background: var(--surface-cream-strong); }
-.place-card h3 {
-  margin: 0 0 14px; font-size: 1.375rem; line-height: 1.25; letter-spacing: -.02em;
-}
-/* 라벨을 값 위에 올린다. 폰에서 2단으로 두면 값 칸이 좁아 계속 접힌다 */
-.place-card dl { margin: 0; }
+.place-card:target { box-shadow: 0 0 0 1.5px var(--fill-brand); }
+/* h4 20/700 */
+.place-card h3 { margin: 0 0 10px; font-size: 1.25rem; line-height: 1.35; letter-spacing: -.015em; }
+
+/* table-row — 라벨/값을 헤어라인으로 가른다 */
+.place-card dl { display: grid; grid-template-columns: 4rem 1fr; margin: 0; }
 .place-card dt {
-  color: var(--muted-soft);
-  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: .09em;
+  grid-column: 1; padding: 9px 0; color: var(--text-secondary);
+  font-size: .8125rem; font-weight: 500; letter-spacing: 0;
 }
-.place-card dd { margin: 3px 0 0; color: var(--body); font-size: 1rem; overflow-wrap: anywhere; }
-.place-card dd + dt { margin-top: 14px; }
+.place-card dd {
+  grid-column: 2; margin: 0; padding: 9px 0;
+  font-size: .9375rem; overflow-wrap: anywhere;
+}
+.place-card dt:not(:first-of-type),
+.place-card dd:not(:first-of-type) { border-top: 1px solid var(--grey-200); }
+.place-card dd a { color: var(--text-primary); font-weight: 500; }
 
-/* button-secondary. 크림 카드 위라 캔버스 배경이 한 단 떠 보인다 */
+/* button-secondary M — 화면에 primary CTA가 없으므로 블루를 쓰지 않는다 */
 .map {
-  display: inline-block; margin-top: 18px; padding: 11px 20px;
-  border: 1px solid var(--hairline); border-radius: var(--r-md);
-  background: var(--canvas); color: var(--ink);
-  font-size: .875rem; font-weight: 500; line-height: 1; text-decoration: none;
+  display: inline-flex; align-items: center; height: 40px; margin-top: 14px;
+  padding: 0 16px; border: 1px solid var(--grey-200); border-radius: var(--r-m);
+  background: var(--white); color: var(--text-primary);
+  font-size: .9375rem; font-weight: 600; letter-spacing: -.005em;
+  transition: background var(--dur-fast) var(--ease);
 }
-.map:active { background: var(--surface-cream-strong); }
+.map:active { background: var(--grey-100); }
 
-.place-card strong, .item .note strong { font-weight: 500; color: var(--ink); }
+.place-card strong, .item .note strong { font-weight: 600; color: var(--text-primary); }
 .place-card code, .item code {
-  padding: 2px 5px; border-radius: 4px; background: var(--canvas);
-  font-family: var(--font-mono); font-size: .875em;
+  padding: 1px 5px; border-radius: var(--r-xs); background: var(--grey-100);
+  font-family: inherit; font-variant-numeric: tabular-nums; font-size: .95em;
 }
 
-/* ── 다크 푸터. 페이지를 닫는 밴드이고 절대 반전하지 않는다 ── */
-.foot {
-  /* auto가 짧은 페이지에서 바닥으로 밀고, 크림 테두리가 최소 간격을 보장한다 */
-  margin-top: auto; border-top: var(--band) solid var(--canvas);
-  padding: 48px 20px;
-  /* padding-box로 잘라야 한다. 다크 배경이 크림 테두리 밑까지 깔리면
-     경계에서 섞여 1px 이음매가 생긴다 (단축 속성 안에 둬야 안 덮인다) */
-  background: var(--surface-dark) padding-box; color: var(--on-dark-soft);
-  font-size: .875rem;
-}
-.foot span {
-  display: block; max-width: 44rem; margin: 0 auto; color: var(--on-dark);
-}
-/* 콘텐츠 마커로 쓰는 방사형 글리프. 막대 세 개를 겹쳐 그린다 */
-.foot span::before {
-  content: ""; display: inline-block; width: 13px; height: 13px;
-  margin-right: 10px; vertical-align: -2px;
-  background:
-    linear-gradient(currentColor 0 0) center / 2px 100% no-repeat,
-    linear-gradient(60deg, transparent 43%, currentColor 43% 57%, transparent 57%),
-    linear-gradient(120deg, transparent 43%, currentColor 43% 57%, transparent 57%);
-}
-
-/* ── 반응형 ─────────────────────────────────────────── */
-@media (min-width: 700px) {
-  :root { --band: 88px; }
-  .places { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .place-card, .plans a { padding: 24px; }
-  .plans .checked { top: 22px; right: 22px; }
-  .top { padding-top: 64px; }
+/* ── 반응형 — 컬럼을 늘리지 않고 여백만 넓힌다 ─────── */
+@media (min-width: 641px) {
+  :root { --gutter: 24px; }
+  .top { padding-top: 24px; }
+  .place-card { padding: 20px; }
 }
 @media (max-width: 380px) {
-  .item { gap: 12px; }
+  .item { gap: 10px; }
   .item .time { flex-basis: 3rem; }
+  .place-card dl { grid-template-columns: 3.5rem 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
@@ -322,7 +322,6 @@ details.past .plans { margin-top: 16px; padding-left: 0; padding-right: 0; }
 <article class="place-card" id="place-7"><h3>익선공방</h3><dl><dt>주소</dt><dd>서울특별시 종로구 삼일대로26길 25, 1층 (익선동 골목 안)</dd><dt>영업시간</dt><dd><strong>아직 못 알아봤어요</strong></dd><dt>가격</dt><dd>40,000/인 — 천연향수예요. 블로그 기준인데 공방 메뉴판에는 &quot;변동&quot;이라 <strong>한 번 물어보는 게 좋아요</strong> 다른 클래스: 키링 20,000 / 감정아로마 30,000 / 써지컬 액세서리 30,000 / 레인보우향초 30,000 / 하바리움 30,000 / 스테인드 아크릴 35,000</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%9D%B5%EC%84%A0%EB%8F%99%20%EC%9D%B5%EC%84%A0%EA%B3%B5%EB%B0%A9">지도에서 열기</a></article>
 <article class="place-card" id="place-8"><h3>충무로 숙소</h3><dl><dt>주소</dt><dd>서울특별시 중구 충무로 21-19</dd><dt>가격</dt><dd>0 — 회사가 지원해 줘서 데이트 예산에 안 들어가요</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%A4%91%EA%B5%AC%20%EC%B6%A9%EB%AC%B4%EB%A1%9C%2021-19">지도에서 열기</a></article>
 </section>
-<footer class="foot"><span>데이트 플랜</span></footer>
 <script>(function () {
   // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
   var now = new Date();
