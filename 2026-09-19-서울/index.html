@@ -555,19 +555,19 @@ body:not(.explorer-ready) .map-pane { display: none; }
     var span = Math.max(Math.abs(to.x - from.x) / Math.max(1, canvas.clientWidth / 2),
       Math.abs(to.y - from.y) / Math.max(1, canvas.clientHeight / 2));
     var overview = span > 1 ? Math.min(14, map.getLevel() + Math.ceil(Math.log2(span)) + 1) : map.getLevel();
-    function zoomTo(destination, done) {
+    function zoomTo(destination, done, anchor) {
       var current = map.getLevel();
       if (current === destination) { if (done) { done(); } return; }
       // SDK 확대 애니메이션은 한 번에 두 레벨 이내로 나눠야 유지된다.
       var next = current + Math.max(-2, Math.min(2, destination - current));
       cameraStep(function () {
-        map.setLevel(next, { animate: { duration: 360 } });
-      }, function () { zoomTo(destination, done); });
+        map.jump(anchor || center, next, { animate: { duration: 360 } });
+      }, function () { zoomTo(destination, done, anchor); });
     }
     zoomTo(overview, function () {
       cameraStep(function () {
         map.jump(target, map.getLevel(), { animate: { duration: 650 } });
-      }, function () { zoomTo(level); });
+      }, function () { zoomTo(level, null, target); });
     });
   }
 
