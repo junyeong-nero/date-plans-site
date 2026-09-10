@@ -190,7 +190,7 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   color: var(--text-secondary);
   font: 600 .8125rem/1.25 var(--font); letter-spacing: 0;
   white-space: nowrap; cursor: pointer;
-  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+  transition: background 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease);
 }
 /* 선택된 분절만 흰 배경으로 떠오른다 */
 .tabs button.on {
@@ -370,9 +370,9 @@ body:not(.explorer-ready) .map-pane { display: none; }
   height: 44px; border: 1px solid var(--line-default); border-radius: var(--r-full);
   background: var(--bg-primary); color: var(--text-secondary); font-weight: 600;
   font-variant-numeric: tabular-nums;
-  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+  transition: background 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease);
 }
-.day .item .body { padding: 16px; border-radius: var(--r-xl); background: var(--fill-weak); transition: background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease); }
+.day .item .body { padding: 16px; border-radius: var(--r-xl); background: var(--fill-weak); transition: background var(--dur-base) var(--ease), transform 320ms var(--ease); }
 .day .item .time { display: block; padding: 0; margin-bottom: 6px; font-size: .8125rem; }
 .day .item.selected { background: transparent; }
 .day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
@@ -496,6 +496,18 @@ body:not(.explorer-ready) .map-pane { display: none; }
   var loading = false;
   var mapError = '';
   var cameraTimer;
+  var cameraIdle;
+  function cancelCamera() {
+    clearTimeout(cameraTimer);
+    if (cameraIdle) { kakao.maps.event.removeListener(map, 'idle', cameraIdle); cameraIdle = null; }
+  }
+  function cameraStep(action, done) {
+    cancelCamera();
+    cameraIdle = function () { cancelCamera(); done(); };
+    kakao.maps.event.addListener(map, 'idle', cameraIdle);
+    cameraTimer = setTimeout(cameraIdle, 1500);
+    action();
+  }
   var allPlaces = Array.from(root.querySelectorAll('[data-location]'), function (node) {
     return JSON.parse(node.dataset.location);
   });
@@ -538,29 +550,36 @@ body:not(.explorer-ready) .map-pane { display: none; }
     var to = projection.containerPointFromCoords(target);
     var span = Math.max(Math.abs(to.x - from.x) / Math.max(1, canvas.clientWidth / 2),
       Math.abs(to.y - from.y) / Math.max(1, canvas.clientHeight / 2));
-    if (span > 1) {
-      // 먼 장소는 두 지점을 함께 보여 준 뒤 목적지의 거리 수준으로 들어간다.
-      var overview = Math.min(14, map.getLevel() + Math.ceil(Math.log2(span)) + 1);
-      var midpoint = new kakao.maps.LatLng((center.getLat() + target.getLat()) / 2,
-        (center.getLng() + target.getLng()) / 2);
-      map.jump(midpoint, overview, { animate: { duration: 500 } });
-      cameraTimer = setTimeout(function () {
-        map.jump(target, level, { animate: { duration: 600 } });
-      }, 550);
-    } else {
-      map.jump(target, level, { animate: { duration: 600 } });
+    var overview = span > 1 ? Math.min(14, map.getLevel() + Math.ceil(Math.log2(span)) + 1) : map.getLevel();
+    function zoomTo(destination, done) {
+      var current = map.getLevel();
+      if (current === destination) { if (done) { done(); } return; }
+      // SDK 확대 애니메이션은 한 번에 두 레벨 이내로 나눠야 유지된다.
+      var next = current + Math.max(-2, Math.min(2, destination - current));
+      cameraStep(function () {
+        map.setLevel(next, { animate: { duration: 360 } });
+      }, function () { zoomTo(destination, done); });
     }
+    zoomTo(overview, function () {
+      cameraStep(function () {
+        map.jump(target, map.getLevel(), { animate: { duration: 650 } });
+      }, function () { zoomTo(level); });
+    });
   }
+
   function select(stop, fromMap, fromScroll) {
     if (!fromScroll) { followScroll = false; clearTimeout(scrollTimer); }
+    var samePoint = selected && selected.point && stop.point && selected.point.join() === stop.point.join();
     selected = stop;
     highlight();
     message.textContent = (stop.time ? stop.time + ' · ' : '') + stop.name +
       (stop.point ? ' · 주소 기준 위치' : ' · 위치를 확인하지 못했어요.') +
       (stop.point && stop.checked ? ' · ' + stop.checked.slice(0, 10) + ' 조회' : '') +
       (mapError ? ' · ' + mapError : '');
-    clearTimeout(cameraTimer);
-    if (map && stop.point) { moveCamera(position(stop)); }
+    if (!samePoint || !fromScroll) {
+      cancelCamera();
+      if (map && stop.point) { moveCamera(position(stop)); }
+    }
     if (!fromScroll && (fromMap || view === 'schedule')) {
       var row = document.getElementById(stop.id);
       if (row) {
@@ -595,7 +614,7 @@ body:not(.explorer-ready) .map-pane { display: none; }
   }, { passive: true });
 
   function fit() {
-    clearTimeout(cameraTimer);
+    cancelCamera();
     followScroll = false; clearTimeout(scrollTimer);
     selected = null;
     highlight();
@@ -696,9 +715,9 @@ body:not(.explorer-ready) .map-pane { display: none; }
       var first = stops().find(function (stop) { return stop.point; });
       map = new kakao.maps.Map(canvas, { center: first ? position(first) : new kakao.maps.LatLng(37.5665, 126.978), level: 5 });
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
-      kakao.maps.event.addListener(map, 'dragstart', function () { clearTimeout(cameraTimer); });
-      canvas.addEventListener('wheel', function () { clearTimeout(cameraTimer); }, { passive: true });
-      canvas.addEventListener('pointerdown', function () { clearTimeout(cameraTimer); }, { passive: true });
+      kakao.maps.event.addListener(map, 'dragstart', function () { cancelCamera(); });
+      canvas.addEventListener('wheel', function () { cancelCamera(); }, { passive: true });
+      canvas.addEventListener('pointerdown', function () { cancelCamera(); }, { passive: true });
       new ResizeObserver(function () { map.relayout(); }).observe(canvas);
       var pending = selected;
       draw();
