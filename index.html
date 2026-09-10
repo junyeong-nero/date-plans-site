@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%233182f6%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%2218%22%20height%3D%2217%22%20rx%3D%223%22/%3E%3Cpath%20d%3D%22M11%206v6%20M21%206v6%20M7%2015h18%20m5%205%203%203%205-5%22/%3E%3C/g%3E%3C/svg%3E">
 <title>데이트 플랜</title>
 <style>/* 토스 디자인 시스템(TDS). 정본은 저장소 루트의 DESIGN.md.
    원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다. */
@@ -89,24 +89,24 @@ body {
 
 /* 모바일 단일 컬럼. 태블릿·데스크톱에서도 컬럼을 늘리지 않는다 */
 .top, .day, .places, .plans, .tabs, .empty, details.past {
-  max-width: 30rem; margin-left: auto; margin-right: auto;
+  max-width: 38rem; margin-left: auto; margin-right: auto;
   padding-left: var(--gutter); padding-right: var(--gutter);
 }
 
 a { color: inherit; text-decoration: none; }
-h1, h2, h3 { margin: 0; color: var(--text-primary); font-weight: 700; }
+h1, h2, h3 { word-break: keep-all; overflow-wrap: anywhere; margin: 0; color: var(--text-primary); font-weight: 700; }
 :focus-visible { outline: 2px solid var(--fill-brand); outline-offset: 2px; border-radius: var(--r-s); }
 ::selection { background: var(--blue-50); color: var(--text-primary); }
 
 /* ── 머리말 ─────────────────────────────────────────── */
-.top { padding-top: 12px; padding-bottom: 4px; }
+.top { padding-top: 32px; padding-bottom: 16px; }
 /* h1 — 28/700/-2% */
 .top h1 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.02em; }
 
 /* top-app-bar 자리의 뒤로가기. button-secondary S */
 .back {
-  display: inline-flex; align-items: center; height: 32px; padding: 0 12px;
-  margin-bottom: 20px; border-radius: 10px;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
+  margin-bottom: 24px; border-radius: var(--r-m);
   background: var(--fill-secondary); color: var(--text-secondary);
   font-size: .8125rem; font-weight: 600; letter-spacing: 0;
   transition: background var(--dur-fast) var(--ease);
@@ -127,25 +127,26 @@ h1, h2, h3 { margin: 0; color: var(--text-primary); font-weight: 700; }
 .empty { color: var(--text-secondary); }
 
 /* ── 플랜 목록 (list-row) ───────────────────────────── */
-.plans { margin: 20px 0 0; padding-top: 0; list-style: none; }
-.plans li { position: relative; border-radius: var(--r-xl); }
-.plans li + li { margin-top: 2px; }
+.plans { margin-top: 16px; margin-bottom: 0; padding-top: 0; list-style: none; }
+.plans li { position: relative; border-radius: var(--r-2xl); background: var(--fill-weak); }
+.plans li + li { margin-top: 12px; }
 .plans a {
-  display: block; padding: 14px 12px; border-radius: var(--r-xl);
+  display: block; padding: 24px 44px 24px 20px; border-radius: var(--r-2xl);
   transition: background var(--dur-fast) var(--ease);
 }
+.plan-arrow { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
 .plans a:active { background: var(--fill-secondary); }
 /* title-1 18/600 */
 .plans .t {
-  display: block; padding-right: 4.5rem;
+  display: block; overflow-wrap: anywhere; word-break: keep-all;
   font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em;
 }
 /* body-3 13/400 */
 .plans .d {
-  display: block; margin-top: 2px; color: var(--text-secondary);
+  display: block; margin-top: 8px; color: var(--text-secondary);
   font-size: .8125rem; letter-spacing: 0;
 }
-.plans .checked { position: absolute; top: 15px; right: 12px; margin: 0; }
+.plans .checked { margin: 0 0 8px; }
 
 /* 오늘 걸린 플랜 — brand-weak 행. 이 화면의 유일한 강조다 */
 .plans li.now { background: var(--blue-50); }
@@ -161,19 +162,21 @@ h1, h2, h3 { margin: 0; color: var(--text-primary); font-weight: 700; }
 /* list-footer 성격의 더보기 행 */
 details.past { margin-top: 28px; }
 details.past summary {
-  display: inline-flex; align-items: center; height: 40px; padding: 0 16px;
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
   border-radius: var(--r-m); background: var(--fill-secondary);
   color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
   letter-spacing: -.005em; cursor: pointer; list-style: none;
 }
+details.past summary::after { content: "+"; margin-left: 12px; }
+details.past[open] summary::after { content: "−"; }
 details.past summary::-webkit-details-marker { display: none; }
 details.past summary:active { background: var(--grey-200); }
 details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 
 /* ── 날짜 선택 (segmented-control) ──────────────────── */
 .tabs {
-  display: flex; gap: 4px; position: sticky; top: 0; z-index: 5;
-  margin-top: 20px; padding-top: 12px; padding-bottom: 12px;
+  display: flex; gap: 4px; overflow-x: auto; position: sticky; top: 0; z-index: 5;
+  margin-top: 20px; padding-top: 16px; padding-bottom: 16px;
   background: var(--bg-primary);
 }
 .tabs::before {
@@ -181,8 +184,8 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   border-radius: var(--r-m); background: var(--fill-secondary);
 }
 .tabs button {
-  position: relative; flex: 1 1 0; min-width: 0; height: 36px;
-  border: 0; border-radius: 10px; background: transparent;
+  position: relative; flex: 1 0 auto; min-width: 88px; min-height: 44px; padding: 0 12px;
+  border: 0; border-radius: var(--r-s); background: transparent;
   color: var(--text-secondary);
   font: 600 .8125rem/1.25 var(--font); letter-spacing: 0;
   white-space: nowrap; cursor: pointer;
@@ -201,7 +204,7 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 }
 .tabs + .day h2 { margin-top: 20px; }
 
-.item { display: flex; gap: 14px; padding: 14px 0; }
+.item { display: flex; gap: 20px; padding: 20px 0; }
 .item + .item { border-top: 1px solid var(--line-default); }
 /* 시각은 고정폭 숫자로. 실시간 데이터 칼럼과 같은 취급이다 */
 .item .time {
@@ -209,13 +212,13 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
   font-variant-numeric: tabular-nums; letter-spacing: -.005em;
 }
-.item .body { flex: 1 1 auto; min-width: 0; }
+.item .body { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
 /* title-1 18/600 */
 .item .label { font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; }
 .item .place { margin-top: 2px; color: var(--text-secondary); font-size: .9375rem; }
 /* 행 전체가 아니라 장소만 눌리므로 chevron으로 눌린다는 걸 알린다 */
-.item .place a { color: var(--text-primary); font-weight: 500; }
-.item .place a::after { content: "\203A"; margin-left: 3px; color: var(--grey-400); }
+.item .place a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-weight: 500; }
+
 .item .place a:active { color: var(--text-secondary); }
 .item .status {
   display: inline-flex; align-items: center; min-height: 22px;
@@ -229,11 +232,11 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 .item .note { margin-top: 6px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
 
 /* ── 장소 ───────────────────────────────────────────── */
-.places { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.places { display: grid; grid-template-columns: 1fr; gap: 16px; }
 .places h2 { grid-column: 1 / -1; margin-bottom: 6px; }
 .place-card {
-  padding: 18px; border-radius: var(--r-2xl); background: var(--fill-weak);
-  scroll-margin-top: 76px;
+  padding: 20px; border-radius: var(--r-2xl); background: var(--fill-weak);
+  scroll-margin-top: 96px;
 }
 .place-card:target { box-shadow: 0 0 0 1.5px var(--fill-brand); }
 /* h4 20/700 */
@@ -251,11 +254,11 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 }
 .place-card dt:not(:first-of-type),
 .place-card dd:not(:first-of-type) { border-top: 1px solid var(--grey-200); }
-.place-card dd a { color: var(--text-primary); font-weight: 500; }
+.place-card dd a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-weight: 500; }
 
 /* button-secondary M — 화면에 primary CTA가 없으므로 블루를 쓰지 않는다 */
 .map {
-  display: inline-flex; align-items: center; height: 40px; margin-top: 14px;
+  display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px;
   padding: 0 16px; border: 1px solid var(--grey-200); border-radius: var(--r-m);
   background: var(--white); color: var(--text-primary);
   font-size: .9375rem; font-weight: 600; letter-spacing: -.005em;
@@ -272,9 +275,15 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 /* ── 반응형 — 컬럼을 늘리지 않고 여백만 넓힌다 ─────── */
 @media (min-width: 641px) {
   :root { --gutter: 24px; }
-  .top { padding-top: 24px; }
-  .place-card { padding: 20px; }
+  .top { padding-top: 64px; padding-bottom: 24px; }
+  .top h1 { font-size: 2.5rem; }
+  .place-card { padding: 24px; }
 }
+@media (hover: hover) {
+  .plans a:hover, .back:hover, .map:hover, details.past summary:hover { background: var(--fill-secondary); }
+  .item .place a:hover, .place-card dd a:hover { text-decoration: underline; }
+}
+[hidden] { display: none !important; }
 @media (max-width: 380px) {
   .item { gap: 10px; }
   .item .time { flex-basis: 3rem; }
@@ -283,16 +292,32 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* 동선 지도는 요청할 때만 네트워크를 쓴다. 일정은 오프라인에서도 남는다. */
+.route { margin: 20px 0; padding: 20px; background: var(--fill-weak); border-radius: var(--r-2xl); }
+.route h3 { font-size: 1.125rem; }
+.route-note, .route-message { color: var(--text-secondary); font-size: .8125rem; margin: 8px 0 0; }
+.route-message:empty { display: none; }
+.route-canvas { height: 360px; margin-top: 16px; border-radius: var(--r-m); isolation: isolate; z-index: 0; }
+.route .route-marker { display: flex; align-items: center; justify-content: center; background: var(--fill-brand); color: var(--text-alt); border: 1px solid var(--bg-primary); border-radius: var(--r-full); font: 600 13px/1 var(--font); }
+.route .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; }
+.route .leaflet-popup-content { font-family: var(--font); }
+.route-open:disabled { opacity: .3; cursor: wait; }
+
+.icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
+.back, .map, .checked, .status, .item .place a { gap: 6px; }
+.checked .icon, .status .icon { width: 14px; height: 14px; }
+.item .place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
 </style>
 </head>
 <body>
-<header class="top"><h1>데이트 플랜</h1></header>
+<header class="top"><h1>데이트 플랜</h1><p class="range">함께할 하루, 일정과 장소를 한눈에 봐요.</p></header>
 <ul class="plans" id="plans">
-<li data-start="2026-09-19" data-end="2026-09-19"><a href="2026-09-19-%EC%84%9C%EC%9A%B8/"><span class="t">해방촌 토터스와 남산 생일 데이트</span><span class="d">2026년 9월 19일 (토) · 8개 일정</span></a><span class="checked todo">확인 전</span></li>
-<li data-start="2026-09-12" data-end="2026-09-12"><a href="2026-09-12-%EB%B6%80%EC%B2%9C/"><span class="t">부평·상동 저녁 데이트</span><span class="d">2026년 9월 12일 (토) · 12개 일정</span></a></li>
-<li data-start="2026-09-04" data-end="2026-09-06"><a href="2026-09-04-%EC%88%98%EC%9B%90/"><span class="t">수원 2박 3일 — 마라탕·행궁동·광교</span><span class="d">2026년 9월 4일 (금) – 9/6 (일) · 12개 일정</span></a></li>
-<li data-start="2026-08-29" data-end="2026-08-30"><a href="2026-08-29-%EC%84%9C%EC%9A%B8/"><span class="t">충무로·종로·익선동 1박 2일</span><span class="d">2026년 8월 29일 (토) – 8/30 (일) · 9개 일정</span></a><span class="checked todo">확인 전</span></li>
-<li data-start="2026-08-22" data-end="2026-08-22"><a href="2026-08-22-%EC%84%9C%EC%9A%B8/"><span class="t">압구정 데이트</span><span class="d">2026년 8월 22일 (토) · 6개 일정</span></a></li>
+<li data-start="2026-09-19" data-end="2026-09-19"><a href="2026-09-19-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">해방촌 토터스와 남산 생일 데이트</span><span class="d">2026년 9월 19일 (토) · 8개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-12" data-end="2026-09-12"><a href="2026-09-12-%EB%B6%80%EC%B2%9C/"><span class="t">부평·상동 저녁 데이트</span><span class="d">2026년 9월 12일 (토) · 12개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-04" data-end="2026-09-06"><a href="2026-09-04-%EC%88%98%EC%9B%90/"><span class="t">수원 2박 3일 — 마라탕·행궁동·광교</span><span class="d">2026년 9월 4일 (금) – 9/6 (일) · 12개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-08-29" data-end="2026-08-30"><a href="2026-08-29-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">충무로·종로·익선동 1박 2일</span><span class="d">2026년 8월 29일 (토) – 8/30 (일) · 9개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-08-22" data-end="2026-08-22"><a href="2026-08-22-%EC%84%9C%EC%9A%B8/"><span class="t">압구정 데이트</span><span class="d">2026년 8월 22일 (토) · 6개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 </ul>
 <script>(function () {
   // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
@@ -333,8 +358,14 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
 
   function show(day) {
-    days.forEach(function (s) { s.hidden = s.dataset.day !== day; });
-    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.day === day); });
+    days.forEach(function (s) {
+      s.hidden = s.dataset.day !== day;
+      s.dispatchEvent(new Event('daychange'));
+    });
+    buttons.forEach(function (b) {
+      b.classList.toggle('on', b.dataset.day === day);
+      b.setAttribute('aria-pressed', String(b.dataset.day === day));
+    });
   }
 
   buttons.forEach(function (b) {
@@ -346,6 +377,104 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
   tabs.hidden = false;
   show(inRange && hasToday ? today : buttons[0].dataset.day);
+})();
+
+(function () {
+  var library;
+  function loadLibrary() {
+    if (!library) {
+      library = Promise.all([
+        ['link', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='],
+        ['script', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=']
+      ].map(function (asset) {
+        return new Promise(function (resolve, reject) {
+          var node = document.createElement(asset[0]);
+          var timer = setTimeout(fail, 12000);
+          function fail() { clearTimeout(timer); node.remove(); reject(new Error('map unavailable')); }
+          if (asset[0] === 'link') { node.rel = 'stylesheet'; node.href = asset[1]; }
+          else { node.src = asset[1]; }
+          node.integrity = asset[2]; node.crossOrigin = 'anonymous';
+          node.onload = function () { clearTimeout(timer); resolve(); };
+          node.onerror = fail;
+          document.head.appendChild(node);
+        });
+      })).catch(function (error) { library = null; throw error; });
+    }
+    return library;
+  }
+
+  document.querySelectorAll('.route-open').forEach(function (button) {
+    button.addEventListener('click', async function () {
+      var section = button.closest('.route');
+      var canvas = section.querySelector('.route-canvas');
+      var message = section.querySelector('.route-message');
+      var stops = JSON.parse(button.dataset.route);
+      var known = stops.filter(function (stop) { return stop.point; });
+      if (!known.length) {
+        message.textContent = '아직 표시할 위치가 없어요. 아래 장소에서 지도를 열어 주세요.';
+        return;
+      }
+      button.disabled = true;
+      message.textContent = '지도를 불러오고 있어요.';
+      var map;
+      try {
+        await loadLibrary();
+        canvas.hidden = false;
+        map = L.map(canvas, { scrollWheelZoom: false });
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).on('tileerror', function () {
+          message.textContent = '배경 지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.';
+        }).addTo(map);
+        var color = getComputedStyle(document.documentElement).getPropertyValue('--fill-brand').trim();
+        var previous = null;
+        var groups = new Map();
+        stops.forEach(function (stop) {
+          // 위치가 빠진 구간을 건너 연결하면 실제 순서를 오해할 수 있다.
+          if (previous && stop.point) {
+            L.polyline([previous, stop.point], { color: color, weight: 3, dashArray: '6 8' }).addTo(map);
+          }
+          previous = stop.point;
+          if (!stop.point) { return; }
+          var key = stop.point.join(',');
+          if (!groups.has(key)) { groups.set(key, []); }
+          groups.get(key).push(stop);
+        });
+        groups.forEach(function (visits) {
+          var numbers = visits.map(function (stop) { return stop.number; }).join('·');
+          var popup = document.createElement('div');
+          visits.forEach(function (stop) {
+            var line = document.createElement('p');
+            line.textContent = stop.number + '. ' + stop.time + ' ' + stop.name;
+            popup.appendChild(line);
+          });
+          var source = document.createElement('small');
+          source.textContent = '주소 기준 위치 · Kakao Local · ' + visits[0].checked.slice(0, 10) + ' 조회';
+          popup.appendChild(source);
+          L.marker(visits[0].point, {
+            icon: L.divIcon({ className: 'route-marker', html: numbers, iconSize: [44, 44], iconAnchor: [22, 22] }),
+            title: visits.map(function (stop) { return stop.number + '. ' + stop.name; }).join(', ')
+          }).bindPopup(popup).addTo(map);
+        });
+        function fit() {
+          if (section.closest('.day').hidden) { return; }
+          map.invalidateSize();
+          map.fitBounds(known.map(function (stop) { return stop.point; }), { padding: [32, 32], maxZoom: 16 });
+        }
+        fit();
+        section.closest('.day').addEventListener('daychange', fit);
+        button.hidden = true;
+        message.textContent = '번호를 누르면 장소와 시간을 볼 수 있어요.';
+      } catch (error) {
+        if (map) { map.remove(); }
+        canvas.hidden = true;
+        message.textContent = '지도를 불러오지 못했어요. 다시 시도하거나 아래 장소의 지도를 열어 주세요.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
 })();
 </script>
 </body>
