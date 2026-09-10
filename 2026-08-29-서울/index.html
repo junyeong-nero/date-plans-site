@@ -249,10 +249,10 @@ details.past .plans { margin-top: 16px; padding-left: 0; padding-right: 0; }
 .foot {
   /* auto가 짧은 페이지에서 바닥으로 밀고, 크림 테두리가 최소 간격을 보장한다 */
   margin-top: auto; border-top: var(--band) solid var(--canvas);
-  /* 다크 배경이 테두리 밑까지 깔리면 경계에 1px 이음매가 생긴다 */
-  background-clip: padding-box;
   padding: 48px 20px;
-  background: var(--surface-dark); color: var(--on-dark-soft);
+  /* padding-box로 잘라야 한다. 다크 배경이 크림 테두리 밑까지 깔리면
+     경계에서 섞여 1px 이음매가 생긴다 (단축 속성 안에 둬야 안 덮인다) */
+  background: var(--surface-dark) padding-box; color: var(--on-dark-soft);
   font-size: .875rem;
 }
 .foot span {
