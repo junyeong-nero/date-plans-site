@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
+<title>해방촌 토터스와 남산 생일 데이트</title>
+<style>:root {
+  --bg: #fbfaf8; --fg: #1d1b18; --muted: #6d6862; --line: #e5e0d8;
+  --card: #ffffff; --link: #1f5fa8;
+  --ok: #1f7a45; --ok-bg: #e4f4ea;
+  --todo: #6d6862; --todo-bg: #efece7;
+  --risk: #9a5a06; --risk-bg: #fbeeda;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151a; --fg: #eceaf2; --muted: #a09aa8; --line: #302e38;
+    --card: #1f1e25; --link: #8ab6ef;
+    --ok: #7fd9a4; --ok-bg: #1a3a28;
+    --todo: #a09aa8; --todo-bg: #2a2830;
+    --risk: #f0b972; --risk-bg: #3d2c14;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto; max-width: 44rem; padding: 0 16px 64px;
+  background: var(--bg); color: var(--fg);
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: var(--link); }
+.top { padding: 24px 0 8px; }
+.top h1 { margin: 0 0 4px; font-size: 1.5rem; letter-spacing: -.01em; }
+.back { display: inline-block; margin-bottom: 12px; font-size: .875rem; text-decoration: none; }
+.range { margin: 0; color: var(--muted); font-size: .9375rem; }
+.checked { display: inline-block; margin: 10px 0 0; padding: 3px 9px;
+           border-radius: 999px; font-size: .8125rem; }
+.checked.ok { background: var(--ok-bg); color: var(--ok); }
+.checked.todo { background: var(--todo-bg); color: var(--todo); }
+.empty { color: var(--muted); }
+
+.plans { margin: 16px 0 0; padding: 0; list-style: none; }
+.plans li { position: relative; margin-bottom: 10px; background: var(--card);
+            border: 1px solid var(--line); border-radius: 12px; }
+.plans a { display: block; padding: 14px 16px; color: inherit; text-decoration: none; }
+.plans .t { display: block; font-weight: 600; padding-right: 4.5rem; }
+.plans .d { display: block; margin-top: 2px; color: var(--muted); font-size: .875rem; }
+.plans .checked { position: absolute; top: 13px; right: 12px; margin: 0; }
+details.past { margin-top: 20px; }
+details.past summary { padding: 6px 0; color: var(--muted); font-size: .9375rem; cursor: pointer; }
+
+.tabs { display: flex; gap: 8px; margin: 16px 0 4px; padding-bottom: 4px;
+        overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabs button { flex: 0 0 auto; padding: 7px 14px; border: 1px solid var(--line);
+               border-radius: 999px; background: var(--card); color: var(--muted);
+               font: inherit; font-size: .875rem; cursor: pointer; }
+.tabs button.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+.day h2, .places h2 { margin: 24px 0 10px; color: var(--muted);
+                      font-size: 1rem; font-weight: 600; }
+
+.item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.item .time { flex: 0 0 3.5rem; padding-top: 1px; font-weight: 600;
+              font-size: 1.0625rem; font-variant-numeric: tabular-nums; }
+.item .body { flex: 1 1 auto; min-width: 0; }
+.item .label { font-weight: 600; }
+.item .place { margin-top: 1px; }
+.item .place a { text-decoration: none; border-bottom: 1px solid var(--line); }
+.item .status { display: inline-block; margin-top: 6px; padding: 2px 8px;
+                border-radius: 999px; font-size: .75rem; }
+.item .status.ok { background: var(--ok-bg); color: var(--ok); }
+.item .status.todo { background: var(--todo-bg); color: var(--todo); }
+.item .status.risk { background: var(--risk-bg); color: var(--risk); }
+.item .note { margin-top: 6px; color: var(--muted); font-size: .875rem; }
+
+.place-card { margin-bottom: 10px; padding: 14px 16px; background: var(--card);
+              border: 1px solid var(--line); border-radius: 12px; scroll-margin-top: 12px; }
+.place-card h3 { margin: 0 0 8px; font-size: 1rem; }
+.place-card dl { display: grid; grid-template-columns: 4.5rem 1fr; gap: 4px 10px;
+                 margin: 0; font-size: .875rem; }
+.place-card dt { color: var(--muted); }
+.place-card dd { margin: 0; overflow-wrap: anywhere; }
+.map { display: inline-block; margin-top: 12px; padding: 8px 14px;
+       border: 1px solid var(--line); border-radius: 999px;
+       font-size: .875rem; text-decoration: none; }
+
+.place-card strong, .item .note strong { font-weight: 600; color: var(--fg); }
+.place-card code, .item code { padding: 1px 4px; border-radius: 4px;
+                               background: var(--todo-bg); font-size: .9em; }
+</style>
+</head>
+<body>
+<header class="top">
+<a class="back" href="../">← 전체 플랜</a>
+<h1>해방촌 토터스와 남산 생일 데이트</h1>
+<p class="range">2026년 9월 19일 (토)</p>
+<p class="checked todo">아직 확인 전이에요 — 영업시간과 날씨를 안 봤어요</p>
+</header>
+<section class="day" data-day="">
+<article class="item"><div class="time">11:10</div><div class="body"><div class="label">서울 도착</div><div class="place"><a href="#place-2">서울고속버스터미널</a></div><div class="status todo">⏳미확인</div><div class="note">구미에서 08:10 버스예요. 지하철까지 15분 잡아요</div></div></article>
+<article class="item"><div class="time">11:50</div><div class="body"><div class="label">만남과 가벼운 점심</div><div class="place"><a href="#place-0">찬장</a></div><div class="status todo">⏳미확인</div><div class="note">안동식 간고등어 솥밥 반상으로 정했어요</div></div></article>
+<article class="item"><div class="time">13:00</div><div class="body"><div class="label">사진전 보기</div><div class="place"><a href="#place-3">그라운드시소 용산</a></div><div class="status todo">⏳미확인</div><div class="note">9/11 개관전이에요. 보는 데 60분쯤 걸려요</div></div></article>
+<article class="item"><div class="time">14:15</div><div class="body"><div class="label">수플레와 카페 휴식</div><div class="place"><a href="#place-1">토터스</a></div><div class="status todo">⏳미확인</div><div class="note">택시로 10분이에요. 90분 정도 비워둬요</div></div></article>
+<article class="item"><div class="time">16:00</div><div class="body"><div class="label">케이블카 타기</div><div class="place"><a href="#place-4">남산케이블카</a></div><div class="status todo">⏳미확인</div><div class="note">매표와 대기에 45~60분을 잡아요</div></div></article>
+<article class="item"><div class="time">17:00</div><div class="body"><div class="label">광장 사진과 자물쇠</div><div class="place"><a href="#place-5">N서울타워</a></div><div class="status todo">⏳미확인</div><div class="note">팔각정·봉수대·자물쇠까지 한 시간이면 돼요</div></div></article>
+<article class="item"><div class="time">18:00</div><div class="body"><div class="label">케이블카로 내려오기</div><div class="place"><a href="#place-4">남산케이블카</a></div><div class="status todo">⏳미확인</div><div class="note">하행이 밀릴 수 있어 한 시간을 비워뒀어요</div></div></article>
+<article class="item"><div class="time">19:00</div><div class="body"><div class="label">생일 저녁과 선물</div><div class="place"><a href="#place-6">넬보스코</a></div><div class="status todo">⏳미확인</div><div class="note">예약하고 가요. 21:00에 닫으니 시간을 지켜요</div></div></article>
+</section>
+<section class="places"><h2>장소</h2>
+<article class="place-card" id="place-0"><h3>찬장</h3><dl><dt>주소</dt><dd>서울 용산구 한강대로23길 55, 아이파크몰 리빙파크 7층 District7</dd><dt>영업시간</dt><dd>매일 11:00~22:00이에요. 라스트오더는 후기마다 20:30과 21:00으로 갈려요. 점심에는 상관없어요.</dd><dt>전화</dt><dd><a href="tel:0220121771">02-2012-1771</a></dd><dt>가격</dt><dd>약 44,000/전체 — 안동식 간고등어 솥밥 반상 2인 기준이에요. 후기마다 1인 20,000원과 22,900원으로 갈려서 비싼 쪽으로 잡았어요. 한 사람이 다른 반상을 시키면 내려가요. 순두부찌개 솥밥반상 15,000원, 마늘쫑비빔밥과 된장찌개 반상 16,000원, 명란솥밥과 된장찌개 반상 19,000원이에요.</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%9A%A9%EC%82%B0%20%EC%95%84%EC%9D%B4%ED%8C%8C%ED%81%AC%EB%AA%B0%20%EC%B0%AC%EC%9E%A5">지도에서 열기</a></article>
+<article class="place-card" id="place-1"><h3>토터스</h3><dl><dt>주소</dt><dd>서울 용산구 신흥로 81, 1·2층</dd><dt>영업시간</dt><dd>12:00 개점으로 안내돼 있어요. 마감은 출처별 21:20~21:30이에요. 9/19 영업은 아직 확인하지 못했어요.</dd><dt>전화</dt><dd><a href="tel:050714342350">0507-1434-2350 (다이닝코드 안내 기준이에요)</a></dd><dt>가격</dt><dd>약 28,000/전체 — 수플레 1개와 아메리카노 2잔을 어림잡았어요. 계절 메뉴는 달라질 수 있어요.</dd></dl><a class="map" href="https://map.naver.com/p/entry/place/1548919079">지도에서 열기</a></article>
+<article class="place-card" id="place-2"><h3>서울고속버스터미널</h3><dl><dt>주소</dt><dd>서울 서초구 신반포로 194</dd><dt>가격</dt><dd>미확인</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90">지도에서 열기</a></article>
+<article class="place-card" id="place-3"><h3>그라운드시소 용산</h3><dl><dt>주소</dt><dd>서울 용산구 한강대로23길 55, 아이파크몰</dd><dt>영업시간</dt><dd>10:30~20:00이고 입장 마감은 19:00이에요. 휴관일은 아직 안 정해졌다고 나와요.</dd><dt>가격</dt><dd>20,000/인 — 브래드 월스 사진전 정가예요. 얼리버드로 사면 12,000원이에요.</dd></dl><a class="map" href="https://map.naver.com/p/search/%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C%EC%8B%9C%EC%86%8C%20%EC%9A%A9%EC%82%B0">지도에서 열기</a></article>
+<article class="place-card" id="place-4"><h3>남산케이블카</h3><dl><dt>주소</dt><dd>서울 중구 소파로 83</dd><dt>영업시간</dt><dd>10:00~23:00으로 안내돼 있어요. 날씨에 따라 바뀔 수 있어요.</dd><dt>전화</dt><dd><a href="tel:027532403">02-753-2403</a></dd><dt>가격</dt><dd>15,000/인 — 성인 왕복 공식 안내 금액이에요. 전망대 입장료는 별도예요.</dd></dl><a class="map" href="https://map.naver.com/p/search/서울%20남산케이블카">지도에서 열기</a></article>
+<article class="place-card" id="place-5"><h3>N서울타워</h3><dl><dt>주소</dt><dd>서울 용산구 남산공원길 105</dd><dt>영업시간</dt><dd>전망대 주말 10:00~23:00, 입장 마감은 종료 30분 전이에요. 당일 변경은 다시 확인해요.</dd><dt>전화</dt><dd><a href="tel:0234559277">02-3455-9277</a></dd><dt>가격</dt><dd>0 — 유료 전망대는 안 올라가는 걸 기본으로 잡았어요. 올라가면 성인 1인 29,000원이 더 들어요.</dd></dl><a class="map" href="https://map.naver.com/p/search/서울%20N서울타워">지도에서 열기</a></article>
+<article class="place-card" id="place-6"><h3>넬보스코</h3><dl><dt>주소</dt><dd>서울 중구 퇴계로8길 16, 2층 (회현동1가 우정빌딩)</dd><dt>영업시간</dt><dd>11:30~21:00이고 브레이크타임이 15:00~17:30이에요. 19:00 저녁은 괜찮아요. 라스트오더는 확인하지 못했어요.</dd><dt>전화</dt><dd><a href="tel:0234849400">02-3484-9400</a></dd><dt>가격</dt><dd>약 80,000/전체 — 피자 27,500원에 파스타와 사이드를 더해 어림잡았어요. 안단테 2인 코스로 가면 1인 64,000원이에요.</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%ED%9A%8C%ED%98%84%20%EB%84%AC%EB%B3%B4%EC%8A%A4%EC%BD%94">지도에서 열기</a></article>
+<article class="place-card" id="place-7"><h3>N테라스</h3><dl><dt>주소</dt><dd>서울 용산구 남산공원길 105, N서울타워</dd><dt>영업시간</dt><dd>11:00~20:00으로 공식 안내돼 있어요.</dd><dt>가격</dt><dd>미확인</dd></dl><a class="map" href="https://map.naver.com/p/search/서울%20N서울타워%20N테라스">지도에서 열기</a></article>
+</section>
+<script>(function () {
+  // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
+  var now = new Date();
+  var today = now.getFullYear() + '-' +
+              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+              String(now.getDate()).padStart(2, '0');
+
+  var list = document.getElementById('plans');
+  if (list) {
+    var past = Array.prototype.filter.call(list.children, function (li) {
+      return li.dataset.end < today;
+    });
+    if (past.length && past.length < list.children.length) {
+      var box = document.createElement('details');
+      box.className = 'past';
+      var summary = document.createElement('summary');
+      summary.textContent = '지난 플랜 ' + past.length + '개';
+      var ul = document.createElement('ul');
+      ul.className = 'plans';
+      past.forEach(function (li) { ul.appendChild(li); });
+      box.appendChild(summary);
+      box.appendChild(ul);
+      list.parentNode.insertBefore(box, list.nextSibling);
+    }
+  }
+
+  var tabs = document.querySelector('[data-tabs]');
+  if (!tabs) { return; }
+  var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
+  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
+
+  function show(day) {
+    days.forEach(function (s) { s.hidden = s.dataset.day !== day; });
+    buttons.forEach(function (b) { b.classList.toggle('on', b.dataset.day === day); });
+  }
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { show(b.dataset.day); });
+  });
+
+  // 오늘이 일정 범위 안이면 그 날을 편다. 아니면 첫날.
+  var inRange = today >= tabs.dataset.start && today <= tabs.dataset.end;
+  var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
+  tabs.hidden = false;
+  show(inRange && hasToday ? today : buttons[0].dataset.day);
+})();
+</script>
+</body>
+</html>
