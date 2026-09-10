@@ -356,6 +356,33 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .explorer-ready .place-card:not(.selected) dl,
 .explorer-ready .place-card:not(.selected) > .map { display: none; }
 .explorer-ready .place-card h3 { margin-bottom: 0; }
+
+/* 방문 번호를 따라 올라가는 세로 타임라인. 본문 높이는 고정하지 않는다. */
+.day .item { position: relative; border-radius: 0; padding-bottom: 16px; }
+.day .item + .item { border-top: 0; }
+.day .item:not(:last-child)::before {
+  content: ""; position: absolute; left: 21px; top: 42px; bottom: -2px;
+  width: 1px; background: var(--line-default); pointer-events: none;
+}
+.day .item-select { position: relative; gap: 12px; padding: 0; align-items: flex-start; border-radius: var(--r-xl); }
+.timeline-node {
+  display: flex; flex: 0 0 44px; align-items: center; justify-content: center;
+  height: 44px; border: 1px solid var(--line-default); border-radius: var(--r-full);
+  background: var(--bg-primary); color: var(--text-secondary); font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease);
+}
+.day .item .body { padding: 16px; border-radius: var(--r-xl); background: var(--fill-weak); transition: background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease); }
+.day .item .time { display: block; padding: 0; margin-bottom: 6px; font-size: .8125rem; }
+.day .item.selected { background: transparent; }
+.day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
+.day .item.selected .body { background: var(--blue-50); transform: translateX(3px); }
+.explorer-ready .list-scroll[data-timeline-view="schedule"] { scroll-snap-type: y proximity; scroll-padding-top: 24px; }
+.explorer-ready .list-scroll[data-timeline-view="schedule"] .item { scroll-snap-align: start; }
+.explorer-ready .list-scroll[data-timeline-view="schedule"] .day { padding-bottom: var(--timeline-tail, 24px); }
+@media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
+@media (prefers-reduced-motion: reduce) { .day .item.selected .body { transform: none; } }
+.explorer-ready .list-scroll[data-timeline-view="schedule"] .tabs { scroll-snap-align: start; }
 </style>
 </head>
 <body>
@@ -368,12 +395,12 @@ body:not(.explorer-ready) .map-pane { display: none; }
 <main class="explorer"><section class="map-pane" aria-label="동선 지도"><div class="map-toolbar"><h2>동선 지도</h2><button class="map map-reset" type="button">전체 동선</button></div><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정과 장소"><nav class="view-tabs" aria-label="목록 보기 방식" hidden><button type="button" data-view="schedule" aria-pressed="true">시간별</button><button type="button" data-view="places" aria-pressed="false">장소</button></nav><div class="list-scroll"><div id="schedule-panel">
 <section class="day" data-day="">
 <p class="route-note" data-route="[{&quot;point&quot;: [37.525158525834, 127.037202911556], &quot;name&quot;: &quot;규카츠정 압구정로데오점&quot;, &quot;time&quot;: &quot;11:45&quot;, &quot;number&quot;: 1, &quot;id&quot;: &quot;stop-0-1&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:20.443516+00:00&quot;}, {&quot;point&quot;: [37.5229110254398, 127.037043534807], &quot;name&quot;: &quot;CGV 청담씨네시티&quot;, &quot;time&quot;: &quot;13:20&quot;, &quot;number&quot;: 2, &quot;id&quot;: &quot;stop-0-2&quot;, &quot;placeId&quot;: &quot;place-1&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:19.729390+00:00&quot;}, {&quot;point&quot;: [37.5260709109071, 127.037106639382], &quot;name&quot;: &quot;놀숲 더레이블도산점&quot;, &quot;time&quot;: &quot;16:30&quot;, &quot;number&quot;: 3, &quot;id&quot;: &quot;stop-0-3&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:21.591164+00:00&quot;}, {&quot;point&quot;: [37.2526579343798, 127.074394675407], &quot;name&quot;: &quot;골든타임 이스케이프&quot;, &quot;time&quot;: &quot;22:00&quot;, &quot;number&quot;: 4, &quot;id&quot;: &quot;stop-0-4&quot;, &quot;placeId&quot;: &quot;place-2&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:20.089807+00:00&quot;}, {&quot;point&quot;: [37.2538188637482, 127.076894606632], &quot;name&quot;: &quot;아쿠아라운지&quot;, &quot;time&quot;: &quot;23:30&quot;, &quot;number&quot;: 5, &quot;id&quot;: &quot;stop-0-5&quot;, &quot;placeId&quot;: &quot;place-3&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:22.158354+00:00&quot;}, {&quot;point&quot;: [37.2520637842978, 127.07102269696], &quot;name&quot;: &quot;스파렉스사우나&quot;, &quot;time&quot;: &quot;02:10&quot;, &quot;number&quot;: 6, &quot;id&quot;: &quot;stop-0-6&quot;, &quot;placeId&quot;: &quot;place-4&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:21.852361+00:00&quot;}]">점선은 방문 순서예요. 실제 이동 경로는 장소의 지도에서 확인해요.</p>
-<article class="item" id="stop-0-1"><button class="item-select" type="button" data-select="stop-0-1" aria-pressed="false"><span class="time">11:45</span><span class="body"><span class="label">점심</span><span class="place">규카츠정 압구정로데오점</span><span class="status risk"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 10 18H2Z M12 9v4 M12 17h.01"/></svg>리스크</span><span class="note">11:40 도착 예정이에요. 예약 없으면 빠듯해요. 13:05엔 나와야 해요</span></span></button></article>
-<article class="item" id="stop-0-2"><button class="item-select" type="button" data-select="stop-0-2" aria-pressed="false"><span class="time">13:20</span><span class="body"><span class="label">영화</span><span class="place">CGV 청담씨네시티</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">오디세이예요. 3관 스윗박스 프리미엄이고 16:22에 끝나요. 예매는 아직이에요</span></span></button></article>
-<article class="item" id="stop-0-3"><button class="item-select" type="button" data-select="stop-0-3" aria-pressed="false"><span class="time">16:30</span><span class="body"><span class="label">저녁 겸 만화카페</span><span class="place">놀숲 더레이블도산점</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">영업시간을 아직 못 알아봤어요. 20:30엔 나와야 해요</span></span></button></article>
-<article class="item" id="stop-0-4"><button class="item-select" type="button" data-select="stop-0-4" aria-pressed="false"><span class="time">22:00</span><span class="body"><span class="label">방탈출</span><span class="place">골든타임 이스케이프</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span><span class="note">예약해 뒀어요</span></span></button></article>
-<article class="item" id="stop-0-5"><button class="item-select" type="button" data-select="stop-0-5" aria-pressed="false"><span class="time">23:30</span><span class="body"><span class="label">칵테일</span><span class="place">아쿠아라운지</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">영업 중이에요. 토요일은 19:00-02:00. 방탈출 끝나는 대로 가요</span></span></button></article>
-<article class="item" id="stop-0-6"><button class="item-select" type="button" data-select="stop-0-6" aria-pressed="false"><span class="time">02:10</span><span class="body"><span class="label">숙박</span><span class="place">스파렉스사우나</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">24시간이에요. 야간요금은 약 15,000원이고 혼자 이용해요</span></span></button></article>
+<article class="item" id="stop-0-1"><button class="item-select" type="button" data-select="stop-0-1" aria-pressed="false"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="time">11:45</span><span class="label">점심</span><span class="place">규카츠정 압구정로데오점</span><span class="status risk"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 10 18H2Z M12 9v4 M12 17h.01"/></svg>리스크</span><span class="note">11:40 도착 예정이에요. 예약 없으면 빠듯해요. 13:05엔 나와야 해요</span></span></button></article>
+<article class="item" id="stop-0-2"><button class="item-select" type="button" data-select="stop-0-2" aria-pressed="false"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="time">13:20</span><span class="label">영화</span><span class="place">CGV 청담씨네시티</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">오디세이예요. 3관 스윗박스 프리미엄이고 16:22에 끝나요. 예매는 아직이에요</span></span></button></article>
+<article class="item" id="stop-0-3"><button class="item-select" type="button" data-select="stop-0-3" aria-pressed="false"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="time">16:30</span><span class="label">저녁 겸 만화카페</span><span class="place">놀숲 더레이블도산점</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">영업시간을 아직 못 알아봤어요. 20:30엔 나와야 해요</span></span></button></article>
+<article class="item" id="stop-0-4"><button class="item-select" type="button" data-select="stop-0-4" aria-pressed="false"><span class="timeline-node" aria-hidden="true">4</span><span class="body"><span class="time">22:00</span><span class="label">방탈출</span><span class="place">골든타임 이스케이프</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span><span class="note">예약해 뒀어요</span></span></button></article>
+<article class="item" id="stop-0-5"><button class="item-select" type="button" data-select="stop-0-5" aria-pressed="false"><span class="timeline-node" aria-hidden="true">5</span><span class="body"><span class="time">23:30</span><span class="label">칵테일</span><span class="place">아쿠아라운지</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">영업 중이에요. 토요일은 19:00-02:00. 방탈출 끝나는 대로 가요</span></span></button></article>
+<article class="item" id="stop-0-6"><button class="item-select" type="button" data-select="stop-0-6" aria-pressed="false"><span class="timeline-node" aria-hidden="true">6</span><span class="body"><span class="time">02:10</span><span class="label">숙박</span><span class="place">스파렉스사우나</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">24시간이에요. 야간요금은 약 15,000원이고 혼자 이용해요</span></span></button></article>
 </section>
 </div>
 <section class="places"><h2>장소</h2>
@@ -456,11 +483,19 @@ body:not(.explorer-ready) .map-pane { display: none; }
   var places = root.querySelector('.places');
   var view = 'schedule';
   var selected = null;
+  var scroller = root.querySelector('.list-scroll');
+  var scrollTimer;
+  var followScroll = false;
+  scroller.dataset.timelineView = view;
+  new ResizeObserver(function () {
+    scroller.style.setProperty('--timeline-tail', Math.max(24, scroller.clientHeight - 100) + 'px');
+  }).observe(scroller);
   var map = null;
   var overlays = [];
   var pins = [];
   var loading = false;
   var mapError = '';
+  var cameraTimer;
   var allPlaces = Array.from(root.querySelectorAll('[data-location]'), function (node) {
     return JSON.parse(node.dataset.location);
   });
@@ -491,27 +526,77 @@ body:not(.explorer-ready) .map-pane { display: none; }
       pin.marker.setZIndex(active ? 100 : 1);
     });
   }
-  function select(stop, fromMap) {
+  function moveCamera(target) {
+    var level = 3;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      map.jump(target, level, { animate: false });
+      return;
+    }
+    var center = map.getCenter();
+    var projection = map.getProjection();
+    var from = projection.containerPointFromCoords(center);
+    var to = projection.containerPointFromCoords(target);
+    var span = Math.max(Math.abs(to.x - from.x) / Math.max(1, canvas.clientWidth / 2),
+      Math.abs(to.y - from.y) / Math.max(1, canvas.clientHeight / 2));
+    if (span > 1) {
+      // 먼 장소는 두 지점을 함께 보여 준 뒤 목적지의 거리 수준으로 들어간다.
+      var overview = Math.min(14, map.getLevel() + Math.ceil(Math.log2(span)) + 1);
+      var midpoint = new kakao.maps.LatLng((center.getLat() + target.getLat()) / 2,
+        (center.getLng() + target.getLng()) / 2);
+      map.jump(midpoint, overview, { animate: { duration: 500 } });
+      cameraTimer = setTimeout(function () {
+        map.jump(target, level, { animate: { duration: 600 } });
+      }, 550);
+    } else {
+      map.jump(target, level, { animate: { duration: 600 } });
+    }
+  }
+  function select(stop, fromMap, fromScroll) {
+    if (!fromScroll) { followScroll = false; clearTimeout(scrollTimer); }
     selected = stop;
     highlight();
     message.textContent = (stop.time ? stop.time + ' · ' : '') + stop.name +
       (stop.point ? ' · 주소 기준 위치' : ' · 위치를 확인하지 못했어요.') +
       (stop.point && stop.checked ? ' · ' + stop.checked.slice(0, 10) + ' 조회' : '') +
       (mapError ? ' · ' + mapError : '');
-    if (map && stop.point) {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { map.setCenter(position(stop)); }
-      else { map.panTo(position(stop)); }
-    }
-    if (fromMap) {
+    clearTimeout(cameraTimer);
+    if (map && stop.point) { moveCamera(position(stop)); }
+    if (!fromScroll && (fromMap || view === 'schedule')) {
       var row = document.getElementById(stop.id);
       if (row) {
-        var scroller = root.querySelector('.list-scroll');
-        scroller.scrollTop += row.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 88;
-        row.querySelector('[data-select]').focus({ preventScroll: true });
+        scroller.scrollTo({
+          top: scroller.scrollTop + row.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 24,
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+        });
+        if (fromMap) { row.querySelector('[data-select]').focus({ preventScroll: true }); }
       }
     }
   }
+
+  // 사용자가 넘긴 스크롤만 선택으로 연결한다. 핀·전체 보기의 스크롤은 되먹임하지 않는다.
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (event) {
+    scroller.addEventListener(event, function () { followScroll = true; }, { passive: true });
+  });
+  scroller.addEventListener('scroll', function () {
+    clearTimeout(scrollTimer);
+    if (!followScroll || view !== 'schedule') { return; }
+    scrollTimer = setTimeout(function () {
+      if (!followScroll || view !== 'schedule') { return; }
+      var target = scroller.getBoundingClientRect().top + 24;
+      var nearest = null;
+      var distance = Infinity;
+      stops().forEach(function (stop) {
+        var row = document.getElementById(stop.id);
+        var delta = Math.abs(row.getBoundingClientRect().top - target);
+        if (delta < distance) { nearest = stop; distance = delta; }
+      });
+      if (nearest && (!selected || selected.id !== nearest.id)) { select(nearest, false, true); }
+    }, 140);
+  }, { passive: true });
+
   function fit() {
+    clearTimeout(cameraTimer);
+    followScroll = false; clearTimeout(scrollTimer);
     selected = null;
     highlight();
     summary();
@@ -561,6 +646,7 @@ body:not(.explorer-ready) .map-pane { display: none; }
   root.querySelectorAll('[data-view]').forEach(function (button) {
     button.addEventListener('click', function () {
       view = button.dataset.view;
+      scroller.dataset.timelineView = view;
       schedule.hidden = view !== 'schedule';
       if (places) { places.hidden = view !== 'places'; }
       root.querySelectorAll('[data-view]').forEach(function (b) {
@@ -610,6 +696,9 @@ body:not(.explorer-ready) .map-pane { display: none; }
       var first = stops().find(function (stop) { return stop.point; });
       map = new kakao.maps.Map(canvas, { center: first ? position(first) : new kakao.maps.LatLng(37.5665, 126.978), level: 5 });
       map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      kakao.maps.event.addListener(map, 'dragstart', function () { clearTimeout(cameraTimer); });
+      canvas.addEventListener('wheel', function () { clearTimeout(cameraTimer); }, { passive: true });
+      canvas.addEventListener('pointerdown', function () { clearTimeout(cameraTimer); }, { passive: true });
       new ResizeObserver(function () { map.relayout(); }).observe(canvas);
       var pending = selected;
       draw();
