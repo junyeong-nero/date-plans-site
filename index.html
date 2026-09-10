@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%233182f6%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%2218%22%20height%3D%2217%22%20rx%3D%223%22/%3E%3Cpath%20d%3D%22M11%206v6%20M21%206v6%20M7%2015h18%20m5%205%203%203%205-5%22/%3E%3C/g%3E%3C/svg%3E">
 <title>데이트 플랜</title>
+<meta name="kakao-maps-js-key" content="5106296a5746d9ba4c3a1347acbf1eb2">
 <style>/* 토스 디자인 시스템(TDS). 정본은 저장소 루트의 DESIGN.md.
    원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다. */
 :root {
@@ -204,7 +205,9 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 }
 .tabs + .day h2 { margin-top: 20px; }
 
-.item { display: flex; gap: 20px; padding: 20px 0; }
+.item { border-radius: var(--r-xl); }
+.item-select { display: flex; gap: 16px; width: 100%; padding: 20px 12px; border: 0; border-radius: inherit; background: transparent; text-align: left; color: inherit; font: inherit; cursor: pointer; }
+.item .body, .item .label, .item .place, .item .note { display: block; }
 .item + .item { border-top: 1px solid var(--line-default); }
 /* 시각은 고정폭 숫자로. 실시간 데이터 칼럼과 같은 취급이다 */
 .item .time {
@@ -293,21 +296,66 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   * { animation: none !important; transition: none !important; }
 }
 
-/* 동선 지도는 요청할 때만 네트워크를 쓴다. 일정은 오프라인에서도 남는다. */
-.route { margin: 20px 0; padding: 20px; background: var(--fill-weak); border-radius: var(--r-2xl); }
-.route h3 { font-size: 1.125rem; }
-.route-note, .route-message { color: var(--text-secondary); font-size: .8125rem; margin: 8px 0 0; }
-.route-message:empty { display: none; }
-.route-canvas { height: 360px; margin-top: 16px; border-radius: var(--r-m); isolation: isolate; z-index: 0; }
-.route .route-marker { display: flex; align-items: center; justify-content: center; background: var(--fill-brand); color: var(--text-alt); border: 1px solid var(--bg-primary); border-radius: var(--r-full); font: 600 13px/1 var(--font); }
-.route .leaflet-bar a { width: 44px; height: 44px; line-height: 44px; }
-.route .leaflet-popup-content { font-family: var(--font); }
-.route-open:disabled { opacity: .3; cursor: wait; }
-
 .icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
 .back, .map, .checked, .status, .item .place a { gap: 6px; }
 .checked .icon, .status .icon { width: 14px; height: 14px; }
 .item .place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
+
+/* 지도와 목록을 함께 탐색한다. JS가 없으면 원래 문서 흐름으로 읽는다. */
+body:not(.explorer-ready) .map-pane { display: none; }
+.explorer-ready { padding-bottom: 0; }
+.explorer-ready .plan-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.plan-page .top { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; width: 100%; max-width: 1440px; padding: 12px 20px; }
+.plan-page .back { grid-row: 1 / 4; align-self: start; justify-content: center; padding: 0; margin: 0; font-size: 0; background: var(--fill-weak); }
+.plan-page .top h1 { grid-column: 2; font-size: 1.125rem; }
+.plan-page .range { grid-column: 2; margin-top: 4px; font-size: .8125rem; }
+.plan-page .checked { grid-column: 2; justify-self: start; margin-top: 4px; }
+.explorer-ready .explorer { display: grid; grid-template-rows: minmax(180px, 40dvh) minmax(0, 1fr); flex: 1; min-height: 0; }
+.map-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--fill-weak); overflow: hidden; }
+.map-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 4px 16px; gap: 12px; }
+.map-toolbar h2 { font-size: 1rem; }
+.map-toolbar .map { margin: 0; font: 600 .8125rem var(--font); cursor: pointer; }
+.route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
+.map-caption { padding: 8px 16px; }
+.route-message, .route-note { margin: 0; color: var(--text-secondary); font-size: .75rem; overflow-wrap: anywhere; }
+.map-retry { margin: 8px 0 0; cursor: pointer; }
+.map-pin { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bg-primary); border-radius: var(--r-full); background: var(--fill-brand); color: var(--text-alt); font: 600 13px var(--font); cursor: pointer; }
+.map-pin.selected { background: var(--text-primary); outline: 3px solid var(--bg-primary); }
+.list-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg-primary); }
+.view-tabs { display: flex; flex-shrink: 0; gap: 4px; padding: 4px; margin: 12px 20px; border-radius: var(--r-m); background: var(--fill-secondary); }
+.view-tabs button { flex: 1; min-height: 44px; border: 0; border-radius: var(--r-s); background: transparent; font: 600 15px var(--font); color: var(--text-secondary); cursor: pointer; }
+.view-tabs button[aria-pressed="true"] { background: var(--bg-primary); color: var(--text-primary); box-shadow: var(--shadow-1); }
+.explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+.explorer .day, .explorer .places, .explorer .tabs { max-width: none; width: 100%; }
+.explorer .tabs { position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
+.explorer .tabs::before { inset: 0 var(--gutter) 4px; }
+.explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
+.explorer .route-note { margin: 8px 0 12px; }
+.item.selected, .place-card.selected { background: var(--blue-50); }
+.item.selected .label { color: var(--blue-600); }
+.place-select { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; text-align: left; color: inherit; font: inherit; cursor: pointer; }
+.place-select .icon { color: var(--text-secondary); }
+@media (hover: hover) {
+  .item-select:hover { background: var(--fill-weak); }
+  .place-select:hover { color: var(--blue-600); }
+}
+@media (min-width: 1024px) {
+  .plan-page .top { padding: 20px 24px; }
+  .plan-page .top h1 { font-size: 1.375rem; }
+  .explorer-ready .explorer { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px 24px; gap: 24px; grid-template-columns: 380px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+  .map-pane { grid-column: 2; grid-row: 1; border-radius: var(--r-2xl); }
+  .list-pane { grid-column: 1; grid-row: 1; border: 1px solid var(--line-default); border-radius: var(--r-2xl); overflow: hidden; }
+  .map-toolbar { padding: 12px 20px; }
+}
+@media (max-height: 600px) and (max-width: 1023px) {
+  .plan-page .checked { display: none; }
+  .explorer-ready .explorer { grid-template-rows: minmax(120px, 35dvh) minmax(0, 1fr); }
+  .map-toolbar { padding-top: 0; padding-bottom: 0; }
+}
+
+.explorer-ready .place-card:not(.selected) dl,
+.explorer-ready .place-card:not(.selected) > .map { display: none; }
+.explorer-ready .place-card h3 { margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -360,12 +408,12 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   function show(day) {
     days.forEach(function (s) {
       s.hidden = s.dataset.day !== day;
-      s.dispatchEvent(new Event('daychange'));
     });
     buttons.forEach(function (b) {
       b.classList.toggle('on', b.dataset.day === day);
       b.setAttribute('aria-pressed', String(b.dataset.day === day));
     });
+    document.dispatchEvent(new Event('daychange'));
   }
 
   buttons.forEach(function (b) {
@@ -380,101 +428,179 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 })();
 
 (function () {
-  var library;
-  function loadLibrary() {
-    if (!library) {
-      library = Promise.all([
-        ['link', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY='],
-        ['script', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=']
-      ].map(function (asset) {
-        return new Promise(function (resolve, reject) {
-          var node = document.createElement(asset[0]);
-          var timer = setTimeout(fail, 12000);
-          function fail() { clearTimeout(timer); node.remove(); reject(new Error('map unavailable')); }
-          if (asset[0] === 'link') { node.rel = 'stylesheet'; node.href = asset[1]; }
-          else { node.src = asset[1]; }
-          node.integrity = asset[2]; node.crossOrigin = 'anonymous';
-          node.onload = function () { clearTimeout(timer); resolve(); };
-          node.onerror = fail;
-          document.head.appendChild(node);
-        });
-      })).catch(function (error) { library = null; throw error; });
-    }
-    return library;
-  }
+  var root = document.querySelector('.explorer');
+  if (!root) { return; }
+  document.body.classList.add('explorer-ready');
+  var canvas = document.getElementById('route-map');
+  var message = root.querySelector('.route-message');
+  var retry = root.querySelector('.map-retry');
+  var schedule = document.getElementById('schedule-panel');
+  var places = root.querySelector('.places');
+  var view = 'schedule';
+  var selected = null;
+  var map = null;
+  var overlays = [];
+  var pins = [];
+  var loading = false;
+  var mapError = '';
+  var allPlaces = Array.from(root.querySelectorAll('[data-location]'), function (node) {
+    return JSON.parse(node.dataset.location);
+  });
 
-  document.querySelectorAll('.route-open').forEach(function (button) {
-    button.addEventListener('click', async function () {
-      var section = button.closest('.route');
-      var canvas = section.querySelector('.route-canvas');
-      var message = section.querySelector('.route-message');
-      var stops = JSON.parse(button.dataset.route);
-      var known = stops.filter(function (stop) { return stop.point; });
-      if (!known.length) {
-        message.textContent = '아직 표시할 위치가 없어요. 아래 장소에서 지도를 열어 주세요.';
-        return;
+  function stops() {
+    if (view === 'places') { return allPlaces; }
+    var day = root.querySelector('.day:not([hidden]) [data-route]');
+    return day ? JSON.parse(day.dataset.route) : [];
+  }
+  function position(stop) { return new kakao.maps.LatLng(stop.point[0], stop.point[1]); }
+  function summary() {
+    var current = stops();
+    var missing = current.filter(function (s) { return !s.point; }).length;
+    message.textContent = mapError || (current.length + (view === 'places' ? '개 장소' : '개 일정') +
+      ' · 목록이나 지도 번호를 선택해 주세요.' + (missing ? ' 위치 미확인 ' + missing + '개' : ''));
+  }
+  function highlight() {
+    root.querySelectorAll('[data-select]').forEach(function (button) {
+      var active = !!selected && button.dataset.select === selected.id;
+      button.setAttribute('aria-pressed', String(active));
+      if (button.classList.contains('place-select')) { button.setAttribute('aria-expanded', String(active)); }
+      button.closest('article').classList.toggle('selected', active);
+    });
+    pins.forEach(function (pin) {
+      var active = !!selected && pin.stops.some(function (stop) { return stop.id === selected.id; });
+      pin.button.classList.toggle('selected', active);
+      pin.button.setAttribute('aria-pressed', String(active));
+      pin.marker.setZIndex(active ? 100 : 1);
+    });
+  }
+  function select(stop, fromMap) {
+    selected = stop;
+    highlight();
+    message.textContent = (stop.time ? stop.time + ' · ' : '') + stop.name +
+      (stop.point ? ' · 주소 기준 위치' : ' · 위치를 확인하지 못했어요.') +
+      (stop.point && stop.checked ? ' · ' + stop.checked.slice(0, 10) + ' 조회' : '') +
+      (mapError ? ' · ' + mapError : '');
+    if (map && stop.point) {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { map.setCenter(position(stop)); }
+      else { map.panTo(position(stop)); }
+    }
+    if (fromMap) {
+      var row = document.getElementById(stop.id);
+      if (row) {
+        var scroller = root.querySelector('.list-scroll');
+        scroller.scrollTop += row.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 88;
+        row.querySelector('[data-select]').focus({ preventScroll: true });
       }
-      button.disabled = true;
-      message.textContent = '지도를 불러오고 있어요.';
-      var map;
-      try {
-        await loadLibrary();
-        canvas.hidden = false;
-        map = L.map(canvas, { scrollWheelZoom: false });
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).on('tileerror', function () {
-          message.textContent = '배경 지도를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.';
-        }).addTo(map);
-        var color = getComputedStyle(document.documentElement).getPropertyValue('--fill-brand').trim();
-        var previous = null;
-        var groups = new Map();
-        stops.forEach(function (stop) {
-          // 위치가 빠진 구간을 건너 연결하면 실제 순서를 오해할 수 있다.
-          if (previous && stop.point) {
-            L.polyline([previous, stop.point], { color: color, weight: 3, dashArray: '6 8' }).addTo(map);
-          }
-          previous = stop.point;
-          if (!stop.point) { return; }
-          var key = stop.point.join(',');
-          if (!groups.has(key)) { groups.set(key, []); }
-          groups.get(key).push(stop);
-        });
-        groups.forEach(function (visits) {
-          var numbers = visits.map(function (stop) { return stop.number; }).join('·');
-          var popup = document.createElement('div');
-          visits.forEach(function (stop) {
-            var line = document.createElement('p');
-            line.textContent = stop.number + '. ' + stop.time + ' ' + stop.name;
-            popup.appendChild(line);
-          });
-          var source = document.createElement('small');
-          source.textContent = '주소 기준 위치 · Kakao Local · ' + visits[0].checked.slice(0, 10) + ' 조회';
-          popup.appendChild(source);
-          L.marker(visits[0].point, {
-            icon: L.divIcon({ className: 'route-marker', html: numbers, iconSize: [44, 44], iconAnchor: [22, 22] }),
-            title: visits.map(function (stop) { return stop.number + '. ' + stop.name; }).join(', ')
-          }).bindPopup(popup).addTo(map);
-        });
-        function fit() {
-          if (section.closest('.day').hidden) { return; }
-          map.invalidateSize();
-          map.fitBounds(known.map(function (stop) { return stop.point; }), { padding: [32, 32], maxZoom: 16 });
-        }
-        fit();
-        section.closest('.day').addEventListener('daychange', fit);
-        button.hidden = true;
-        message.textContent = '번호를 누르면 장소와 시간을 볼 수 있어요.';
-      } catch (error) {
-        if (map) { map.remove(); }
-        canvas.hidden = true;
-        message.textContent = '지도를 불러오지 못했어요. 다시 시도하거나 아래 장소의 지도를 열어 주세요.';
-      } finally {
-        button.disabled = false;
+    }
+  }
+  function fit() {
+    selected = null;
+    highlight();
+    summary();
+    var known = stops().filter(function (stop) { return stop.point; });
+    if (map && known.length) {
+      var bounds = new kakao.maps.LatLngBounds();
+      known.forEach(function (stop) { bounds.extend(position(stop)); });
+      map.setBounds(bounds, 48, 48, 48, 48);
+      if (map.getLevel() < 3) { map.setLevel(3); }
+    }
+  }
+  function draw() {
+    overlays.forEach(function (overlay) { overlay.setMap(null); });
+    overlays = []; pins = [];
+    if (!map) { fit(); return; }
+    var groups = new Map();
+    var previous = null;
+    stops().forEach(function (stop) {
+      if (view === 'schedule' && previous && stop.point) {
+        overlays.push(new kakao.maps.Polyline({ map: map, path: [position(previous), position(stop)],
+          strokeColor: '#3182f6', strokeWeight: 3, strokeStyle: 'shortdash', clickable: false }));
       }
+      previous = stop.point ? stop : null;
+      if (!stop.point) { return; }
+      var key = stop.point.join(',');
+      if (!groups.has(key)) { groups.set(key, []); }
+      groups.get(key).push(stop);
+    });
+    groups.forEach(function (visits) {
+      var button = document.createElement('button');
+      button.type = 'button'; button.className = 'map-pin';
+      button.textContent = visits.map(function (stop) { return stop.number; }).join('·');
+      button.setAttribute('aria-label', visits.map(function (stop) { return stop.number + '. ' + stop.name; }).join(', '));
+      button.addEventListener('click', function () {
+        // 같은 건물의 반복 방문은 번호 하나로 묶고, 다시 누르면 다음 방문을 선택한다.
+        var index = selected ? visits.findIndex(function (stop) { return stop.id === selected.id; }) : -1;
+        select(visits[(index + 1) % visits.length], true);
+      });
+      var marker = new kakao.maps.CustomOverlay({ map: map, position: position(visits[0]),
+        content: button, xAnchor: 0.5, yAnchor: 0.5, clickable: true });
+      overlays.push(marker);
+      pins.push({ marker: marker, button: button, stops: visits });
+    });
+    fit();
+  }
+  root.querySelector('.view-tabs').hidden = false;
+  root.querySelectorAll('[data-view]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      view = button.dataset.view;
+      schedule.hidden = view !== 'schedule';
+      if (places) { places.hidden = view !== 'places'; }
+      root.querySelectorAll('[data-view]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b === button));
+      });
+      root.querySelector('.list-scroll').scrollTop = 0;
+      draw();
     });
   });
+  if (places) { places.hidden = true; }
+  root.querySelectorAll('[data-select]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var stop = stops().find(function (s) { return s.id === button.dataset.select; });
+      if (stop) { select(stop, false); }
+    });
+  });
+  root.querySelector('.map-reset').addEventListener('click', fit);
+  document.addEventListener('daychange', draw);
+
+  function failure() {
+    mapError = '카카오 지도를 연결하지 못했어요. 장소 정보는 목록에서 볼 수 있어요.';
+    message.textContent = mapError;
+    retry.hidden = false;
+  }
+  async function connect() {
+    if (loading || map) { return; }
+    var key = document.querySelector('meta[name="kakao-maps-js-key"]').content;
+    if (!key) {
+      mapError = '지도를 준비하고 있어요. 장소 정보는 목록에서 볼 수 있어요.';
+      summary(); return;
+    }
+    loading = true; retry.hidden = true;
+    mapError = ''; message.textContent = '카카오 지도를 불러오고 있어요.';
+    try {
+      await new Promise(function (resolve, reject) {
+        var script = document.createElement('script');
+        var timer = setTimeout(fail, 15000);
+        function fail() { clearTimeout(timer); script.remove(); reject(new Error('Kakao Maps unavailable')); }
+        script.onload = function () {
+          if (!window.kakao || !kakao.maps) { fail(); return; }
+          kakao.maps.load(function () { clearTimeout(timer); resolve(); });
+        };
+        script.onerror = fail;
+        script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + encodeURIComponent(key) + '&autoload=false';
+        document.head.appendChild(script);
+      });
+      var first = stops().find(function (stop) { return stop.point; });
+      map = new kakao.maps.Map(canvas, { center: first ? position(first) : new kakao.maps.LatLng(37.5665, 126.978), level: 5 });
+      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      new ResizeObserver(function () { map.relayout(); }).observe(canvas);
+      var pending = selected;
+      draw();
+      if (pending && stops().some(function (stop) { return stop.id === pending.id; })) { select(pending, false); }
+    } catch (error) { failure(); }
+    finally { loading = false; }
+  }
+  retry.addEventListener('click', connect);
+  connect();
 })();
 </script>
 </body>
