@@ -6,89 +6,283 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📅</text></svg>">
 <title>충무로·종로·익선동 1박 2일</title>
-<style>:root {
-  --bg: #fbfaf8; --fg: #1d1b18; --muted: #6d6862; --line: #e5e0d8;
-  --card: #ffffff; --link: #1f5fa8;
-  --ok: #1f7a45; --ok-bg: #e4f4ea;
-  --todo: #6d6862; --todo-bg: #efece7;
-  --risk: #9a5a06; --risk-bg: #fbeeda;
+<style>/* Claude.com에서 따온 크림 에디토리얼 시스템. 정본은 저장소 루트의 DESIGN.md.
+   값은 토큰에만 두고 컴포넌트에 hex를 박지 않는다. */
+:root {
+  color-scheme: light;
+
+  /* 표면 — 크림 3단계 + 다크. 네 번째 색조를 늘리지 않는다 */
+  --canvas: #faf9f5;
+  --surface-soft: #f5f0e8;
+  --surface-card: #efe9de;
+  --surface-cream-strong: #e8e0d2;
+  --surface-dark: #181715;
+  --surface-dark-elevated: #252320;
+  --hairline: #e6dfd8;
+  --hairline-soft: #ebe6df;
+
+  /* 글자 */
+  --ink: #141413;
+  --body: #3d3d3a;
+  --muted: #6c6a64;
+  --muted-soft: #8e8b82;
+  --on-primary: #ffffff;
+  --on-dark: #faf9f5;
+  --on-dark-soft: #a09d96;
+
+  /* 브랜드 — 코랄은 인라인 링크와 주요 CTA에만. 뿌리지 않는다 */
+  --primary: #cc785c;
+  --primary-active: #a9583e;
+  --accent-teal: #5db8a6;
+
+  /* 시맨틱. 원문 값은 상태 점(dot)용이라 크림 위 글자로 쓰면 대비가 모자란다.
+     코랄에 primary-active가 있듯 글자용 어두운 변형을 따로 둔다 */
+  --success: #5db872;
+  --success-ink: #2f7d45;
+  --warning: #d4a017;
+  --warning-ink: #8a6410;
+  --error: #c64545;
+
+  /* 모양 */
+  --r-md: 8px;    /* 버튼 */
+  --r-lg: 12px;   /* 카드 */
+  --r-pill: 9999px;
+
+  /* 밴드 간격. 원문은 96px이지만 폰에서 보는 일정표라 줄였다 */
+  --band: 56px;
+
+  /* 라이선스 폰트라 받아올 수 없다. 한글은 원문 스택에 없어서 직접 넣었다.
+     iOS에는 한글 명조가 없어 제목 한글이 고딕으로 떨어질 수 있다 */
+  --font-serif: "Tiempos Headline", Copernicus, "Iowan Old Style", Charter,
+                Georgia, "Times New Roman", AppleMyungjo, "Nanum Myeongjo",
+                "Noto Serif KR", serif;
+  --font-sans: Inter, StyreneB, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #16151a; --fg: #eceaf2; --muted: #a09aa8; --line: #302e38;
-    --card: #1f1e25; --link: #8ab6ef;
-    --ok: #7fd9a4; --ok-bg: #1a3a28;
-    --todo: #a09aa8; --todo-bg: #2a2830;
-    --risk: #f0b972; --risk-bg: #3d2c14;
-  }
-}
+
 * { box-sizing: border-box; }
+
+/* 다크 푸터가 짧은 페이지에서도 바닥에 붙게 세로 flex로 둔다 */
 body {
-  margin: 0 auto; max-width: 44rem; padding: 0 16px 64px;
-  background: var(--bg); color: var(--fg);
-  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-        Pretendard, "Noto Sans KR", system-ui, sans-serif;
+  display: flex; flex-direction: column;
+  min-height: 100vh; min-height: 100dvh;
+  margin: 0; padding: 0;
+  background: var(--canvas); color: var(--body);
+  font: 400 16px/1.55 var(--font-sans);
   -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
 }
-a { color: var(--link); }
-.top { padding: 24px 0 8px; }
-.top h1 { margin: 0 0 4px; font-size: 1.5rem; letter-spacing: -.01em; }
-.back { display: inline-block; margin-bottom: 12px; font-size: .875rem; text-decoration: none; }
-.range { margin: 0; color: var(--muted); font-size: .9375rem; }
-.checked { display: inline-block; margin: 10px 0 0; padding: 3px 9px;
-           border-radius: 999px; font-size: .8125rem; }
-.checked.ok { background: var(--ok-bg); color: var(--ok); }
-.checked.todo { background: var(--todo-bg); color: var(--todo); }
+
+/* 본문은 하나의 에디토리얼 칼럼이다. 다크 푸터만 이 폭을 벗어난다.
+   body가 flex라 width:100%가 없으면 auto 마진이 블록을 내용 너비로 오그라뜨린다 */
+.top, .day, .places, .plans, .tabs, .empty, details.past {
+  width: 100%; max-width: 44rem; margin-left: auto; margin-right: auto;
+  padding-left: 20px; padding-right: 20px;
+}
+
+a { color: inherit; }
+/* 코랄 인라인 링크. 시스템에서 가장 눈에 띄는 작은 디테일이다 */
+.item .place a, .place-card dd a {
+  color: var(--primary); text-decoration: none;
+}
+.item .place a:active, .place-card dd a:active {
+  color: var(--primary-active); text-decoration: underline;
+}
+::selection { background: var(--surface-cream-strong); color: var(--ink); }
+:focus-visible {
+  outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 4px;
+}
+
+/* 세리프 400 + 음수 자간. 굵게 쓰지 않는다 */
+h1, h2, h3 {
+  font-family: var(--font-serif); font-weight: 400; color: var(--ink);
+}
+
+/* ── 머리말 ─────────────────────────────────────────── */
+.top { padding-top: 40px; padding-bottom: 8px; }
+.top h1 {
+  margin: 0; font-size: clamp(1.75rem, 7vw, 2.75rem);
+  line-height: 1.12; letter-spacing: -.025em;
+}
+.back {
+  display: inline-block; margin-bottom: 24px; padding: 9px 16px;
+  border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--canvas); color: var(--ink);
+  font-size: .875rem; font-weight: 500; line-height: 1; text-decoration: none;
+}
+.back:active { background: var(--surface-card); }
+.range { margin: 12px 0 0; color: var(--muted); font-size: 1rem; }
+
+.checked {
+  display: inline-block; margin: 16px 0 0; padding: 5px 12px;
+  border-radius: var(--r-pill); background: var(--surface-card);
+  font-size: .8125rem; font-weight: 500; line-height: 1.4;
+}
+.checked.ok { color: var(--success-ink); }
+.checked.todo { color: var(--warning-ink); }
 .empty { color: var(--muted); }
 
-.plans { margin: 16px 0 0; padding: 0; list-style: none; }
-.plans li { position: relative; margin-bottom: 10px; background: var(--card);
-            border: 1px solid var(--line); border-radius: 12px; }
-.plans a { display: block; padding: 14px 16px; color: inherit; text-decoration: none; }
-.plans .t { display: block; font-weight: 600; padding-right: 4.5rem; }
-.plans .d { display: block; margin-top: 2px; color: var(--muted); font-size: .875rem; }
-.plans .checked { position: absolute; top: 13px; right: 12px; margin: 0; }
-details.past { margin-top: 20px; }
-details.past summary { padding: 6px 0; color: var(--muted); font-size: .9375rem; cursor: pointer; }
+/* ── 플랜 목록 ──────────────────────────────────────── */
+.plans { display: grid; gap: 12px; margin: 28px 0 0; padding-top: 0; list-style: none; }
+.plans li {
+  position: relative; border-radius: var(--r-lg); background: var(--surface-card);
+}
+.plans a { display: block; padding: 20px; text-decoration: none; }
+.plans .t {
+  display: block; padding-right: 4.5rem;
+  font-family: var(--font-serif); font-size: 1.375rem; font-weight: 400;
+  line-height: 1.25; letter-spacing: -.02em; color: var(--ink);
+}
+.plans .d {
+  display: block; margin-top: 6px; color: var(--muted); font-size: .875rem;
+}
+.plans .checked {
+  position: absolute; top: 18px; right: 18px; margin: 0;
+  padding: 4px 10px; font-size: .75rem; background: var(--canvas);
+}
 
-.tabs { display: flex; gap: 8px; margin: 16px 0 4px; padding-bottom: 4px;
-        overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.tabs button { flex: 0 0 auto; padding: 7px 14px; border: 1px solid var(--line);
-               border-radius: 999px; background: var(--card); color: var(--muted);
-               font: inherit; font-size: .875rem; cursor: pointer; }
-.tabs button.on { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+/* 오늘 걸린 플랜은 다크로 반전한다. 시스템에서 다크 표면이 곧 강조다 */
+.plans li.now { background: var(--surface-dark); }
+.plans li.now .t { color: var(--on-dark); }
+.plans li.now .d { color: var(--on-dark-soft); }
+.plans li.now .checked { background: var(--surface-dark-elevated); }
+.plans li.now .checked.ok { color: var(--success); }
+.plans li.now .checked.todo { color: var(--warning); }
+.plans li.now .t::before {
+  content: ""; display: inline-block; width: 7px; height: 7px;
+  margin-right: 9px; border-radius: 50%; vertical-align: middle;
+  background: var(--accent-teal);
+}
 
-.day h2, .places h2 { margin: 24px 0 10px; color: var(--muted);
-                      font-size: 1rem; font-weight: 600; }
+details.past { margin-top: var(--band); }
+details.past summary {
+  display: inline-block; padding: 9px 16px;
+  border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--canvas); color: var(--ink);
+  font-size: .875rem; font-weight: 500; line-height: 1;
+  cursor: pointer; list-style: none;
+}
+details.past summary::-webkit-details-marker { display: none; }
+details.past .plans { margin-top: 16px; padding-left: 0; padding-right: 0; }
 
-.item { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
-.item .time { flex: 0 0 3.5rem; padding-top: 1px; font-weight: 600;
-              font-size: 1.0625rem; font-variant-numeric: tabular-nums; }
+/* ── 날짜 탭 ────────────────────────────────────────── */
+.tabs {
+  display: flex; gap: 6px; position: sticky; top: 0; z-index: 5;
+  margin-top: 32px; padding-top: 12px; padding-bottom: 12px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  background: var(--canvas); box-shadow: 0 1px 0 var(--hairline-soft);
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button {
+  flex: 0 0 auto; padding: 8px 14px; border: 0; border-radius: var(--r-md);
+  background: transparent; color: var(--muted);
+  font: 500 .875rem/1.4 var(--font-sans); cursor: pointer;
+}
+.tabs button.on { background: var(--surface-cream-strong); color: var(--ink); }
+
+/* ── 일정 ───────────────────────────────────────────── */
+.day, .places { padding-top: 0; }
+.day h2, .places h2 {
+  margin: var(--band) 0 4px;
+  font-size: clamp(1.375rem, 5vw, 1.75rem); line-height: 1.2; letter-spacing: -.02em;
+}
+.tabs + .day h2 { margin-top: 32px; }
+
+/* 카드로 감싸지 않는다. hairline 한 줄이 에디토리얼 리듬에 맞다 */
+.item { display: flex; gap: 16px; padding: 18px 0; }
+.item + .item { border-top: 1px solid var(--hairline-soft); }
+.item .time {
+  flex: 0 0 3.5rem; padding-top: 3px;
+  color: var(--muted-soft); font-size: .875rem; font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
 .item .body { flex: 1 1 auto; min-width: 0; }
-.item .label { font-weight: 600; }
-.item .place { margin-top: 1px; }
-.item .place a { text-decoration: none; border-bottom: 1px solid var(--line); }
-.item .status { display: inline-block; margin-top: 6px; padding: 2px 8px;
-                border-radius: 999px; font-size: .75rem; }
-.item .status.ok { background: var(--ok-bg); color: var(--ok); }
-.item .status.todo { background: var(--todo-bg); color: var(--todo); }
-.item .status.risk { background: var(--risk-bg); color: var(--risk); }
-.item .note { margin-top: 6px; color: var(--muted); font-size: .875rem; }
+.item .label { color: var(--ink); font-size: 1.125rem; font-weight: 500; line-height: 1.4; }
+.item .place { margin-top: 2px; font-size: 1rem; }
+.item .status {
+  display: inline-block; margin-top: 10px; padding: 4px 11px;
+  border-radius: var(--r-pill); background: var(--surface-card);
+  font-size: .8125rem; font-weight: 500; line-height: 1.4;
+}
+.item .status.ok { color: var(--success-ink); }
+.item .status.todo { color: var(--muted); }
+.item .status.risk { color: var(--warning-ink); }
+.item .note { margin-top: 8px; color: var(--muted); font-size: .875rem; }
 
-.place-card { margin-bottom: 10px; padding: 14px 16px; background: var(--card);
-              border: 1px solid var(--line); border-radius: 12px; scroll-margin-top: 12px; }
-.place-card h3 { margin: 0 0 8px; font-size: 1rem; }
-.place-card dl { display: grid; grid-template-columns: 4.5rem 1fr; gap: 4px 10px;
-                 margin: 0; font-size: .875rem; }
-.place-card dt { color: var(--muted); }
-.place-card dd { margin: 0; overflow-wrap: anywhere; }
-.map { display: inline-block; margin-top: 12px; padding: 8px 14px;
-       border: 1px solid var(--line); border-radius: 999px;
-       font-size: .875rem; text-decoration: none; }
+/* ── 장소 ───────────────────────────────────────────── */
+.places { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.places h2 { grid-column: 1 / -1; margin-bottom: 8px; }
+.place-card {
+  padding: 20px; border-radius: var(--r-lg); background: var(--surface-card);
+  scroll-margin-top: 72px;
+}
+.place-card:target { background: var(--surface-cream-strong); }
+.place-card h3 {
+  margin: 0 0 14px; font-size: 1.375rem; line-height: 1.25; letter-spacing: -.02em;
+}
+/* 라벨을 값 위에 올린다. 폰에서 2단으로 두면 값 칸이 좁아 계속 접힌다 */
+.place-card dl { margin: 0; }
+.place-card dt {
+  color: var(--muted-soft);
+  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: .09em;
+}
+.place-card dd { margin: 3px 0 0; color: var(--body); font-size: 1rem; overflow-wrap: anywhere; }
+.place-card dd + dt { margin-top: 14px; }
 
-.place-card strong, .item .note strong { font-weight: 600; color: var(--fg); }
-.place-card code, .item code { padding: 1px 4px; border-radius: 4px;
-                               background: var(--todo-bg); font-size: .9em; }
+/* button-secondary. 크림 카드 위라 캔버스 배경이 한 단 떠 보인다 */
+.map {
+  display: inline-block; margin-top: 18px; padding: 11px 20px;
+  border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--canvas); color: var(--ink);
+  font-size: .875rem; font-weight: 500; line-height: 1; text-decoration: none;
+}
+.map:active { background: var(--surface-cream-strong); }
+
+.place-card strong, .item .note strong { font-weight: 500; color: var(--ink); }
+.place-card code, .item code {
+  padding: 2px 5px; border-radius: 4px; background: var(--canvas);
+  font-family: var(--font-mono); font-size: .875em;
+}
+
+/* ── 다크 푸터. 페이지를 닫는 밴드이고 절대 반전하지 않는다 ── */
+.foot {
+  /* auto가 짧은 페이지에서 바닥으로 밀고, 크림 테두리가 최소 간격을 보장한다 */
+  margin-top: auto; border-top: var(--band) solid var(--canvas);
+  /* 다크 배경이 테두리 밑까지 깔리면 경계에 1px 이음매가 생긴다 */
+  background-clip: padding-box;
+  padding: 48px 20px;
+  background: var(--surface-dark); color: var(--on-dark-soft);
+  font-size: .875rem;
+}
+.foot span {
+  display: block; max-width: 44rem; margin: 0 auto; color: var(--on-dark);
+}
+/* 콘텐츠 마커로 쓰는 방사형 글리프. 막대 세 개를 겹쳐 그린다 */
+.foot span::before {
+  content: ""; display: inline-block; width: 13px; height: 13px;
+  margin-right: 10px; vertical-align: -2px;
+  background:
+    linear-gradient(currentColor 0 0) center / 2px 100% no-repeat,
+    linear-gradient(60deg, transparent 43%, currentColor 43% 57%, transparent 57%),
+    linear-gradient(120deg, transparent 43%, currentColor 43% 57%, transparent 57%);
+}
+
+/* ── 반응형 ─────────────────────────────────────────── */
+@media (min-width: 700px) {
+  :root { --band: 88px; }
+  .places { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .place-card, .plans a { padding: 24px; }
+  .plans .checked { top: 22px; right: 22px; }
+  .top { padding-top: 64px; }
+}
+@media (max-width: 380px) {
+  .item { gap: 12px; }
+  .item .time { flex-basis: 3rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
 </style>
 </head>
 <body>
@@ -128,6 +322,7 @@ details.past summary { padding: 6px 0; color: var(--muted); font-size: .9375rem;
 <article class="place-card" id="place-7"><h3>익선공방</h3><dl><dt>주소</dt><dd>서울특별시 종로구 삼일대로26길 25, 1층 (익선동 골목 안)</dd><dt>영업시간</dt><dd><strong>아직 못 알아봤어요</strong></dd><dt>가격</dt><dd>40,000/인 — 천연향수예요. 블로그 기준인데 공방 메뉴판에는 &quot;변동&quot;이라 <strong>한 번 물어보는 게 좋아요</strong> 다른 클래스: 키링 20,000 / 감정아로마 30,000 / 써지컬 액세서리 30,000 / 레인보우향초 30,000 / 하바리움 30,000 / 스테인드 아크릴 35,000</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%9D%B5%EC%84%A0%EB%8F%99%20%EC%9D%B5%EC%84%A0%EA%B3%B5%EB%B0%A9">지도에서 열기</a></article>
 <article class="place-card" id="place-8"><h3>충무로 숙소</h3><dl><dt>주소</dt><dd>서울특별시 중구 충무로 21-19</dd><dt>가격</dt><dd>0 — 회사가 지원해 줘서 데이트 예산에 안 들어가요</dd></dl><a class="map" href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%A4%91%EA%B5%AC%20%EC%B6%A9%EB%AC%B4%EB%A1%9C%2021-19">지도에서 열기</a></article>
 </section>
+<footer class="foot"><span>데이트 플랜</span></footer>
 <script>(function () {
   // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
   var now = new Date();
@@ -137,6 +332,13 @@ details.past summary { padding: 6px 0; color: var(--muted); font-size: .9375rem;
 
   var list = document.getElementById('plans');
   if (list) {
+    // 오늘 걸린 플랜은 '재생 중'으로 표시한다. 빌드 시각이 아니라 볼 때 정해진다.
+    Array.prototype.forEach.call(list.children, function (li) {
+      if (li.dataset.start <= today && today <= li.dataset.end) {
+        li.classList.add('now');
+      }
+    });
+
     var past = Array.prototype.filter.call(list.children, function (li) {
       return li.dataset.end < today;
     });
