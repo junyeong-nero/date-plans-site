@@ -723,7 +723,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "fa23cc5803c94917405ddbafac62d8104797c553bef7ab1422a2885a2af7b139",
+      "fingerprint": "681087fbd7e0a174e9fffaba0d729a135060aa1ea0d0eabba74f7833688365c3",
       "rows": [
         {
           "id": "0:0",
@@ -733,8 +733,7 @@
         {
           "id": "0:1",
           "categories": [
-            "walk",
-            "culture"
+            "walk"
           ],
           "cuisine": null
         },
@@ -797,16 +796,16 @@
         {
           "id": "2:0",
           "categories": [
-            "play"
+            "food"
           ],
-          "cuisine": null
+          "cuisine": "other"
         },
         {
           "id": "2:1",
           "categories": [
-            "food"
+            "cafe"
           ],
-          "cuisine": "other"
+          "cuisine": null
         },
         {
           "id": "2:2",
@@ -816,31 +815,38 @@
           "cuisine": "other"
         },
         {
-          "id": "2:3",
+          "id": "3:0",
           "categories": [],
           "cuisine": null
         },
         {
-          "id": "3:0",
+          "id": "3:1",
           "categories": [
-            "play"
+            "stay"
           ],
           "cuisine": null
         },
         {
-          "id": "3:1",
+          "id": "3:2",
           "categories": [
             "food"
           ],
           "cuisine": "other"
         },
         {
-          "id": "3:2",
+          "id": "3:3",
+          "categories": [
+            "play"
+          ],
+          "cuisine": null
+        },
+        {
+          "id": "3:4",
           "categories": [],
           "cuisine": null
         },
         {
-          "id": "3:3",
+          "id": "3:5",
           "categories": [
             "food"
           ],
@@ -877,7 +883,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "chinese"
+          "cuisine": "other"
         },
         {
           "id": "4:5",
@@ -951,7 +957,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-13T13:59:14.338790+00:00",
+      "generated_at": "2026-09-13T14:05:02.795818+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"경복궁\", \"walk\"]",
@@ -959,15 +965,6 @@
           "name": "경복궁",
           "activity": "야간 궁궐",
           "category": "walk",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-02\", \"경복궁\", \"culture\"]",
-          "date": "2026-10-02",
-          "name": "경복궁",
-          "activity": "야간 궁궐",
-          "category": "culture",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1044,21 +1041,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"에버랜드\", \"play\"]",
-          "date": "2026-10-04",
-          "name": "에버랜드",
-          "activity": "에버랜드",
-          "category": "play",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-04\", \"미정\", \"food\", \"2:1\"]",
+          "key": "[\"2026-10-04\", \"미정\", \"food\", \"2:0\"]",
           "date": "2026-10-04",
           "name": "미정",
           "activity": "점심",
           "category": "food",
           "cuisine": "other",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-04\", \"미정\", \"cafe\", \"2:1\"]",
+          "date": "2026-10-04",
+          "name": "미정",
+          "activity": "카페",
+          "category": "cafe",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1071,16 +1068,16 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-05\", \"캐리비안베이\", \"play\"]",
+          "key": "[\"2026-10-05\", \"캐리비안베이\", \"stay\"]",
           "date": "2026-10-05",
           "name": "캐리비안베이",
           "activity": "캐리비안베이",
-          "category": "play",
+          "category": "stay",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-05\", \"미정\", \"food\", \"3:1\"]",
+          "key": "[\"2026-10-05\", \"미정\", \"food\", \"3:2\"]",
           "date": "2026-10-05",
           "name": "미정",
           "activity": "점심",
@@ -1089,10 +1086,19 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-05\", \"미정\", \"food\", \"3:3\"]",
+          "key": "[\"2026-10-05\", \"에버랜드\", \"play\"]",
+          "date": "2026-10-05",
+          "name": "에버랜드",
+          "activity": "에버랜드",
+          "category": "play",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-05\", \"미정\", \"food\", \"3:5\"]",
           "date": "2026-10-05",
           "name": "미정",
-          "activity": "저녁",
+          "activity": "늦은 저녁",
           "category": "food",
           "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
@@ -1130,7 +1136,7 @@
           "name": "미정",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "chinese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
