@@ -150,9 +150,10 @@
     const top = cuisines.filter(([id]) => totals.get(id) > 0)
       .sort((a, b) => totals.get(b[0]) - totals.get(a[0])).slice(0, 3);
     if (!top.some(([id]) => id === selectedCuisine)) selectedCuisine = 'all';
+    const largest = Math.max(1, ...totals.values());
     $('cuisine-board').innerHTML = `<button type="button" class="category-all" data-cuisine="all" aria-pressed="${selectedCuisine === 'all'}" aria-controls="cuisine-visits">음식 전체 <strong>${entries.length}회</strong></button>` + top.map(([id, label]) => {
       const count = totals.get(id);
-      return `<button type="button" class="category-tile" data-cuisine="${id}" aria-pressed="${selectedCuisine === id}" aria-controls="cuisine-visits"><span>${label}</span><strong>${count}<small>회</small></strong></button>`;
+      return `<button type="button" class="category-tile" data-cuisine="${id}" aria-pressed="${selectedCuisine === id}" aria-controls="cuisine-visits"><span>${label}</span><strong>${count}<small>회</small></strong><span class="category-track" aria-hidden="true"><span style="width:${count / largest * 100}%"></span></span></button>`;
     }).join('');
     const filtered = selectedCuisine === 'all' ? entries : entries.filter(a => a.cuisine === selectedCuisine);
     const label = selectedCuisine === 'all' ? '음식 전체' : cuisines.find(c => c[0] === selectedCuisine)[1];
