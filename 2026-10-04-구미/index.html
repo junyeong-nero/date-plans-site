@@ -474,21 +474,15 @@ body:not(.explorer-ready) .map-pane { display: none; }
       }
     });
 
-    var past = Array.prototype.filter.call(list.children, function (li) {
-      return li.dataset.end < today;
+    Array.prototype.forEach.call(list.children, function (li) {
+      if (li.dataset.end < today) {
+        li.classList.add('past-plan');
+        var badge = document.createElement('span');
+        badge.className = 'past-label';
+        badge.textContent = '지난 일정';
+        li.querySelector('a').prepend(badge);
+      }
     });
-    if (past.length && past.length < list.children.length) {
-      var box = document.createElement('details');
-      box.className = 'past';
-      var summary = document.createElement('summary');
-      summary.textContent = '지난 플랜 ' + past.length + '개';
-      var ul = document.createElement('ul');
-      ul.className = 'plans';
-      past.forEach(function (li) { ul.appendChild(li); });
-      box.appendChild(summary);
-      box.appendChild(ul);
-      list.parentNode.insertBefore(box, list.nextSibling);
-    }
   }
 
   var tabs = document.querySelector('[data-tabs]');
