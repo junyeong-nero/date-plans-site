@@ -386,9 +386,17 @@ body:not(.explorer-ready) .map-pane { display: none; }
 @media (prefers-reduced-motion: reduce) { .day .item.selected .body { transform: none; } }
 .explorer-ready .list-scroll[data-timeline-view="schedule"] .tabs { scroll-snap-align: start; }
 </style>
+<link rel="stylesheet" href="assets/dashboard.css">
+<script src="assets/dashboard.js" defer></script>
 </head>
 <body>
 <header class="top"><h1>데이트 플랜</h1><p class="range">함께할 하루, 일정과 장소를 한눈에 봐요.</p></header>
+<nav class="home-switch" aria-label="메인 화면" hidden>
+<button type="button" data-home-view="schedule" aria-pressed="true" aria-controls="schedule-view">일정</button>
+<button type="button" data-home-view="records" aria-pressed="false" aria-controls="records-view">우리의 기록</button>
+</nav>
+<main>
+<section id="schedule-view" aria-label="데이트 일정">
 <ul class="plans" id="plans">
 <li data-start="2026-10-04" data-end="2026-10-09"><a href="2026-10-04-%EA%B5%AC%EB%AF%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">연휴 5박 6일 — 구미·대구·부산 그리고 서울</span><span class="d">2026년 10월 4일 (일) – 10/9 (금) · 25개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 <li data-start="2026-09-19" data-end="2026-09-19"><a href="2026-09-19-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">해방촌 토터스와 남산 생일 데이트</span><span class="d">2026년 9월 19일 (토) · 12개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
@@ -397,6 +405,18 @@ body:not(.explorer-ready) .map-pane { display: none; }
 <li data-start="2026-08-29" data-end="2026-08-30"><a href="2026-08-29-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">충무로·종로·익선동 1박 2일</span><span class="d">2026년 8월 29일 (토) – 8/30 (일) · 9개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 <li data-start="2026-08-22" data-end="2026-08-22"><a href="2026-08-22-%EC%84%9C%EC%9A%B8/"><span class="t">압구정 데이트</span><span class="d">2026년 8월 22일 (토) · 6개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 </ul>
+</section>
+<section id="records-view" class="records" aria-label="우리의 기록" hidden>
+<div class="records-heading"><div><p class="eyebrow">함께 쌓은 시간</p><h2>우리의 데이트 결산</h2></div><label class="period-label">기간<select id="record-period" aria-label="기록 기간"></select></label></div>
+<p class="record-note">오늘까지의 모든 계획을 바탕으로 함께한 시간과 장소를 돌아봐요.</p>
+<p id="record-status" role="status">일정을 불러오고 있어요.</p>
+<button id="records-retry" type="button" class="soft-button" hidden>다시 불러오기</button>
+<div id="record-stats" class="record-stats" aria-live="polite"></div>
+<section class="record-card"><h3>함께 다녀온 곳</h3><p id="map-status" class="record-note"></p><div id="record-map" hidden aria-label="방문 장소 지도"></div><button id="map-retry" class="soft-button" type="button" hidden>지도 다시 불러오기</button><div id="visited-places" class="visited-places"></div></section>
+<div class="ranking-grid"><section class="record-card"><h3>자주 간 지역</h3><ol id="region-ranking" class="ranking"></ol></section><section class="record-card"><h3>우리의 단골 장소</h3><ol id="place-ranking" class="ranking"></ol></section></div>
+<section class="record-card"><h3 id="timeline-heading">월별 함께한 날</h3><div id="record-timeline"></div></section>
+</section>
+</main>
 <script>(function () {
   // 정적 사이트라 '오늘'을 빌드 시각으로 굳히면 다음 배포까지 상한다. 볼 때 정한다.
   var now = new Date();
@@ -413,21 +433,15 @@ body:not(.explorer-ready) .map-pane { display: none; }
       }
     });
 
-    var past = Array.prototype.filter.call(list.children, function (li) {
-      return li.dataset.end < today;
+    Array.prototype.forEach.call(list.children, function (li) {
+      if (li.dataset.end < today) {
+        li.classList.add('past-plan');
+        var badge = document.createElement('span');
+        badge.className = 'past-label';
+        badge.textContent = '지난 일정';
+        li.querySelector('a').prepend(badge);
+      }
     });
-    if (past.length && past.length < list.children.length) {
-      var box = document.createElement('details');
-      box.className = 'past';
-      var summary = document.createElement('summary');
-      summary.textContent = '지난 플랜 ' + past.length + '개';
-      var ul = document.createElement('ul');
-      ul.className = 'plans';
-      past.forEach(function (li) { ul.appendChild(li); });
-      box.appendChild(summary);
-      box.appendChild(ul);
-      list.parentNode.insertBefore(box, list.nextSibling);
-    }
   }
 
   var tabs = document.querySelector('[data-tabs]');

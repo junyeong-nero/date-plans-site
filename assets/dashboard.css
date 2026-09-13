@@ -30,14 +30,10 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
 .ranking li { display: flex; gap: 10px; justify-content: space-between; align-items: baseline; padding: 10px 0; font-size: 13px; }
 .ranking li span { color: var(--blue-600); white-space: nowrap; }
 .empty-record { color: var(--grey-600); font-size: 13px; padding: 12px 0; }
-.visit-day { border-top: 1px solid var(--grey-100); padding: 16px 0; }
-.visit-day:last-child { padding-bottom: 0; }
-.visit-day label { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; cursor: pointer; }
-.visit-day input { width: 18px; height: 18px; accent-color: var(--blue-500); flex-shrink: 0; }
-.visit-day a { display: block; color: var(--blue-600); font-size: 13px; margin: 4px 0 8px 28px; }
-.visit-day summary { color: var(--grey-600); font-size: 12px; padding: 8px 0; cursor: pointer; }
-.visit-day details label { font-size: 13px; }
-.bar-row { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 12px; margin: 12px 0; font-size: 12px; color: var(--grey-600); }
-.bar-track { background: var(--grey-100); border-radius: 5px; overflow: hidden; height: 10px; }
-.bar-fill { background: var(--blue-500); height: 100%; border-radius: 5px; }
 @media (max-width: 420px) { .ranking-grid { grid-template-columns: 1fr; gap: 0; } .records-heading { align-items: flex-start; } .records h2 { font-size: 21px; } .record-card { padding: 16px; } }
+.month-chart { display: block; width: 100%; height: auto; overflow: visible; }
+.month-chart text { fill: var(--grey-600); font: 10px var(--font); }
+.month-chart .chart-value { fill: var(--blue-600); font-weight: 600; }
+.chart-grid { stroke: var(--grey-200); stroke-width: 1; stroke-dasharray: 3 4; }
+.chart-line { fill: none; stroke: var(--blue-500); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.chart-dot { fill: white; stroke: var(--blue-500); stroke-width: 2; }

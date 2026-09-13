@@ -1,26 +1,17 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  const storageKey = 'date-plans-visits-v1';
   const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul' }).format(new Date());
   const plans = Array.from(document.querySelectorAll('#plans > li'), node => ({
     start: node.dataset.start, end: node.dataset.end,
     url: node.querySelector('a').getAttribute('href'), title: node.querySelector('.t').textContent
   }));
-  let visits = {}, days = [], loaded = false, loading = false, map, markers = [], mapLoading, revision = 0;
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
-    if (saved && typeof saved === 'object' && !Array.isArray(saved)) visits = saved;
-  } catch { $('storage-note').textContent = '저장된 기록을 읽지 못했어요. 브라우저의 저장 설정을 확인해주세요.'; }
+  let days = [], loaded = false, loading = false, map, markers = [], mapLoading, revision = 0;
   const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
   const identity = p => p.name.replace(/\s/g, '') + '|' + p.address.replace(/\s/g, '');
   const inPeriod = date => date.startsWith($('record-period').value);
-  const selectedPlaces = day => day.places.filter(p => Array.isArray(visits[day.id]?.places) && visits[day.id].places.includes(p.key));
-  const isDone = day => day.date <= today && visits[day.id]?.done === true;
-  function save() {
-    try { localStorage.setItem(storageKey, JSON.stringify(visits)); }
-    catch { $('storage-note').textContent = '기록을 저장하지 못했어요. 지금 변경한 내용은 페이지를 닫으면 사라질 수 있어요.'; }
-  }
+  const visitedPlaces = day => day.places.filter(p => !p.transport);
+  const isDone = day => day.date <= today;
   async function load() {
     if (loaded || loading) return;
     loading = true; $('records-retry').hidden = true;
@@ -55,7 +46,7 @@
     days = results.filter(r => r.status === 'fulfilled').flatMap(r => r.value).sort((a,b) => a.date.localeCompare(b.date));
     const failures = results.filter(r => r.status === 'rejected').length;
     loaded = failures === 0; loading = false;
-    $('record-status').textContent = failures ? `${failures}개 일정을 불러오지 못했어요. 현재 요약에는 불러온 일정만 포함돼요.` : '방문 완료로 표시한 날짜와 선택한 장소만 집계해요.';
+    $('record-status').textContent = failures ? `${failures}개 일정을 불러오지 못했어요. 현재 요약에는 불러온 일정만 포함돼요.` : '오늘까지의 모든 일정을 다녀온 것으로 집계해요. 역·터미널 등 이동 장소는 제외해요.';
     $('records-retry').hidden = !failures;
     const previous = $('record-period').value;
     const months = [...new Set(days.map(d => d.date.slice(0,7)))].sort().reverse();
@@ -67,7 +58,7 @@
   }
   function aggregate(records) {
     const places = new Map(), regions = new Map();
-    records.forEach(day => selectedPlaces(day).forEach(p => {
+    records.forEach(day => visitedPlaces(day).forEach(p => {
       if (!places.has(p.key)) places.set(p.key, { ...p, dates: new Set(), url: day.plan.url });
       places.get(p.key).dates.add(day.date);
       if (p.region !== '지역 미상') {
@@ -81,9 +72,9 @@
     const complete = days.filter(isDone), current = complete.filter(d => inPeriod(d.date));
     const data = aggregate(current);
     const firstVisits = new Map();
-    complete.forEach(d => selectedPlaces(d).forEach(p => { if (!firstVisits.has(p.key)) firstVisits.set(p.key, d.date); }));
+    complete.forEach(d => visitedPlaces(d).forEach(p => { if (!firstVisits.has(p.key)) firstVisits.set(p.key, d.date); }));
     const fresh = data.places.filter(p => inPeriod(firstVisits.get(p.key))).length;
-    const cards = [ ['함께한 날', new Set(current.map(d => d.date)).size + '일', '같은 날짜는 한 번만'], ['방문한 장소', data.places.length + '곳', '중복 장소 제외'], ['처음 기록한 곳', fresh + '곳', '저장된 전체 방문 기록 기준'], ['자주 간 지역', data.regions[0]?.[0] || '아직 없어요', data.regions.length ? data.regions[0][1].size + '일 함께했어요' : '방문 기록을 남겨주세요'] ];
+    const cards = [ ['함께한 날', new Set(current.map(d => d.date)).size + '일', '같은 날짜는 한 번만'], ['방문한 장소', data.places.length + '곳', '중복 장소 제외'], ['처음 기록한 곳', fresh + '곳', '전체 일정의 방문 기록 기준'], ['자주 간 지역', data.regions[0]?.[0] || '아직 없어요', data.regions.length ? data.regions[0][1].size + '일 함께했어요' : '이 기간의 방문 지역이 없어요'] ];
     $('record-stats').innerHTML = cards.map(([label, value, note]) => `<div class="stat"><span>${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(note)}</small></div>`).join('');
     $('region-ranking').innerHTML = data.regions.slice(0,3).map(([name, dates]) => `<li>${esc(name)}<span>${dates.size}일</span></li>`).join('') || '<li class="empty-record">다녀온 지역이 여기에 모여요.</li>';
     $('place-ranking').innerHTML = data.places.slice(0,3).map(p => `<li><a href="${esc(p.url)}">${esc(p.name)}</a><span>${p.dates.size}일</span></li>`).join('') || '<li class="empty-record">우리의 단골을 발견해봐요.</li>';
@@ -91,37 +82,15 @@
     const year = $('record-period').value.slice(0,4);
     $('timeline-heading').textContent = year + '년 월별 함께한 날';
     const counts = Array.from({length:12}, (_,i) => new Set(complete.filter(d => d.date.startsWith(year + '-' + String(i+1).padStart(2,'0'))).map(d => d.date)).size);
-    const max = Math.max(1, ...counts);
-    $('record-timeline').innerHTML = counts.map((n,i) => `<div class="bar-row"><span>${i+1}월</span><div class="bar-track" aria-hidden="true"><div class="bar-fill" style="width:${n/max*100}%"></div></div><span>${n}일</span></div>`).join('');
-    renderEditor();
+    const max = Math.max(2, Math.ceil(Math.max(...counts) / 2) * 2);
+    const x = i => 28 + i * 28;
+    const y = n => 146 - n / max * 112;
+    const description = counts.map((n, i) => `${i + 1}월 ${n}일`).join(', ');
+    const grid = [0, max / 2, max].map(n => `<line x1="28" y1="${y(n)}" x2="336" y2="${y(n)}" class="chart-grid"/><text x="20" y="${y(n) + 3}" text-anchor="end">${n}</text>`).join('');
+    const points = counts.map((n, i) => `${x(i)},${y(n)}`).join(' ');
+    $('record-timeline').innerHTML = `<svg class="month-chart" viewBox="0 0 360 180" role="img" aria-labelledby="month-chart-title month-chart-desc"><title id="month-chart-title">${year}년 월별 함께한 날</title><desc id="month-chart-desc">${description}. 가로축은 월, 세로축은 함께한 날 수입니다.</desc><text x="8" y="16">일</text>${grid}<polyline points="${points}" class="chart-line"/>${counts.map((n, i) => `<circle cx="${x(i)}" cy="${y(n)}" r="3.5" class="chart-dot"/><text x="${x(i)}" y="${y(n) - 10}" text-anchor="middle" class="chart-value">${n}</text><text x="${x(i)}" y="168" text-anchor="middle">${i + 1}월</text>`).join('')}</svg>`;
     drawMap(data.places);
   }
-  function renderEditor() {
-    const current = days.filter(d => inPeriod(d.date));
-    $('record-editor').innerHTML = current.map(day => {
-      const index = days.indexOf(day), future = day.date > today, done = isDone(day);
-      return `<div class="visit-day"><label><input type="checkbox" data-day-index="${index}" ${done ? 'checked' : ''} ${future ? 'disabled' : ''}>${esc(day.date)}${future ? ' · 예정' : ' · 다녀왔어요'}</label><a href="${esc(day.plan.url)}">${esc(day.plan.title)} ↗</a>${day.places.length ? `<details><summary>방문 장소 조정 · ${done ? selectedPlaces(day).length : 0}/${day.places.length}곳</summary>${day.places.map((p,pi) => `<label><input type="checkbox" data-place-day="${index}" data-place-index="${pi}" ${done && selectedPlaces(day).some(s => s.key === p.key) ? 'checked' : ''} ${!done ? 'disabled' : ''}>${esc(p.name)}${p.transport ? ' (이동)' : ''}</label>`).join('')}</details>` : '<p class="record-note">등록된 장소가 없어 함께한 날만 기록해요.</p>'}</div>`;
-    }).join('') || '<p class="empty-record">이 기간에는 등록된 일정이 없어요.</p>';
-  }
-  $('record-editor').addEventListener('change', event => {
-    const input = event.target;
-    if (!input.matches('input')) return;
-    const index = Number(input.dataset.dayIndex ?? input.dataset.placeDay), day = days[index];
-    if (!day || day.date > today) return;
-    if ('dayIndex' in input.dataset) {
-      visits[day.id] = { done: input.checked, places: visits[day.id]?.places || day.places.filter(p => !p.transport).map(p => p.key) };
-    } else {
-      const key = day.places[Number(input.dataset.placeIndex)].key;
-      const keys = new Set(visits[day.id].places);
-      input.checked ? keys.add(key) : keys.delete(key);
-      visits[day.id].places = [...keys];
-    }
-    const expanded = [...$('record-editor').querySelectorAll('details')].map(d => d.open);
-    const selector = 'dayIndex' in input.dataset ? `[data-day-index="${index}"]` : `[data-place-day="${index}"][data-place-index="${input.dataset.placeIndex}"]`;
-    save(); render();
-    $('record-editor').querySelectorAll('details').forEach((d,i) => { d.open = expanded[i]; });
-    $('record-editor').querySelector(selector)?.focus({ preventScroll: true });
-  });
   async function ensureMap() {
     if (window.kakao?.maps?.Map) return;
     if (!mapLoading) mapLoading = new Promise((resolve, reject) => {
@@ -145,7 +114,7 @@
     $('map-retry').hidden = true;
     $('record-map').hidden = !located.length;
     if (!located.length) {
-      $('map-status').textContent = places.length ? '좌표가 등록된 장소가 없어요. 아래 장소를 누르면 일정을 볼 수 있어요.' : '아직 남긴 방문 기록이 없어요. 아래에서 다녀온 날짜를 체크해보세요.';
+      $('map-status').textContent = places.length ? '좌표가 등록된 장소가 없어요. 아래 장소를 누르면 일정을 볼 수 있어요.' : '이 기간에는 오늘까지 다녀온 장소가 없어요. 다른 기간을 선택해보세요.';
       return;
     }
     $('map-status').textContent = '방문 지도를 불러오고 있어요.';
@@ -188,9 +157,5 @@
   $('record-period').addEventListener('change', render);
   $('records-retry').addEventListener('click', load);
   $('map-retry').addEventListener('click', render);
-  window.addEventListener('storage', event => {
-    if (event.key !== storageKey && event.key !== null) return;
-    try { const value = JSON.parse(event.newValue || '{}'); visits = value && typeof value === 'object' && !Array.isArray(value) ? value : {}; if (loaded) render(); } catch { /* Preserve current records if another tab writes malformed data. */ }
-  });
   showView(location.hash === '#records' ? 'records' : 'schedule');
 })();
