@@ -176,16 +176,11 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 
 /* ── 날짜 선택 (segmented-control) ──────────────────── */
 .tabs {
-  display: flex; gap: 4px; overflow-x: auto; position: sticky; top: 0; z-index: 5;
-  margin-top: 20px; padding-top: 16px; padding-bottom: 16px;
-  background: var(--bg-primary);
-}
-.tabs::before {
-  content: ""; position: absolute; inset: 12px var(--gutter);
+  display: flex; gap: 4px; padding: 4px;
   border-radius: var(--r-m); background: var(--fill-secondary);
 }
 .tabs button {
-  position: relative; flex: 1 0 auto; min-width: 88px; min-height: 44px; padding: 0 12px;
+  position: relative; flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
   border: 0; border-radius: var(--r-s); background: transparent;
   color: var(--text-secondary);
   font: 600 .8125rem/1.25 var(--font); letter-spacing: 0;
@@ -328,9 +323,8 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .view-tabs button { flex: 1; min-height: 44px; border: 0; border-radius: var(--r-s); background: transparent; font: 600 15px var(--font); color: var(--text-secondary); cursor: pointer; }
 .view-tabs button[aria-pressed="true"] { background: var(--bg-primary); color: var(--text-primary); box-shadow: var(--shadow-1); }
 .explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
-.explorer .day, .explorer .places, .explorer .tabs { max-width: none; width: 100%; }
-.explorer .tabs { flex-shrink: 0; position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
-.explorer .tabs::before { inset: 0 var(--gutter) 4px; }
+.explorer .day, .explorer .places { max-width: none; width: 100%; }
+.explorer .tabs { flex-shrink: 0; max-width: none; margin: 0 20px 8px; }
 .explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
 .explorer .route-note { margin: 8px 0 12px; }
 .item.selected, .place-card.selected { background: var(--blue-50); }
