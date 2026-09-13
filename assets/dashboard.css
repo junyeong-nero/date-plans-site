@@ -1,0 +1,43 @@
+[hidden] { display: none !important; }
+.home-switch { max-width: 38rem; margin: 4px auto 24px; padding: 0 var(--gutter); display: flex; gap: 8px; }
+.home-switch button { flex: 1; border: 0; border-radius: 14px; padding: 13px 18px; background: var(--grey-100); color: var(--text-secondary); font: 600 15px var(--font); cursor: pointer; }
+.home-switch button[aria-pressed="true"] { background: var(--blue-500); color: white; }
+button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--blue-500); outline-offset: 3px; }
+.plans li.past-plan { background: #f8f9fb; border: 1px solid var(--grey-100); }
+.plans .past-plan .t { color: var(--grey-600); }
+.plans .past-plan .d, .plans .past-plan .plan-arrow { color: var(--grey-600); }
+.past-label { display: inline-block; font-size: 12px; font-weight: 600; color: var(--grey-600); background: var(--grey-100); padding: 3px 8px; border-radius: 6px; margin: 0 8px 10px 0; }
+.records { max-width: 38rem; margin: auto; padding: 0 var(--gutter); }
+.records-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.records h2 { font-size: 24px; letter-spacing: -.04em; margin: 4px 0; }
+.eyebrow { color: var(--blue-600); font-size: 12px; font-weight: 700; margin: 0; }
+.period-label { color: var(--grey-600); font-size: 12px; display: grid; gap: 4px; flex-shrink: 0; }
+.period-label select { font: 600 14px var(--font); border: 1px solid var(--grey-200); background: white; padding: 10px; border-radius: 10px; color: var(--text-primary); max-width: 150px; }
+.record-note { color: var(--grey-600); font-size: 13px; line-height: 1.65; margin: 10px 0 16px; }
+#record-status { color: var(--grey-600); font-size: 13px; }
+.record-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 24px 0; }
+.stat { background: var(--blue-50); border-radius: 18px; padding: 19px; }
+.stat span { display: block; color: var(--text-secondary); font-size: 13px; }
+.stat strong { display: block; font-size: 27px; color: var(--blue-600); margin: 6px 0 2px; overflow-wrap: anywhere; }
+.stat small { color: var(--grey-600); font-size: 11px; }
+.record-card { border: 1px solid var(--grey-200); border-radius: 20px; padding: 20px; margin-bottom: 16px; min-width: 0; }
+.record-card h3 { font-size: 17px; margin: 0 0 12px; }
+#record-map { height: 300px; border-radius: 12px; background: var(--grey-50); }
+.visited-places { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.visited-places a, .soft-button { border: 0; border-radius: 8px; padding: 9px 12px; background: var(--grey-100); color: var(--text-secondary); font: 500 12px var(--font); cursor: pointer; }
+.ranking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ranking { list-style: none; margin: 0; padding: 0; }
+.ranking li { display: flex; gap: 10px; justify-content: space-between; align-items: baseline; padding: 10px 0; font-size: 13px; }
+.ranking li span { color: var(--blue-600); white-space: nowrap; }
+.empty-record { color: var(--grey-600); font-size: 13px; padding: 12px 0; }
+.visit-day { border-top: 1px solid var(--grey-100); padding: 16px 0; }
+.visit-day:last-child { padding-bottom: 0; }
+.visit-day label { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: 14px; cursor: pointer; }
+.visit-day input { width: 18px; height: 18px; accent-color: var(--blue-500); flex-shrink: 0; }
+.visit-day a { display: block; color: var(--blue-600); font-size: 13px; margin: 4px 0 8px 28px; }
+.visit-day summary { color: var(--grey-600); font-size: 12px; padding: 8px 0; cursor: pointer; }
+.visit-day details label { font-size: 13px; }
+.bar-row { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 12px; margin: 12px 0; font-size: 12px; color: var(--grey-600); }
+.bar-track { background: var(--grey-100); border-radius: 5px; overflow: hidden; height: 10px; }
+.bar-fill { background: var(--blue-500); height: 100%; border-radius: 5px; }
+@media (max-width: 420px) { .ranking-grid { grid-template-columns: 1fr; gap: 0; } .records-heading { align-items: flex-start; } .records h2 { font-size: 21px; } .record-card { padding: 16px; } }
