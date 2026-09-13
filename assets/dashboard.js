@@ -17,7 +17,6 @@
     ['walk', '산책·나들이'], ['culture', '전시·공연'], ['escape', '방탈출·체험'],
     ['play', '만화·게임·노래방'], ['drink', '술·바'], ['stay', '숙박·휴식'], ['other', '기타']
   ];
-  const categoryOrder = categories.map(c => c[0]);
   const cuisines = [['korean', '한식'], ['chinese', '중식'], ['japanese', '일식'],
     ['western', '양식'], ['asian', '동남아'], ['other', '기타 음식']];
   let selectedCategory = 'all', selectedCuisine = 'all';
@@ -124,9 +123,12 @@
     const entries = [...new Map(records.flatMap(day => day.activities).map(a => [a.key, a])).values()]
       .sort((a, b) => b.date.localeCompare(a.date) || a.name.localeCompare(b.name, 'ko'));
     const totals = new Map(categories.map(([id]) => [id, entries.filter(a => a.category === id).length]));
+    const top = categories.filter(([id]) => totals.get(id) > 0)
+      .sort((a, b) => totals.get(b[0]) - totals.get(a[0])).slice(0, 3);
+    if (!top.some(([id]) => id === selectedCategory)) selectedCategory = 'all';
     const largest = Math.max(1, ...totals.values());
-    $('category-board').innerHTML = `<button type="button" class="category-all" data-category="all" aria-pressed="${selectedCategory === 'all'}" aria-controls="category-visits">전체 <strong>${entries.length}회</strong></button>` + categoryOrder.map(id => {
-      const category = categories.find(c => c[0] === id), count = totals.get(id);
+    $('category-board').innerHTML = `<button type="button" class="category-all" data-category="all" aria-pressed="${selectedCategory === 'all'}" aria-controls="category-visits">전체 <strong>${entries.length}회</strong></button>` + top.map(category => {
+      const id = category[0], count = totals.get(id);
       return `<button type="button" class="category-tile" data-category="${id}" aria-pressed="${selectedCategory === id}" aria-controls="category-visits"><span>${category[1]}</span><strong>${count}<small>회</small></strong><span class="category-track" aria-hidden="true"><span style="width:${count / largest * 100}%"></span></span></button>`;
     }).join('');
     const filtered = selectedCategory === 'all' ? entries : entries.filter(a => a.category === selectedCategory);
@@ -144,8 +146,12 @@
   function renderCuisines(records) {
     const entries = [...new Map(records.flatMap(day => day.activities).filter(a => a.category === 'food').map(a => [a.key, a])).values()]
       .sort((a, b) => b.date.localeCompare(a.date) || a.name.localeCompare(b.name, 'ko'));
-    $('cuisine-board').innerHTML = `<button type="button" class="category-all" data-cuisine="all" aria-pressed="${selectedCuisine === 'all'}" aria-controls="cuisine-visits">음식 전체 <strong>${entries.length}회</strong></button>` + cuisines.map(([id, label]) => {
-      const count = entries.filter(a => a.cuisine === id).length;
+    const totals = new Map(cuisines.map(([id]) => [id, entries.filter(a => a.cuisine === id).length]));
+    const top = cuisines.filter(([id]) => totals.get(id) > 0)
+      .sort((a, b) => totals.get(b[0]) - totals.get(a[0])).slice(0, 3);
+    if (!top.some(([id]) => id === selectedCuisine)) selectedCuisine = 'all';
+    $('cuisine-board').innerHTML = `<button type="button" class="category-all" data-cuisine="all" aria-pressed="${selectedCuisine === 'all'}" aria-controls="cuisine-visits">음식 전체 <strong>${entries.length}회</strong></button>` + top.map(([id, label]) => {
+      const count = totals.get(id);
       return `<button type="button" class="category-tile" data-cuisine="${id}" aria-pressed="${selectedCuisine === id}" aria-controls="cuisine-visits"><span>${label}</span><strong>${count}<small>회</small></strong></button>`;
     }).join('');
     const filtered = selectedCuisine === 'all' ? entries : entries.filter(a => a.cuisine === selectedCuisine);
