@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%233182f6%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%2218%22%20height%3D%2217%22%20rx%3D%223%22/%3E%3Cpath%20d%3D%22M11%206v6%20M21%206v6%20M7%2015h18%20m5%205%203%203%205-5%22/%3E%3C/g%3E%3C/svg%3E">
 <title>데이트 플랜</title>
-<meta name="kakao-maps-js-key" content="5106296a5746d9ba4c3a1347acbf1eb2">
+<meta name="kakao-maps-js-key" content="b353f7a5f09a5ae5cd662f5735db7bd6">
 <style>/* 토스 디자인 시스템(TDS). 정본은 저장소 루트의 DESIGN.md.
    원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다. */
 :root {
@@ -316,7 +316,9 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .map-toolbar h2 { font-size: 1rem; }
 .map-toolbar .map { margin: 0; font: 600 .8125rem var(--font); cursor: pointer; }
 .route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
-.map-caption { padding: 8px 16px; }
+.map-caption { padding: 8px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.map-caption .route-message { flex: 1; }
+.selected-map-link { width: 44px; padding: 0; justify-content: center; flex-shrink: 0; margin: 0; }
 .route-message, .route-note { margin: 0; color: var(--text-secondary); font-size: .75rem; overflow-wrap: anywhere; }
 .map-retry { margin: 8px 0 0; cursor: pointer; }
 .map-pin { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bg-primary); border-radius: var(--r-full); background: var(--fill-brand); color: var(--text-alt); font: 600 13px var(--font); cursor: pointer; }
@@ -460,6 +462,12 @@ body:not(.explorer-ready) .map-pane { display: none; }
   document.body.classList.add('explorer-ready');
   var canvas = document.getElementById('route-map');
   var message = root.querySelector('.route-message');
+  var openLink = root.querySelector('.selected-map-link');
+  var mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  root.querySelectorAll('.kakao-open').forEach(function (link) {
+    if (mobile) { link.href = link.dataset.mobileHref; }
+  });
   var retry = root.querySelector('.map-retry');
   var schedule = document.getElementById('schedule-panel');
   var places = root.querySelector('.places');
@@ -507,6 +515,13 @@ body:not(.explorer-ready) .map-pane { display: none; }
       ' · 목록이나 지도 번호를 선택해 주세요.' + (missing ? ' 위치 미확인 ' + missing + '개' : ''));
   }
   function highlight() {
+    openLink.hidden = !selected;
+    if (selected) {
+      openLink.href = selected.links[mobile ? 'mobile' : 'web'];
+      openLink.setAttribute('aria-label', selected.name + ' 카카오맵에서 열기');
+      openLink.title = selected.name + ' 카카오맵에서 열기';
+    } else { openLink.removeAttribute('href'); }
+
     root.querySelectorAll('[data-select]').forEach(function (button) {
       var active = !!selected && button.dataset.select === selected.id;
       button.setAttribute('aria-pressed', String(active));
@@ -614,13 +629,7 @@ body:not(.explorer-ready) .map-pane { display: none; }
     overlays = []; pins = [];
     if (!map) { fit(); return; }
     var groups = new Map();
-    var previous = null;
     stops().forEach(function (stop) {
-      if (view === 'schedule' && previous && stop.point) {
-        overlays.push(new kakao.maps.Polyline({ map: map, path: [position(previous), position(stop)],
-          strokeColor: '#3182f6', strokeWeight: 3, strokeStyle: 'shortdash', clickable: false }));
-      }
-      previous = stop.point ? stop : null;
       if (!stop.point) { return; }
       var key = stop.point.join(',');
       if (!groups.has(key)) { groups.set(key, []); }
