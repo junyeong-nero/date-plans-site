@@ -12,6 +12,52 @@
   const inPeriod = date => date.startsWith($('record-period').value);
   const visitedPlaces = day => day.places.filter(p => !p.transport);
   const isDone = day => day.date <= today;
+  const categories = [
+    ['movie', '영화', /영화|CGV|메가박스|롯데시네마|씨네|시네마/i],
+    ['board', '보드게임', /보드\s*게임|보드\s*카페|레드버튼|히어로보드/],
+    ['escape', '방탈출·체험', /방탈출|이스케이프|공방|클래스|체험|타로|사주/],
+    ['play', '만화·게임·노래방', /만화|놀숲|게임|오락|노래방|코인노래|볼링|당구/],
+    ['cafe', '카페', /카페|커피|디저트|브런치|베이커리|케이크|수플레/],
+    ['culture', '전시·공연', /전시|미술관|박물관|사진전|공연|뮤지컬|연극|콘서트/],
+    ['walk', '산책·나들이', /산책|공원|정원|식물원|수목원|야경|야간개장|행궁|케이블카|타워|해변|해수욕장/],
+    ['drink', '술·바', /칵테일|와인|맥주|술집|포차|주점|라운지|위스키/],
+    ['food', '맛집', /아침|점심|저녁|식사|맛집|식당|마라탕|칼국수|고기|규카츠|닭볶음탕|간장게장/],
+    ['stay', '숙박·휴식', /숙박|숙소|입실|퇴실|체크인|체크아웃|호텔|사우나|스파렉스|찜질/],
+    ['other', '기타', null]
+  ];
+  const categoryOrder = ['movie', 'cafe', 'board', 'food', 'walk', 'culture', 'escape', 'play', 'drink', 'stay', 'other'];
+  let selectedCategory = 'all';
+  let selectedCuisine = 'all';
+  const cuisines = [
+    ['korean', '한식', /한식|한정식|국밥|솥밥|반상|닭볶음탕|칼국수|불고기|비빔밥|냉면|간장게장|삼겹살|찌개/],
+    ['chinese', '중식', /중식|중국|마라탕|마라샹궈|꿔바로우|딤섬|짜장|짬뽕|우육면|훠궈|양꼬치/],
+    ['japanese', '일식', /일식|규카츠|돈카츠|돈까스|초밥|스시|사시미|라멘|우동|소바|텐동|오마카세/],
+    ['western', '양식', /양식|파스타|피자|스테이크|리소토|리조또|햄버거|버거|이탈리안|프렌치/],
+    ['asian', '동남아', /베트남|태국|쌀국수|분짜|반미|팟타이|똠얌|나시고랭/],
+    ['other', '기타 음식', null]
+  ];
+  function classifyCuisine(name, activity, menu) {
+    for (const text of [activity, name, menu]) {
+      const matches = cuisines.filter(c => c[2]?.test(text));
+      if (matches.length === 1) return matches[0][0];
+      if (matches.length > 1) return 'other';
+    }
+    return 'other';
+  }
+
+  function classify(name, activity) {
+    // A specialty café is an activity venue, not an ordinary coffee stop.
+    const combined = `${name} ${activity}`;
+    for (const id of ['movie', 'board', 'escape', 'play']) {
+      const category = categories.find(c => c[0] === id);
+      if (category[2].test(combined)) return id;
+    }
+    for (const text of [activity, name]) {
+      const category = categories.find(c => c[2]?.test(text));
+      if (category) return category[0];
+    }
+    return 'other';
+  }
   async function load() {
     if (loaded || loading) return;
     loading = true; $('records-retry').hidden = true;
@@ -24,23 +70,33 @@
         const p = JSON.parse(node.dataset.location);
         const addressLabel = Array.from(node.querySelectorAll('dt')).find(dt => dt.textContent === '주소');
         const address = addressLabel?.nextElementSibling?.textContent.trim() || '';
+        const priceLabel = Array.from(node.querySelectorAll('dt')).find(dt => dt.textContent === '가격');
+        const menu = priceLabel?.nextElementSibling?.textContent.trim() || '';
         const parts = address.split(/\s+/);
         const regions = { '서울특별시': '서울', '경기도': '경기', '인천광역시': '인천', '부산광역시': '부산', '대구광역시': '대구', '경상북도': '경북' };
         parts[0] = regions[parts[0]] || parts[0];
-        return [p.id, { ...p, address, region: parts.length > 1 ? parts.slice(0, 2).join(' ') : '지역 미상' }];
+        return [p.id, { ...p, address, menu, region: parts.length > 1 ? parts.slice(0, 2).join(' ') : '지역 미상' }];
       }));
       return Array.from(doc.querySelectorAll('.day'), section => {
         const date = section.dataset.day || plan.start;
         const route = JSON.parse(section.querySelector('[data-route]')?.dataset.route || '[]');
-        const unique = new Map();
+        const unique = new Map(), activities = new Map();
+        const labels = new Map(Array.from(section.querySelectorAll('.item'), node => [node.id, node.querySelector('.label')?.textContent || '']));
         route.forEach(stop => {
           const place = places.get(stop.placeId);
           if (!place || place.name === '미정') return;
           const p = { ...place, key: identity(place) };
           p.transport = /역$|터미널|정류장|공항/.test(p.name);
           unique.set(p.key, p);
+          if (!p.transport) {
+            const activity = labels.get(stop.id) || '';
+            const category = classify(p.name, activity);
+            const cuisine = category === 'food' ? classifyCuisine(p.name, activity, p.menu) : null;
+            const key = `${date}|${p.key}|${category}`;
+            if (!activities.has(key)) activities.set(key, { key, name: p.name, activity, category, cuisine, date, url: plan.url });
+          }
         });
-        return { id: plan.url + '|' + date, date, plan, places: [...unique.values()] };
+        return { id: plan.url + '|' + date, date, plan, places: [...unique.values()], activities: [...activities.values()] };
       });
     }));
     days = results.filter(r => r.status === 'fulfilled').flatMap(r => r.value).sort((a,b) => a.date.localeCompare(b.date));
@@ -89,8 +145,50 @@
     const grid = [0, max / 2, max].map(n => `<line x1="28" y1="${y(n)}" x2="336" y2="${y(n)}" class="chart-grid"/><text x="20" y="${y(n) + 3}" text-anchor="end">${n}</text>`).join('');
     const points = counts.map((n, i) => `${x(i)},${y(n)}`).join(' ');
     $('record-timeline').innerHTML = `<svg class="month-chart" viewBox="0 0 360 180" role="img" aria-labelledby="month-chart-title month-chart-desc"><title id="month-chart-title">${year}년 월별 함께한 날</title><desc id="month-chart-desc">${description}. 가로축은 월, 세로축은 함께한 날 수입니다.</desc><text x="8" y="16">일</text>${grid}<polyline points="${points}" class="chart-line"/>${counts.map((n, i) => `<circle cx="${x(i)}" cy="${y(n)}" r="3.5" class="chart-dot"/><text x="${x(i)}" y="${y(n) - 10}" text-anchor="middle" class="chart-value">${n}</text><text x="${x(i)}" y="168" text-anchor="middle">${i + 1}월</text>`).join('')}</svg>`;
+    renderCategories(current);
+    renderCuisines(current);
     drawMap(data.places);
   }
+  function renderCategories(records) {
+    const entries = [...new Map(records.flatMap(day => day.activities).map(a => [a.key, a])).values()]
+      .sort((a, b) => b.date.localeCompare(a.date) || a.name.localeCompare(b.name, 'ko'));
+    const totals = new Map(categories.map(([id]) => [id, entries.filter(a => a.category === id).length]));
+    const largest = Math.max(1, ...totals.values());
+    $('category-board').innerHTML = `<button type="button" class="category-all" data-category="all" aria-pressed="${selectedCategory === 'all'}" aria-controls="category-visits">전체 <strong>${entries.length}회</strong></button>` + categoryOrder.map(id => {
+      const category = categories.find(c => c[0] === id), count = totals.get(id);
+      return `<button type="button" class="category-tile" data-category="${id}" aria-pressed="${selectedCategory === id}" aria-controls="category-visits"><span>${category[1]}</span><strong>${count}<small>회</small></strong><span class="category-track" aria-hidden="true"><span style="width:${count / largest * 100}%"></span></span></button>`;
+    }).join('');
+    const filtered = selectedCategory === 'all' ? entries : entries.filter(a => a.category === selectedCategory);
+    const label = selectedCategory === 'all' ? '전체 활동' : categories.find(c => c[0] === selectedCategory)[1];
+    $('category-result-heading').textContent = `${label} · ${filtered.length}회`;
+    $('category-visits').innerHTML = filtered.map(a => `<li><a href="${esc(a.url)}"><span class="category-visit-title">${esc(a.name)}</span><span class="category-visit-meta">${esc(a.date)} · ${esc(a.activity || categories.find(c => c[0] === a.category)[1])}</span><span class="category-arrow" aria-hidden="true">↗</span></a></li>`).join('') || '<li class="empty-record">이 기간에는 해당 종류의 데이트가 없어요.</li>';
+  }
+  $('category-board').addEventListener('click', event => {
+    const button = event.target.closest('[data-category]');
+    if (!button) return;
+    selectedCategory = button.dataset.category;
+    renderCategories(days.filter(day => isDone(day) && inPeriod(day.date)));
+    $('category-board').querySelector(`[data-category="${selectedCategory}"]`).focus({ preventScroll: true });
+  });
+  function renderCuisines(records) {
+    const entries = [...new Map(records.flatMap(day => day.activities).filter(a => a.category === 'food').map(a => [a.key, a])).values()]
+      .sort((a, b) => b.date.localeCompare(a.date) || a.name.localeCompare(b.name, 'ko'));
+    $('cuisine-board').innerHTML = `<button type="button" class="category-all" data-cuisine="all" aria-pressed="${selectedCuisine === 'all'}" aria-controls="cuisine-visits">음식 전체 <strong>${entries.length}회</strong></button>` + cuisines.map(([id, label]) => {
+      const count = entries.filter(a => a.cuisine === id).length;
+      return `<button type="button" class="category-tile" data-cuisine="${id}" aria-pressed="${selectedCuisine === id}" aria-controls="cuisine-visits"><span>${label}</span><strong>${count}<small>회</small></strong></button>`;
+    }).join('');
+    const filtered = selectedCuisine === 'all' ? entries : entries.filter(a => a.cuisine === selectedCuisine);
+    const label = selectedCuisine === 'all' ? '음식 전체' : cuisines.find(c => c[0] === selectedCuisine)[1];
+    $('cuisine-result-heading').textContent = `${label} · ${filtered.length}회`;
+    $('cuisine-visits').innerHTML = filtered.map(a => `<li><a href="${esc(a.url)}"><span class="category-visit-title">${esc(a.name)}</span><span class="category-visit-meta">${esc(a.date)} · ${cuisines.find(c => c[0] === a.cuisine)[1]} · ${esc(a.activity)}</span><span class="category-arrow" aria-hidden="true">↗</span></a></li>`).join('') || '<li class="empty-record">이 기간에는 해당 음식의 방문 기록이 없어요.</li>';
+  }
+  $('cuisine-board').addEventListener('click', event => {
+    const button = event.target.closest('[data-cuisine]');
+    if (!button) return;
+    selectedCuisine = button.dataset.cuisine;
+    renderCuisines(days.filter(day => isDone(day) && inPeriod(day.date)));
+    $('cuisine-board').querySelector(`[data-cuisine="${selectedCuisine}"]`).focus({ preventScroll: true });
+  });
   async function ensureMap() {
     if (window.kakao?.maps?.Map) return;
     if (!mapLoading) mapLoading = new Promise((resolve, reject) => {

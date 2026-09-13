@@ -37,3 +37,22 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
 .chart-grid { stroke: var(--grey-200); stroke-width: 1; stroke-dasharray: 3 4; }
 .chart-line { fill: none; stroke: var(--blue-500); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
 .chart-dot { fill: white; stroke: var(--blue-500); stroke-width: 2; }
+
+.category-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.category-board button { color: var(--text-secondary); background: var(--grey-50); border: 1px solid transparent; border-radius: 12px; padding: 12px; text-align: left; font: 500 13px var(--font); cursor: pointer; }
+.category-board button[aria-pressed="true"] { background: var(--blue-50); color: var(--blue-600); border-color: var(--blue-500); }
+.category-board button:hover { background: var(--grey-100); }
+.category-all { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
+.category-tile > span:first-child { display: block; word-break: keep-all; }
+.category-tile > strong { display: block; margin-top: 8px; font-size: 23px; }
+.category-tile small { font-size: 12px; margin-left: 3px; font-weight: 500; }
+.category-track { display: block; height: 4px; border-radius: 4px; background: var(--grey-200); overflow: hidden; margin-top: 10px; }
+.category-track > span { display: block; height: 100%; border-radius: inherit; background: var(--blue-500); }
+#category-result-heading, #cuisine-result-heading { font-size: 14px; margin: 24px 0 8px; }
+.category-visits { list-style: none; padding: 0; margin: 0; max-height: 300px; overflow-y: auto; overscroll-behavior-y: contain; }
+.category-visits li + li { border-top: 1px solid var(--grey-100); }
+.category-visits a { position: relative; display: block; padding: 12px 28px 12px 4px; border-radius: 6px; }
+.category-visit-title { display: block; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+.category-visit-meta { display: block; font-size: 12px; color: var(--grey-600); margin-top: 4px; }
+.category-arrow { position: absolute; right: 4px; top: 15px; color: var(--grey-600); }
+@media (max-width: 420px) { .category-board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

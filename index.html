@@ -413,6 +413,20 @@ body:not(.explorer-ready) .map-pane { display: none; }
 <p id="record-status" role="status">일정을 불러오고 있어요.</p>
 <button id="records-retry" type="button" class="soft-button" hidden>다시 불러오기</button>
 <div id="record-stats" class="record-stats" aria-live="polite"></div>
+<section class="record-card" aria-labelledby="category-heading">
+<h3 id="category-heading">데이트 종류</h3>
+<p class="record-note">어떤 데이트를 즐겼을까요? 종류를 누르면 다녀온 곳을 볼 수 있어요. 활동과 장소명을 기준으로 분류하며, 같은 날 같은 장소·종류는 한 번으로 세요.</p>
+<div id="category-board" class="category-board" role="group" aria-label="데이트 종류 선택"></div>
+<h4 id="category-result-heading" aria-live="polite"></h4>
+<ul id="category-visits" class="category-visits" aria-labelledby="category-result-heading"></ul>
+</section>
+<section class="record-card" aria-labelledby="cuisine-heading">
+<h3 id="cuisine-heading">음식 취향</h3>
+<p class="record-note">한식부터 양식까지, 함께 먹은 음식을 모았어요. 식사 일정과 메뉴를 기준으로 나누고, 분류가 어려운 곳은 기타 음식에 담아요.</p>
+<div id="cuisine-board" class="category-board" role="group" aria-label="음식 종류 선택"></div>
+<h4 id="cuisine-result-heading" aria-live="polite"></h4>
+<ul id="cuisine-visits" class="category-visits" aria-labelledby="cuisine-result-heading"></ul>
+</section>
 <section class="record-card"><h3>함께 다녀온 곳</h3><p id="map-status" class="record-note"></p><div id="record-map" hidden aria-label="방문 장소 지도"></div><button id="map-retry" class="soft-button" type="button" hidden>지도 다시 불러오기</button><div id="visited-places" class="visited-places"></div></section>
 <div class="ranking-grid"><section class="record-card"><h3>자주 간 지역</h3><ol id="region-ranking" class="ranking"></ol></section><section class="record-card"><h3>우리의 단골 장소</h3><ol id="place-ranking" class="ranking"></ol></section></div>
 <section class="record-card"><h3 id="timeline-heading">월별 함께한 날</h3><div id="record-timeline"></div></section>
