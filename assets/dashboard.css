@@ -48,7 +48,12 @@ button:focus-visible, select:focus-visible, input:focus-visible, a:focus-visible
 .category-tile small { font-size: 12px; margin-left: 3px; font-weight: 500; }
 .category-track { display: block; height: 4px; border-radius: 4px; background: var(--grey-200); overflow: hidden; margin-top: 10px; }
 .category-track > span { display: block; height: 100%; border-radius: inherit; background: var(--blue-500); }
-#category-result-heading, #cuisine-result-heading { font-size: 14px; margin: 24px 0 8px; }
+.visit-details { margin-top: 16px; }
+.visit-details summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 12px; border-radius: 10px; background: var(--grey-50); color: var(--text-secondary); font-size: 14px; font-weight: 600; cursor: pointer; list-style: none; }
+.visit-details summary::-webkit-details-marker { display: none; }
+.visit-details summary::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); margin: -4px 3px 0 0; flex-shrink: 0; }
+.visit-details[open] summary::after { transform: rotate(225deg); margin-top: 4px; }
+.visit-details[open] summary { margin-bottom: 8px; }
 .category-visits { list-style: none; padding: 0; margin: 0; max-height: 300px; overflow-y: auto; overscroll-behavior-y: contain; }
 .category-visits li + li { border-top: 1px solid var(--grey-100); }
 .category-visits a { position: relative; display: block; padding: 12px 28px 12px 4px; border-radius: 6px; }
