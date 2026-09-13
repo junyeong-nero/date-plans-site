@@ -329,7 +329,7 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .view-tabs button[aria-pressed="true"] { background: var(--bg-primary); color: var(--text-primary); box-shadow: var(--shadow-1); }
 .explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 .explorer .day, .explorer .places, .explorer .tabs { max-width: none; width: 100%; }
-.explorer .tabs { position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
+.explorer .tabs { flex-shrink: 0; position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
 .explorer .tabs::before { inset: 0 var(--gutter) 4px; }
 .explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
 .explorer .route-note { margin: 8px 0 12px; }
@@ -384,7 +384,21 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .explorer-ready .list-scroll[data-timeline-view="schedule"] .day { padding-bottom: var(--timeline-tail, 24px); }
 @media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
 @media (prefers-reduced-motion: reduce) { .day .item.selected .body { transform: none; } }
-.explorer-ready .list-scroll[data-timeline-view="schedule"] .tabs { scroll-snap-align: start; }
+.explorer-ready #schedule-panel { scroll-snap-align: start; }
+
+/* Keep long trips in one fixed date-control row, above the scrolling timeline. */
+.day-picker {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px;
+  flex-shrink: 0; gap: 4px; margin: 0 var(--gutter) 8px;
+  padding: 4px; border-radius: var(--r-m); background: var(--fill-secondary);
+}
+.day-picker button, .day-picker select {
+  min-width: 0; min-height: 44px; border: 0; border-radius: var(--r-s);
+  color: var(--text-primary); background: var(--white); font: 600 .8125rem/1.25 var(--font);
+}
+.day-picker select { width: 100%; padding: 0 8px; cursor: pointer; }
+.day-picker button { font-size: 1.5rem; cursor: pointer; }
+.day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
 </style>
 <link rel="stylesheet" href="assets/dashboard.css">
 <script src="assets/dashboard.js" defer></script>
@@ -467,9 +481,20 @@ body:not(.explorer-ready) .map-pane { display: none; }
   var tabs = document.querySelector('[data-tabs]');
   if (!tabs) { return; }
   var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
-  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
+  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button[data-day]'));
+
+  var select = tabs.querySelector('[data-day-select]');
+  var dates = days.map(function (s) { return s.dataset.day; });
+  var steps = tabs.querySelectorAll('[data-day-step]');
 
   function show(day) {
+    if (select) { select.value = day; }
+    steps.forEach(function (button) {
+      var index = dates.indexOf(day) + Number(button.dataset.dayStep);
+      button.disabled = index < 0 || index >= dates.length;
+    });
+    var scroller = document.querySelector('.list-scroll');
+    if (scroller) { scroller.scrollTop = 0; }
     days.forEach(function (s) {
       s.hidden = s.dataset.day !== day;
     });
@@ -484,11 +509,21 @@ body:not(.explorer-ready) .map-pane { display: none; }
     b.addEventListener('click', function () { show(b.dataset.day); });
   });
 
+  if (select) {
+    select.addEventListener('change', function () { show(select.value); });
+    steps.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var day = dates[dates.indexOf(select.value) + Number(button.dataset.dayStep)];
+        if (day) { show(day); }
+      });
+    });
+  }
+
   // 오늘이 일정 범위 안이면 그 날을 편다. 아니면 첫날.
   var inRange = today >= tabs.dataset.start && today <= tabs.dataset.end;
-  var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
+  var hasToday = dates.indexOf(today) !== -1;
   tabs.hidden = false;
-  show(inRange && hasToday ? today : buttons[0].dataset.day);
+  show(inRange && hasToday ? today : dates[0]);
 })();
 
 (function () {
@@ -656,6 +691,8 @@ body:not(.explorer-ready) .map-pane { display: none; }
       view = button.dataset.view;
       scroller.dataset.timelineView = view;
       schedule.hidden = view !== 'schedule';
+      var dates = root.querySelector('[data-tabs]');
+      if (dates) { dates.hidden = view !== 'schedule'; }
       if (places) { places.hidden = view !== 'places'; }
       root.querySelectorAll('[data-view]').forEach(function (b) {
         b.setAttribute('aria-pressed', String(b === button));

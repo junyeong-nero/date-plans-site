@@ -329,7 +329,7 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .view-tabs button[aria-pressed="true"] { background: var(--bg-primary); color: var(--text-primary); box-shadow: var(--shadow-1); }
 .explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 .explorer .day, .explorer .places, .explorer .tabs { max-width: none; width: 100%; }
-.explorer .tabs { position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
+.explorer .tabs { flex-shrink: 0; position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
 .explorer .tabs::before { inset: 0 var(--gutter) 4px; }
 .explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
 .explorer .route-note { margin: 8px 0 12px; }
@@ -384,7 +384,21 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .explorer-ready .list-scroll[data-timeline-view="schedule"] .day { padding-bottom: var(--timeline-tail, 24px); }
 @media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
 @media (prefers-reduced-motion: reduce) { .day .item.selected .body { transform: none; } }
-.explorer-ready .list-scroll[data-timeline-view="schedule"] .tabs { scroll-snap-align: start; }
+.explorer-ready #schedule-panel { scroll-snap-align: start; }
+
+/* Keep long trips in one fixed date-control row, above the scrolling timeline. */
+.day-picker {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px;
+  flex-shrink: 0; gap: 4px; margin: 0 var(--gutter) 8px;
+  padding: 4px; border-radius: var(--r-m); background: var(--fill-secondary);
+}
+.day-picker button, .day-picker select {
+  min-width: 0; min-height: 44px; border: 0; border-radius: var(--r-s);
+  color: var(--text-primary); background: var(--white); font: 600 .8125rem/1.25 var(--font);
+}
+.day-picker select { width: 100%; padding: 0 8px; cursor: pointer; }
+.day-picker button { font-size: 1.5rem; cursor: pointer; }
+.day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
 </style>
 </head>
 <body>
@@ -394,7 +408,8 @@ body:not(.explorer-ready) .map-pane { display: none; }
 <p class="range">2026년 8월 22일 (토)</p>
 <p class="checked ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>2026-08-17에 확인했어요</p>
 </header>
-<main class="explorer"><section class="map-pane" aria-label="동선 지도"><div class="map-toolbar"><h2>동선 지도</h2><button class="map map-reset" type="button">전체 동선</button></div><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><a class="map selected-map-link" hidden aria-label="카카오맵에서 열기" title="카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정과 장소"><nav class="view-tabs" aria-label="목록 보기 방식" hidden><button type="button" data-view="schedule" aria-pressed="true">시간별</button><button type="button" data-view="places" aria-pressed="false">장소</button></nav><div class="list-scroll"><div id="schedule-panel">
+<main class="explorer"><section class="map-pane" aria-label="동선 지도"><div class="map-toolbar"><h2>동선 지도</h2><button class="map map-reset" type="button">전체 동선</button></div><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><a class="map selected-map-link" hidden aria-label="카카오맵에서 열기" title="카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정과 장소"><nav class="view-tabs" aria-label="목록 보기 방식" hidden><button type="button" data-view="schedule" aria-pressed="true">시간별</button><button type="button" data-view="places" aria-pressed="false">장소</button></nav>
+<div class="list-scroll"><div id="schedule-panel">
 <section class="day" data-day="">
 <p class="route-note" data-route="[{&quot;point&quot;: [37.525158525834, 127.037202911556], &quot;name&quot;: &quot;규카츠정 압구정로데오점&quot;, &quot;time&quot;: &quot;11:45&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-1&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:20.443516+00:00&quot;}, {&quot;point&quot;: [37.5229110254398, 127.037043534807], &quot;name&quot;: &quot;CGV 청담씨네시티&quot;, &quot;time&quot;: &quot;13:20&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0&quot;}, &quot;id&quot;: &quot;stop-0-2&quot;, &quot;placeId&quot;: &quot;place-1&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:19.729390+00:00&quot;}, {&quot;point&quot;: [37.5260709109071, 127.037106639382], &quot;name&quot;: &quot;놀숲 더레이블도산점&quot;, &quot;time&quot;: &quot;16:30&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-3&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:21.591164+00:00&quot;}, {&quot;point&quot;: [37.2526579343798, 127.074394675407], &quot;name&quot;: &quot;골든타임 이스케이프&quot;, &quot;time&quot;: &quot;22:00&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84&quot;}, &quot;id&quot;: &quot;stop-0-4&quot;, &quot;placeId&quot;: &quot;place-2&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:20.089807+00:00&quot;}, {&quot;point&quot;: [37.2538188637482, 127.076894606632], &quot;name&quot;: &quot;아쿠아라운지&quot;, &quot;time&quot;: &quot;23:30&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80&quot;}, &quot;id&quot;: &quot;stop-0-5&quot;, &quot;placeId&quot;: &quot;place-3&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:22.158354+00:00&quot;}, {&quot;point&quot;: [37.2520637842978, 127.07102269696], &quot;name&quot;: &quot;스파렉스사우나&quot;, &quot;time&quot;: &quot;02:10&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98&quot;}, &quot;id&quot;: &quot;stop-0-6&quot;, &quot;placeId&quot;: &quot;place-4&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:21.852361+00:00&quot;}]">번호는 방문 순서예요. 장소를 선택하면 카카오맵에서 열 수 있어요.</p>
 <article class="item" id="stop-0-1"><button class="item-select" type="button" data-select="stop-0-1" aria-pressed="false"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="time">11:45</span><span class="label">점심</span><span class="place">규카츠정 압구정로데오점</span><span class="status risk"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 10 18H2Z M12 9v4 M12 17h.01"/></svg>리스크</span><span class="note">11:40 도착 예정이에요. 예약 없으면 빠듯해요. 13:05엔 나와야 해요</span></span></button></article>
@@ -444,9 +459,20 @@ body:not(.explorer-ready) .map-pane { display: none; }
   var tabs = document.querySelector('[data-tabs]');
   if (!tabs) { return; }
   var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
-  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
+  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button[data-day]'));
+
+  var select = tabs.querySelector('[data-day-select]');
+  var dates = days.map(function (s) { return s.dataset.day; });
+  var steps = tabs.querySelectorAll('[data-day-step]');
 
   function show(day) {
+    if (select) { select.value = day; }
+    steps.forEach(function (button) {
+      var index = dates.indexOf(day) + Number(button.dataset.dayStep);
+      button.disabled = index < 0 || index >= dates.length;
+    });
+    var scroller = document.querySelector('.list-scroll');
+    if (scroller) { scroller.scrollTop = 0; }
     days.forEach(function (s) {
       s.hidden = s.dataset.day !== day;
     });
@@ -461,11 +487,21 @@ body:not(.explorer-ready) .map-pane { display: none; }
     b.addEventListener('click', function () { show(b.dataset.day); });
   });
 
+  if (select) {
+    select.addEventListener('change', function () { show(select.value); });
+    steps.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var day = dates[dates.indexOf(select.value) + Number(button.dataset.dayStep)];
+        if (day) { show(day); }
+      });
+    });
+  }
+
   // 오늘이 일정 범위 안이면 그 날을 편다. 아니면 첫날.
   var inRange = today >= tabs.dataset.start && today <= tabs.dataset.end;
-  var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
+  var hasToday = dates.indexOf(today) !== -1;
   tabs.hidden = false;
-  show(inRange && hasToday ? today : buttons[0].dataset.day);
+  show(inRange && hasToday ? today : dates[0]);
 })();
 
 (function () {
@@ -633,6 +669,8 @@ body:not(.explorer-ready) .map-pane { display: none; }
       view = button.dataset.view;
       scroller.dataset.timelineView = view;
       schedule.hidden = view !== 'schedule';
+      var dates = root.querySelector('[data-tabs]');
+      if (dates) { dates.hidden = view !== 'schedule'; }
       if (places) { places.hidden = view !== 'places'; }
       root.querySelectorAll('[data-view]').forEach(function (b) {
         b.setAttribute('aria-pressed', String(b === button));

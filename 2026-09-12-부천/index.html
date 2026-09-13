@@ -329,7 +329,7 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .view-tabs button[aria-pressed="true"] { background: var(--bg-primary); color: var(--text-primary); box-shadow: var(--shadow-1); }
 .explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
 .explorer .day, .explorer .places, .explorer .tabs { max-width: none; width: 100%; }
-.explorer .tabs { position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
+.explorer .tabs { flex-shrink: 0; position: relative; top: auto; margin-top: 0; padding-top: 4px; padding-bottom: 8px; }
 .explorer .tabs::before { inset: 0 var(--gutter) 4px; }
 .explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
 .explorer .route-note { margin: 8px 0 12px; }
@@ -384,7 +384,21 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .explorer-ready .list-scroll[data-timeline-view="schedule"] .day { padding-bottom: var(--timeline-tail, 24px); }
 @media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
 @media (prefers-reduced-motion: reduce) { .day .item.selected .body { transform: none; } }
-.explorer-ready .list-scroll[data-timeline-view="schedule"] .tabs { scroll-snap-align: start; }
+.explorer-ready #schedule-panel { scroll-snap-align: start; }
+
+/* Keep long trips in one fixed date-control row, above the scrolling timeline. */
+.day-picker {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px;
+  flex-shrink: 0; gap: 4px; margin: 0 var(--gutter) 8px;
+  padding: 4px; border-radius: var(--r-m); background: var(--fill-secondary);
+}
+.day-picker button, .day-picker select {
+  min-width: 0; min-height: 44px; border: 0; border-radius: var(--r-s);
+  color: var(--text-primary); background: var(--white); font: 600 .8125rem/1.25 var(--font);
+}
+.day-picker select { width: 100%; padding: 0 8px; cursor: pointer; }
+.day-picker button { font-size: 1.5rem; cursor: pointer; }
+.day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
 </style>
 </head>
 <body>
@@ -394,7 +408,8 @@ body:not(.explorer-ready) .map-pane { display: none; }
 <p class="range">2026년 9월 12일 (토)</p>
 <p class="checked ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>2026-09-10에 확인했어요</p>
 </header>
-<main class="explorer"><section class="map-pane" aria-label="동선 지도"><div class="map-toolbar"><h2>동선 지도</h2><button class="map map-reset" type="button">전체 동선</button></div><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><a class="map selected-map-link" hidden aria-label="카카오맵에서 열기" title="카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정과 장소"><nav class="view-tabs" aria-label="목록 보기 방식" hidden><button type="button" data-view="schedule" aria-pressed="true">시간별</button><button type="button" data-view="places" aria-pressed="false">장소</button></nav><div class="list-scroll"><div id="schedule-panel">
+<main class="explorer"><section class="map-pane" aria-label="동선 지도"><div class="map-toolbar"><h2>동선 지도</h2><button class="map map-reset" type="button">전체 동선</button></div><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><a class="map selected-map-link" hidden aria-label="카카오맵에서 열기" title="카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정과 장소"><nav class="view-tabs" aria-label="목록 보기 방식" hidden><button type="button" data-view="schedule" aria-pressed="true">시간별</button><button type="button" data-view="places" aria-pressed="false">장소</button></nav>
+<div class="list-scroll"><div id="schedule-panel">
 <section class="day" data-day="">
 <p class="route-note" data-route="[{&quot;point&quot;: null, &quot;name&quot;: &quot;고려대역&quot;, &quot;time&quot;: &quot;15:10&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A0%EB%A0%A4%EB%8C%80%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%EB%A0%A4%EB%8C%80%EC%97%AD&quot;}, &quot;id&quot;: &quot;stop-0-1&quot;, &quot;placeId&quot;: &quot;place-3&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;time&quot;: &quot;15:50&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-2&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.616274+00:00&quot;}, {&quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;time&quot;: &quot;16:10&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-3&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.616274+00:00&quot;}, {&quot;point&quot;: [37.5024408941055, 126.745241495552], &quot;name&quot;: &quot;상동호수공원&quot;, &quot;time&quot;: &quot;17:20&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%83%81%EB%8F%99%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%83%81%EB%8F%99%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90&quot;}, &quot;id&quot;: &quot;stop-0-4&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.073879+00:00&quot;}, {&quot;point&quot;: [37.5038082978596, 126.75160681663], &quot;name&quot;: &quot;라돌이마라탕 상동점&quot;, &quot;time&quot;: &quot;17:40&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%9D%BC%EB%8F%8C%EC%9D%B4%EB%A7%88%EB%9D%BC%ED%83%95%20%EC%83%81%EB%8F%99%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%9D%BC%EB%8F%8C%EC%9D%B4%EB%A7%88%EB%9D%BC%ED%83%95%20%EC%83%81%EB%8F%99%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-5&quot;, &quot;placeId&quot;: &quot;place-1&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:31.752877+00:00&quot;}, {&quot;point&quot;: [37.5024408941055, 126.745241495552], &quot;name&quot;: &quot;부천호수식물원 수피아&quot;, &quot;time&quot;: &quot;18:30&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%B6%80%EC%B2%9C%ED%98%B8%EC%88%98%EC%8B%9D%EB%AC%BC%EC%9B%90%20%EC%88%98%ED%94%BC%EC%95%84&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%B6%80%EC%B2%9C%ED%98%B8%EC%88%98%EC%8B%9D%EB%AC%BC%EC%9B%90%20%EC%88%98%ED%94%BC%EC%95%84&quot;}, &quot;id&quot;: &quot;stop-0-6&quot;, &quot;placeId&quot;: &quot;place-2&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.073879+00:00&quot;}, {&quot;point&quot;: [37.5024408941055, 126.745241495552], &quot;name&quot;: &quot;상동호수공원&quot;, &quot;time&quot;: &quot;20:00&quot;, &quot;number&quot;: 7, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%83%81%EB%8F%99%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%83%81%EB%8F%99%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90&quot;}, &quot;id&quot;: &quot;stop-0-7&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.073879+00:00&quot;}, {&quot;point&quot;: [37.5065825037123, 126.741906601707], &quot;name&quot;: &quot;삼산체육관역&quot;, &quot;time&quot;: &quot;20:40&quot;, &quot;number&quot;: 8, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%82%BC%EC%82%B0%EC%B2%B4%EC%9C%A1%EA%B4%80%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%82%BC%EC%82%B0%EC%B2%B4%EC%9C%A1%EA%B4%80%EC%97%AD&quot;}, &quot;id&quot;: &quot;stop-0-8&quot;, &quot;placeId&quot;: &quot;place-4&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.357182+00:00&quot;}, {&quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;time&quot;: &quot;21:40&quot;, &quot;number&quot;: 9, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-9&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.616274+00:00&quot;}, {&quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;time&quot;: &quot;22:10&quot;, &quot;number&quot;: 10, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-10&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:32.616274+00:00&quot;}, {&quot;point&quot;: [36.1227721071932, 128.352989245183], &quot;name&quot;: &quot;구미종합터미널&quot;, &quot;time&quot;: &quot;01:10&quot;, &quot;number&quot;: 11, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-11&quot;, &quot;placeId&quot;: &quot;place-6&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:30.233991+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;미정&quot;, &quot;time&quot;: &quot;01:20&quot;, &quot;number&quot;: 12, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%A0%95&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%A0%95&quot;}, &quot;id&quot;: &quot;stop-0-12&quot;, &quot;placeId&quot;: &quot;place--1&quot;, &quot;checked&quot;: &quot;&quot;}]">번호는 방문 순서예요. 장소를 선택하면 카카오맵에서 열 수 있어요. 위치를 확인하지 못한 일정 2개는 표시하지 않아요.</p>
 <article class="item" id="stop-0-1"><button class="item-select" type="button" data-select="stop-0-1" aria-pressed="false"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="time">15:10</span><span class="label">짐 맡기러 출발</span><span class="place">고려대역</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span><span class="note">늦어도 이 시각이에요. 더 일찍 가도 돼요</span></span></button></article>
@@ -451,9 +466,20 @@ body:not(.explorer-ready) .map-pane { display: none; }
   var tabs = document.querySelector('[data-tabs]');
   if (!tabs) { return; }
   var days = Array.prototype.slice.call(document.querySelectorAll('.day'));
-  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button'));
+  var buttons = Array.prototype.slice.call(tabs.querySelectorAll('button[data-day]'));
+
+  var select = tabs.querySelector('[data-day-select]');
+  var dates = days.map(function (s) { return s.dataset.day; });
+  var steps = tabs.querySelectorAll('[data-day-step]');
 
   function show(day) {
+    if (select) { select.value = day; }
+    steps.forEach(function (button) {
+      var index = dates.indexOf(day) + Number(button.dataset.dayStep);
+      button.disabled = index < 0 || index >= dates.length;
+    });
+    var scroller = document.querySelector('.list-scroll');
+    if (scroller) { scroller.scrollTop = 0; }
     days.forEach(function (s) {
       s.hidden = s.dataset.day !== day;
     });
@@ -468,11 +494,21 @@ body:not(.explorer-ready) .map-pane { display: none; }
     b.addEventListener('click', function () { show(b.dataset.day); });
   });
 
+  if (select) {
+    select.addEventListener('change', function () { show(select.value); });
+    steps.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var day = dates[dates.indexOf(select.value) + Number(button.dataset.dayStep)];
+        if (day) { show(day); }
+      });
+    });
+  }
+
   // 오늘이 일정 범위 안이면 그 날을 편다. 아니면 첫날.
   var inRange = today >= tabs.dataset.start && today <= tabs.dataset.end;
-  var hasToday = buttons.some(function (b) { return b.dataset.day === today; });
+  var hasToday = dates.indexOf(today) !== -1;
   tabs.hidden = false;
-  show(inRange && hasToday ? today : buttons[0].dataset.day);
+  show(inRange && hasToday ? today : dates[0]);
 })();
 
 (function () {
@@ -640,6 +676,8 @@ body:not(.explorer-ready) .map-pane { display: none; }
       view = button.dataset.view;
       scroller.dataset.timelineView = view;
       schedule.hidden = view !== 'schedule';
+      var dates = root.querySelector('[data-tabs]');
+      if (dates) { dates.hidden = view !== 'schedule'; }
       if (places) { places.hidden = view !== 'places'; }
       root.querySelectorAll('[data-view]').forEach(function (b) {
         b.setAttribute('aria-pressed', String(b === button));
