@@ -723,7 +723,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "3a5a0b174b17025d68b22c0ccd4fc76d4a220f2d1baefb80a0a07adee1c51e1c",
+      "fingerprint": "e557f14481b4983bf2283e078d5929c47c1eeb0bdc237a8a118b97e12764bcc8",
       "rows": [
         {
           "id": "0:0",
@@ -735,7 +735,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "0:2",
@@ -783,7 +783,7 @@
         {
           "id": "1:4",
           "categories": [
-            "other"
+            "culture"
           ],
           "cuisine": null
         },
@@ -792,7 +792,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "1:6",
@@ -913,7 +913,7 @@
         {
           "id": "5:3",
           "categories": [
-            "other"
+            "walk"
           ],
           "cuisine": null
         },
@@ -922,7 +922,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "chinese"
         },
         {
           "id": "5:5",
@@ -972,7 +972,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "korean"
         },
         {
           "id": "7:4",
@@ -986,7 +986,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "7:6",
@@ -995,7 +995,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-16T02:30:17.150093+00:00",
+      "generated_at": "2026-09-16T02:33:55.722607+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"서촌계단집\", \"food\"]",
@@ -1003,7 +1003,7 @@
           "name": "서촌계단집",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1070,11 +1070,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"청계천 책읽는 맑은냇가\", \"other\"]",
+          "key": "[\"2026-10-03\", \"청계천 책읽는 맑은냇가\", \"culture\"]",
           "date": "2026-10-03",
           "name": "청계천 책읽는 맑은냇가",
           "activity": "야간 도서관",
-          "category": "other",
+          "category": "culture",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1084,7 +1084,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1205,11 +1205,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-07\", \"미정\", \"other\", \"5:3\"]",
+          "key": "[\"2026-10-07\", \"미정\", \"walk\", \"5:3\"]",
           "date": "2026-10-07",
           "name": "미정",
           "activity": "동성로",
-          "category": "other",
+          "category": "walk",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1219,7 +1219,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "chinese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1264,7 +1264,7 @@
           "name": "성심당 본점",
           "activity": "빵",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "korean",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1282,7 +1282,7 @@
           "name": "온천집",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         }
       ]
