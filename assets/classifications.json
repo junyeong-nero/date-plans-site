@@ -553,7 +553,7 @@
       ]
     },
     "2026-09-19-서울": {
-      "fingerprint": "855cde8eec02711c478a28e88efac385b35e1636f77c87282281c66f4fe36377",
+      "fingerprint": "30f4586eab500ef001c6bc9007892625b696909fbebd1cf39c2d59eba42bcab1",
       "rows": [
         {
           "id": "0:0",
@@ -584,7 +584,7 @@
         {
           "id": "0:4",
           "categories": [
-            "walk"
+            "other"
           ],
           "cuisine": null
         },
@@ -598,13 +598,15 @@
         {
           "id": "0:6",
           "categories": [
-            "walk"
+            "other"
           ],
           "cuisine": null
         },
         {
           "id": "0:7",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -635,7 +637,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-18T13:50:23.794287+00:00",
+      "generated_at": "2026-09-18T13:59:31.892041+00:00",
       "activities": [
         {
           "key": "[\"2026-09-19\", \"찬장\", \"food\"]",
@@ -665,11 +667,11 @@
           "url": "2026-09-19-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-09-19\", \"남산케이블카\", \"walk\"]",
+          "key": "[\"2026-09-19\", \"남산케이블카\", \"other\"]",
           "date": "2026-09-19",
           "name": "남산케이블카",
           "activity": "케이블카 타기",
-          "category": "walk",
+          "category": "other",
           "cuisine": null,
           "url": "2026-09-19-%EC%84%9C%EC%9A%B8/"
         },
@@ -679,6 +681,15 @@
           "name": "N서울타워",
           "activity": "광장 사진과 자물쇠",
           "category": "walk",
+          "cuisine": null,
+          "url": "2026-09-19-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-09-19\", \"해피베어데이 롯데백화점 본점\", \"other\"]",
+          "date": "2026-09-19",
+          "name": "해피베어데이 롯데백화점 본점",
+          "activity": "케이크 픽업",
+          "category": "other",
           "cuisine": null,
           "url": "2026-09-19-%EC%84%9C%EC%9A%B8/"
         },
