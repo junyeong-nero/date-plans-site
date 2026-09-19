@@ -689,7 +689,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "857a8b59eb74606da53c2677fcba90e2b40b843055f4e8c17b44e8407173b1be",
+      "fingerprint": "1f5bb7e1bb59aaab28a176ee402b2de18bbba171ac55f2055262a5a0e9a99ebd",
       "rows": [
         {
           "id": "0:0",
@@ -699,21 +699,28 @@
         {
           "id": "0:1",
           "categories": [
-            "walk"
+            "food"
           ],
-          "cuisine": null
+          "cuisine": "korean"
         },
         {
           "id": "0:2",
           "categories": [
-            "other"
+            "walk",
+            "culture"
           ],
           "cuisine": null
         },
         {
           "id": "0:3",
+          "categories": [],
+          "cuisine": null
+        },
+        {
+          "id": "0:4",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
         },
@@ -729,7 +736,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "asian"
         },
         {
           "id": "1:2",
@@ -741,7 +748,8 @@
         {
           "id": "1:3",
           "categories": [
-            "cafe"
+            "cafe",
+            "other"
           ],
           "cuisine": null
         },
@@ -750,7 +758,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "1:5",
@@ -764,7 +772,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "2:1",
@@ -785,7 +793,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "2:4",
@@ -833,7 +841,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "4:1",
@@ -847,7 +855,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "chinese"
+          "cuisine": "other"
         },
         {
           "id": "5:0",
@@ -871,7 +879,7 @@
         {
           "id": "5:3",
           "categories": [
-            "other"
+            "walk"
           ],
           "cuisine": null
         },
@@ -930,7 +938,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "7:4",
@@ -944,7 +952,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "7:6",
@@ -953,8 +961,17 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-16T14:18:51.221301+00:00",
+      "generated_at": "2026-09-19T18:07:39.497122+00:00",
       "activities": [
+        {
+          "key": "[\"2026-10-02\", \"호호식당 파미에스테이션\", \"food\"]",
+          "date": "2026-10-02",
+          "name": "호호식당 파미에스테이션",
+          "activity": "저녁",
+          "category": "food",
+          "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
         {
           "key": "[\"2026-10-02\", \"덕수궁\", \"walk\"]",
           "date": "2026-10-02",
@@ -965,21 +982,30 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-02\", \"청계천 책읽는 맑은냇가\", \"other\"]",
+          "key": "[\"2026-10-02\", \"덕수궁\", \"culture\"]",
           "date": "2026-10-02",
-          "name": "청계천 책읽는 맑은냇가",
-          "activity": "야간 도서관",
-          "category": "other",
+          "name": "덕수궁",
+          "activity": "야간 궁궐",
+          "category": "culture",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-02\", \"태하 서촌\", \"food\"]",
+          "key": "[\"2026-10-02\", \"달맞이광장바베큐 본점\", \"food\"]",
           "date": "2026-10-02",
-          "name": "태하 서촌",
-          "activity": "늦은 저녁",
+          "name": "달맞이광장바베큐 본점",
+          "activity": "야장",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-02\", \"달맞이광장바베큐 본점\", \"drink\"]",
+          "date": "2026-10-02",
+          "name": "달맞이광장바베큐 본점",
+          "activity": "야장",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -997,7 +1023,7 @@
           "name": "미쁘동 성수",
           "activity": "점심 (연어국수)",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "asian",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1019,12 +1045,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
+          "key": "[\"2026-10-03\", \"바이닐 성수\", \"other\"]",
+          "date": "2026-10-03",
+          "name": "바이닐 성수",
+          "activity": "LP 카페",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
           "key": "[\"2026-10-03\", \"오밀 혜화 대학로\", \"food\"]",
           "date": "2026-10-03",
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1042,7 +1077,7 @@
           "name": "파동",
           "activity": "점심",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1069,7 +1104,7 @@
           "name": "다소곳",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1105,7 +1140,7 @@
           "name": "메리퀸즈",
           "activity": "브런치",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1123,7 +1158,7 @@
           "name": "꽃뚜껑 사곡직영점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "chinese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1145,11 +1180,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-07\", \"미정\", \"other\", \"5:3\"]",
+          "key": "[\"2026-10-07\", \"미정\", \"walk\", \"5:3\"]",
           "date": "2026-10-07",
           "name": "미정",
           "activity": "동성로",
-          "category": "other",
+          "category": "walk",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1204,7 +1239,7 @@
           "name": "성심당 본점",
           "activity": "빵",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1222,7 +1257,7 @@
           "name": "온천집",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         }
       ]
