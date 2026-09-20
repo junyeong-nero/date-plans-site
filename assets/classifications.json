@@ -688,6 +688,89 @@
         }
       ]
     },
+    "2026-09-25-대구": {
+      "fingerprint": "dbcfc86115be07bb366eca0f539328c7f5249cd19d79d385168166f03d0ca117",
+      "rows": [
+        {
+          "id": "0:0",
+          "categories": [],
+          "cuisine": null
+        },
+        {
+          "id": "0:1",
+          "categories": [
+            "food"
+          ],
+          "cuisine": "other"
+        },
+        {
+          "id": "0:2",
+          "categories": [
+            "cafe"
+          ],
+          "cuisine": null
+        },
+        {
+          "id": "0:3",
+          "categories": [
+            "food"
+          ],
+          "cuisine": "other"
+        },
+        {
+          "id": "1:0",
+          "categories": [
+            "food"
+          ],
+          "cuisine": "other"
+        },
+        {
+          "id": "1:1",
+          "categories": [],
+          "cuisine": null
+        }
+      ],
+      "model": "gpt-5.4-mini-2026-03-17",
+      "generated_at": "2026-09-20T04:45:18.619975+00:00",
+      "activities": [
+        {
+          "key": "[\"2026-09-25\", \"미정\", \"food\", \"0:1\"]",
+          "date": "2026-09-25",
+          "name": "미정",
+          "activity": "점심",
+          "category": "food",
+          "cuisine": "other",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"미정\", \"cafe\", \"0:2\"]",
+          "date": "2026-09-25",
+          "name": "미정",
+          "activity": "카페",
+          "category": "cafe",
+          "cuisine": null,
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"미정\", \"food\", \"0:3\"]",
+          "date": "2026-09-25",
+          "name": "미정",
+          "activity": "저녁",
+          "category": "food",
+          "cuisine": "other",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-26\", \"미정\", \"food\", \"1:0\"]",
+          "date": "2026-09-26",
+          "name": "미정",
+          "activity": "브런치",
+          "category": "food",
+          "cuisine": "other",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        }
+      ]
+    },
     "2026-10-02-서울": {
       "fingerprint": "ebb85be5a35d723044db2e32188b42737662013ace8f4efbcd8b03345d8cc01d",
       "rows": [
