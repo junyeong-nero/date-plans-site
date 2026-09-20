@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "b2585219768c4a9b6ac1f05357bc4a374c9d556f5db3f981c6b8f1a2b9a5c1b4",
+      "fingerprint": "c53f7f4e66be72a68ba8030c8bed40ff2f33bca3f282d397f2b06fe6d5a572cf",
       "rows": [
         {
           "id": "0:0",
@@ -716,7 +716,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "0:4",
@@ -724,14 +724,15 @@
             "drink",
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "other"
         },
         {
           "id": "1:0",
           "categories": [
-            "cafe"
+            "cafe",
+            "food"
           ],
-          "cuisine": null
+          "cuisine": "western"
         },
         {
           "id": "1:1",
@@ -740,7 +741,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T04:55:35.431313+00:00",
+      "generated_at": "2026-09-20T05:04:15.235536+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"cafe\"]",
@@ -775,7 +776,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -793,16 +794,25 @@
           "name": "교동 감나무집",
           "activity": "야장",
           "category": "food",
-          "cuisine": "korean",
+          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-26\", \"미정\", \"cafe\", \"1:0\"]",
+          "key": "[\"2026-09-26\", \"마티네\", \"cafe\"]",
           "date": "2026-09-26",
-          "name": "미정",
+          "name": "마티네",
           "activity": "브런치",
           "category": "cafe",
           "cuisine": null,
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-26\", \"마티네\", \"food\"]",
+          "date": "2026-09-26",
+          "name": "마티네",
+          "activity": "브런치",
+          "category": "food",
+          "cuisine": "western",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         }
       ]
