@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "50617f5494c2eeeb3e8ac9d2e2776fff740f43326ee18336e87f315b8420ce42",
+      "fingerprint": "4371c2389b0c939677f161df359ffb82cf6196469f910a42f68a62c4ffd101f4",
       "rows": [
         {
           "id": "0:0",
@@ -701,7 +701,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "korean"
         },
         {
           "id": "0:2",
@@ -720,17 +720,16 @@
         {
           "id": "0:4",
           "categories": [
-            "food",
             "drink"
           ],
-          "cuisine": "korean"
+          "cuisine": null
         },
         {
           "id": "1:0",
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "1:1",
@@ -739,21 +738,21 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T04:46:57.963101+00:00",
+      "generated_at": "2026-09-20T04:51:39.434578+00:00",
       "activities": [
         {
-          "key": "[\"2026-09-25\", \"미정\", \"food\", \"0:1\"]",
+          "key": "[\"2026-09-25\", \"효목골막창\", \"food\"]",
           "date": "2026-09-25",
-          "name": "미정",
+          "name": "효목골막창",
           "activity": "점심",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "korean",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-25\", \"미정\", \"cafe\", \"0:2\"]",
+          "key": "[\"2026-09-25\", \"코타커피\", \"cafe\"]",
           "date": "2026-09-25",
-          "name": "미정",
+          "name": "코타커피",
           "activity": "카페",
           "category": "cafe",
           "cuisine": null,
@@ -766,15 +765,6 @@
           "activity": "저녁",
           "category": "food",
           "cuisine": "asian",
-          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
-        },
-        {
-          "key": "[\"2026-09-25\", \"교동 감나무집\", \"food\"]",
-          "date": "2026-09-25",
-          "name": "교동 감나무집",
-          "activity": "야장",
-          "category": "food",
-          "cuisine": "korean",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -792,7 +782,7 @@
           "name": "미정",
           "activity": "브런치",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         }
       ]
