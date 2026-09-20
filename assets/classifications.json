@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "877eabcb40b70318eaf2bc56b88f655c97e45979de9599eecc32d54d9fdacbee",
+      "fingerprint": "857901e0e8ca1776a4a9f7d7c5e62d0a90e8a21fc3b8d226dafdbe8474cb2447",
       "rows": [
         {
           "id": "0:0",
@@ -716,7 +716,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "asian"
         },
         {
           "id": "0:4",
@@ -730,7 +730,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "japanese"
         },
         {
           "id": "1:1",
@@ -753,7 +753,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T08:54:10.423280+00:00",
+      "generated_at": "2026-09-20T09:01:21.084704+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"food\"]",
@@ -788,7 +788,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "asian",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -806,7 +806,7 @@
           "name": "솔솥 대구동성로점",
           "activity": "점심",
           "category": "food",
-          "cuisine": "korean",
+          "cuisine": "japanese",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
