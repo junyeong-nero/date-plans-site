@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "4371c2389b0c939677f161df359ffb82cf6196469f910a42f68a62c4ffd101f4",
+      "fingerprint": "b2585219768c4a9b6ac1f05357bc4a374c9d556f5db3f981c6b8f1a2b9a5c1b4",
       "rows": [
         {
           "id": "0:0",
@@ -699,14 +699,15 @@
         {
           "id": "0:1",
           "categories": [
+            "cafe",
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "western"
         },
         {
           "id": "0:2",
           "categories": [
-            "cafe"
+            "other"
           ],
           "cuisine": null
         },
@@ -720,16 +721,17 @@
         {
           "id": "0:4",
           "categories": [
-            "drink"
+            "drink",
+            "food"
           ],
-          "cuisine": null
+          "cuisine": "korean"
         },
         {
           "id": "1:0",
           "categories": [
-            "food"
+            "cafe"
           ],
-          "cuisine": "western"
+          "cuisine": null
         },
         {
           "id": "1:1",
@@ -738,23 +740,32 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T04:51:39.434578+00:00",
+      "generated_at": "2026-09-20T04:55:35.431313+00:00",
       "activities": [
         {
-          "key": "[\"2026-09-25\", \"효목골막창\", \"food\"]",
+          "key": "[\"2026-09-25\", \"덴토\", \"cafe\"]",
           "date": "2026-09-25",
-          "name": "효목골막창",
-          "activity": "점심",
-          "category": "food",
-          "cuisine": "korean",
+          "name": "덴토",
+          "activity": "브런치",
+          "category": "cafe",
+          "cuisine": null,
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-25\", \"코타커피\", \"cafe\"]",
+          "key": "[\"2026-09-25\", \"덴토\", \"food\"]",
           "date": "2026-09-25",
-          "name": "코타커피",
-          "activity": "카페",
-          "category": "cafe",
+          "name": "덴토",
+          "activity": "브런치",
+          "category": "food",
+          "cuisine": "western",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"미정\", \"other\", \"0:2\"]",
+          "date": "2026-09-25",
+          "name": "미정",
+          "activity": "쇼핑",
+          "category": "other",
           "cuisine": null,
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
@@ -777,12 +788,21 @@
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-26\", \"미정\", \"food\", \"1:0\"]",
+          "key": "[\"2026-09-25\", \"교동 감나무집\", \"food\"]",
+          "date": "2026-09-25",
+          "name": "교동 감나무집",
+          "activity": "야장",
+          "category": "food",
+          "cuisine": "korean",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-26\", \"미정\", \"cafe\", \"1:0\"]",
           "date": "2026-09-26",
           "name": "미정",
           "activity": "브런치",
-          "category": "food",
-          "cuisine": "western",
+          "category": "cafe",
+          "cuisine": null,
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         }
       ]
