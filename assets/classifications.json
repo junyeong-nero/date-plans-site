@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "dbcfc86115be07bb366eca0f539328c7f5249cd19d79d385168166f03d0ca117",
+      "fingerprint": "50617f5494c2eeeb3e8ac9d2e2776fff740f43326ee18336e87f315b8420ce42",
       "rows": [
         {
           "id": "0:0",
@@ -715,7 +715,15 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "asian"
+        },
+        {
+          "id": "0:4",
+          "categories": [
+            "food",
+            "drink"
+          ],
+          "cuisine": "korean"
         },
         {
           "id": "1:0",
@@ -731,7 +739,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T04:45:18.619975+00:00",
+      "generated_at": "2026-09-20T04:46:57.963101+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"미정\", \"food\", \"0:1\"]",
@@ -752,12 +760,30 @@
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-25\", \"미정\", \"food\", \"0:3\"]",
+          "key": "[\"2026-09-25\", \"하이디라오 대구점\", \"food\"]",
           "date": "2026-09-25",
-          "name": "미정",
+          "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "asian",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"교동 감나무집\", \"food\"]",
+          "date": "2026-09-25",
+          "name": "교동 감나무집",
+          "activity": "야장",
+          "category": "food",
+          "cuisine": "korean",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"교동 감나무집\", \"drink\"]",
+          "date": "2026-09-25",
+          "name": "교동 감나무집",
+          "activity": "야장",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
