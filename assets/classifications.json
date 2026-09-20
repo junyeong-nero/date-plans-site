@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "984532ae6b79fceee641f9b292c504d81a2f3116a3ec339a1eef684f62b0b9ea",
+      "fingerprint": "916114de6cda325807047777e076eb9dfd993d6579099b23b1efec2b2d48f2d6",
       "rows": [
         {
           "id": "0:0",
@@ -717,14 +717,15 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "0:4",
           "categories": [
-            "drink"
+            "drink",
+            "food"
           ],
-          "cuisine": null
+          "cuisine": "other"
         },
         {
           "id": "1:0",
@@ -739,7 +740,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "korean"
         },
         {
           "id": "1:2",
@@ -748,7 +749,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T07:38:36.728330+00:00",
+      "generated_at": "2026-09-20T07:40:54.908109+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"cafe\"]",
@@ -792,7 +793,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -802,6 +803,15 @@
           "activity": "야장",
           "category": "drink",
           "cuisine": null,
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"교동 감나무집\", \"food\"]",
+          "date": "2026-09-25",
+          "name": "교동 감나무집",
+          "activity": "야장",
+          "category": "food",
+          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -828,7 +838,7 @@
           "name": "솔솥 대구동성로점",
           "activity": "점심",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "korean",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         }
       ]
