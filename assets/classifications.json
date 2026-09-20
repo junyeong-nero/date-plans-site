@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "c53f7f4e66be72a68ba8030c8bed40ff2f33bca3f282d397f2b06fe6d5a572cf",
+      "fingerprint": "17defa2bfe33204f0bd4c8e1bd65dbed7f712fdfcb3d264d24bfb648ae46c835",
       "rows": [
         {
           "id": "0:0",
@@ -716,7 +716,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "asian"
         },
         {
           "id": "0:4",
@@ -724,7 +724,7 @@
             "drink",
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "korean"
         },
         {
           "id": "1:0",
@@ -738,10 +738,15 @@
           "id": "1:1",
           "categories": [],
           "cuisine": null
+        },
+        {
+          "id": "1:2",
+          "categories": [],
+          "cuisine": null
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T05:04:15.235536+00:00",
+      "generated_at": "2026-09-20T07:24:42.668013+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"cafe\"]",
@@ -776,7 +781,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "asian",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -794,7 +799,7 @@
           "name": "교동 감나무집",
           "activity": "야장",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "korean",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
