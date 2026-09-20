@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "857901e0e8ca1776a4a9f7d7c5e62d0a90e8a21fc3b8d226dafdbe8474cb2447",
+      "fingerprint": "6ad0622a883398fd07522055ff8839468620518653d533c4d0b948693deda0d7",
       "rows": [
         {
           "id": "0:0",
@@ -706,7 +706,6 @@
         {
           "id": "0:2",
           "categories": [
-            "walk",
             "play"
           ],
           "cuisine": null
@@ -714,12 +713,20 @@
         {
           "id": "0:3",
           "categories": [
+            "walk",
+            "play"
+          ],
+          "cuisine": null
+        },
+        {
+          "id": "0:4",
+          "categories": [
             "food"
           ],
           "cuisine": "asian"
         },
         {
-          "id": "0:4",
+          "id": "0:5",
           "categories": [
             "drink"
           ],
@@ -730,7 +737,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "1:1",
@@ -753,7 +760,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T09:01:21.084704+00:00",
+      "generated_at": "2026-09-20T14:12:48.771167+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"food\"]",
@@ -765,7 +772,16 @@
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-25\", \"미정\", \"walk\", \"0:2\"]",
+          "key": "[\"2026-09-25\", \"스파크랜드\", \"play\"]",
+          "date": "2026-09-25",
+          "name": "스파크랜드",
+          "activity": "스파크랜드",
+          "category": "play",
+          "cuisine": null,
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"미정\", \"walk\", \"0:3\"]",
           "date": "2026-09-25",
           "name": "미정",
           "activity": "동성로 산책",
@@ -774,7 +790,7 @@
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-25\", \"미정\", \"play\", \"0:2\"]",
+          "key": "[\"2026-09-25\", \"미정\", \"play\", \"0:3\"]",
           "date": "2026-09-25",
           "name": "미정",
           "activity": "동성로 산책",
@@ -806,7 +822,7 @@
           "name": "솔솥 대구동성로점",
           "activity": "점심",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
