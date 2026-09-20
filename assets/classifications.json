@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "916114de6cda325807047777e076eb9dfd993d6579099b23b1efec2b2d48f2d6",
+      "fingerprint": "9fed1ecfca973078715c1b7d967fc41398d92f54a49d3c5c9f1ecff69387180a",
       "rows": [
         {
           "id": "0:0",
@@ -722,10 +722,9 @@
         {
           "id": "0:4",
           "categories": [
-            "drink",
-            "food"
+            "drink"
           ],
-          "cuisine": "other"
+          "cuisine": null
         },
         {
           "id": "1:0",
@@ -749,7 +748,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-20T07:40:54.908109+00:00",
+      "generated_at": "2026-09-20T08:40:22.877495+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"cafe\"]",
@@ -797,21 +796,12 @@
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
-          "key": "[\"2026-09-25\", \"교동 감나무집\", \"drink\"]",
+          "key": "[\"2026-09-25\", \"교동청춘\", \"drink\"]",
           "date": "2026-09-25",
-          "name": "교동 감나무집",
+          "name": "교동청춘",
           "activity": "야장",
           "category": "drink",
           "cuisine": null,
-          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
-        },
-        {
-          "key": "[\"2026-09-25\", \"교동 감나무집\", \"food\"]",
-          "date": "2026-09-25",
-          "name": "교동 감나무집",
-          "activity": "야장",
-          "category": "food",
-          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
