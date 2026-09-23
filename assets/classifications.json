@@ -830,7 +830,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "6b880912eac5fa92bfe20687cfc9d1b26f002c485757c1ce30be7c3724741fe4",
+      "fingerprint": "23474fbce055b4b4545e8798d493cb853dc3687efcb261fbc53bb3382c4e476b",
       "rows": [
         {
           "id": "0:0",
@@ -841,10 +841,8 @@
         },
         {
           "id": "0:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
+          "categories": [],
+          "cuisine": null
         },
         {
           "id": "0:2",
@@ -864,8 +862,8 @@
         {
           "id": "0:4",
           "categories": [
-            "drink",
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "other"
         },
@@ -913,34 +911,39 @@
         },
         {
           "id": "2:0",
+          "categories": [],
+          "cuisine": null
+        },
+        {
+          "id": "2:1",
           "categories": [
             "food"
           ],
           "cuisine": "japanese"
         },
         {
-          "id": "2:1",
+          "id": "2:2",
           "categories": [
             "cafe"
           ],
           "cuisine": null
         },
         {
-          "id": "2:2",
+          "id": "2:3",
           "categories": [
             "walk"
           ],
           "cuisine": null
         },
         {
-          "id": "2:3",
+          "id": "2:4",
           "categories": [
             "food"
           ],
           "cuisine": "western"
         },
         {
-          "id": "2:4",
+          "id": "2:5",
           "categories": [],
           "cuisine": null
         },
@@ -1105,7 +1108,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "7:6",
@@ -1114,7 +1117,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-22T12:32:11.817547+00:00",
+      "generated_at": "2026-09-23T15:02:24.014412+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"서울고속버스터미널\", \"other\"]",
@@ -1123,15 +1126,6 @@
           "activity": "만남",
           "category": "other",
           "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-02\", \"호호식당 파미에스테이션\", \"food\"]",
-          "date": "2026-10-02",
-          "name": "호호식당 파미에스테이션",
-          "activity": "저녁",
-          "category": "food",
-          "cuisine": "japanese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1162,21 +1156,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-02\", \"달맞이광장바베큐 본점\", \"drink\"]",
-          "date": "2026-10-02",
-          "name": "달맞이광장바베큐 본점",
-          "activity": "야장",
-          "category": "drink",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-02\", \"달맞이광장바베큐 본점\", \"food\"]",
           "date": "2026-10-02",
           "name": "달맞이광장바베큐 본점",
-          "activity": "야장",
+          "activity": "저녁 (야장)",
           "category": "food",
           "cuisine": "other",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-02\", \"달맞이광장바베큐 본점\", \"drink\"]",
+          "date": "2026-10-02",
+          "name": "달맞이광장바베큐 본점",
+          "activity": "저녁 (야장)",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1437,7 +1431,7 @@
           "name": "온천집",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         }
       ]
