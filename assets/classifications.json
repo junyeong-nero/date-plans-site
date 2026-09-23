@@ -1443,7 +1443,7 @@
       ]
     },
     "2026-11-14-삿포로": {
-      "fingerprint": "0b0ee4bbfaf4b58b3be74198ebbae4835574a6bfc4626e854cfc46b1a1383337",
+      "fingerprint": "0ef4351d34f8d367aafbb3d1af2fb00c938ddc7e289f47494e7c1b71d7b5a77e",
       "rows": [
         {
           "id": "0:0",
@@ -1508,15 +1508,14 @@
         {
           "id": "1:3",
           "categories": [
-            "culture"
+            "other"
           ],
           "cuisine": null
         },
         {
           "id": "1:4",
           "categories": [
-            "food",
-            "drink"
+            "food"
           ],
           "cuisine": "other"
         },
@@ -1561,7 +1560,7 @@
         {
           "id": "2:5",
           "categories": [
-            "escape"
+            "other"
           ],
           "cuisine": null
         },
@@ -1660,13 +1659,13 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-23T14:31:29.523493+00:00",
+      "generated_at": "2026-09-23T14:41:51.496270+00:00",
       "activities": [
         {
-          "key": "[\"2026-11-14\", \"미정\", \"stay\", \"0:5\"]",
+          "key": "[\"2026-11-14\", \"도미인 프리미엄 삿포로\", \"stay\"]",
           "date": "2026-11-14",
-          "name": "미정",
-          "activity": "체크인 (가성비 2박)",
+          "name": "도미인 프리미엄 삿포로",
+          "activity": "체크인 (2박)",
           "category": "stay",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
@@ -1708,11 +1707,11 @@
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-15\", \"삿포로 맥주박물관\", \"culture\"]",
+          "key": "[\"2026-11-15\", \"삿포로 맥주박물관\", \"other\"]",
           "date": "2026-11-15",
           "name": "삿포로 맥주박물관",
           "activity": "맥주 투어",
-          "category": "culture",
+          "category": "other",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
@@ -1723,15 +1722,6 @@
           "activity": "저녁 (징기스칸+맥주 무제한)",
           "category": "food",
           "cuisine": "other",
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-15\", \"삿포로 비루엔\", \"drink\"]",
-          "date": "2026-11-15",
-          "name": "삿포로 비루엔",
-          "activity": "저녁 (징기스칸+맥주 무제한)",
-          "category": "drink",
-          "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
@@ -1771,11 +1761,11 @@
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-16\", \"누쿠모리노야도 후루카와\", \"escape\"]",
+          "key": "[\"2026-11-16\", \"누쿠모리노야도 후루카와\", \"other\"]",
           "date": "2026-11-16",
           "name": "누쿠모리노야도 후루카와",
           "activity": "전세탕",
-          "category": "escape",
+          "category": "other",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
