@@ -830,7 +830,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "905664ebde7c5609944eec1f9873292c843803d40dcb9f3b55266ac998e10243",
+      "fingerprint": "7e08f4a984cc9f7f114a3f991ecd485be58aa0eea52b0d8a31041a9e03e6ceeb",
       "rows": [
         {
           "id": "0:0",
@@ -849,7 +849,8 @@
         {
           "id": "1:0",
           "categories": [
-            "stay"
+            "stay",
+            "play"
           ],
           "cuisine": null
         },
@@ -863,13 +864,15 @@
         {
           "id": "1:2",
           "categories": [
-            "stay"
+            "other"
           ],
           "cuisine": null
         },
         {
           "id": "1:3",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -882,13 +885,15 @@
         {
           "id": "1:5",
           "categories": [
-            "food"
+            "other"
           ],
-          "cuisine": "korean"
+          "cuisine": null
         },
         {
           "id": "2:0",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -907,7 +912,9 @@
         },
         {
           "id": "2:3",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -926,7 +933,9 @@
         },
         {
           "id": "2:6",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -938,7 +947,9 @@
         },
         {
           "id": "3:1",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -972,7 +983,8 @@
         {
           "id": "4:3",
           "categories": [
-            "cafe"
+            "cafe",
+            "play"
           ],
           "cuisine": null
         },
@@ -981,7 +993,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "4:5",
@@ -1058,7 +1070,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-23T23:13:07.734144+00:00",
+      "generated_at": "2026-09-23T23:40:47.757895+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"용인 숙소\", \"other\"]",
@@ -1088,6 +1100,15 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"play\"]",
+          "date": "2026-10-03",
+          "name": "캐리비안베이",
+          "activity": "캐리비안베이",
+          "category": "play",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
           "key": "[\"2026-10-03\", \"미정\", \"food\", \"1:1\"]",
           "date": "2026-10-03",
           "name": "미정",
@@ -1097,21 +1118,39 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"용인공용버스터미널\", \"food\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"other\"]",
           "date": "2026-10-03",
-          "name": "용인공용버스터미널",
-          "activity": "구미로 이동",
+          "name": "캐리비안베이",
+          "activity": "샤워·나오기",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-03\", \"미정\", \"food\", \"1:4\"]",
+          "date": "2026-10-03",
+          "name": "미정",
+          "activity": "저녁",
           "category": "food",
           "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"꽃뚜껑 사곡직영점\", \"food\"]",
+          "key": "[\"2026-10-03\", \"용인공용버스터미널\", \"other\"]",
           "date": "2026-10-03",
-          "name": "꽃뚜껑 사곡직영점",
-          "activity": "늦저녁",
-          "category": "food",
-          "cuisine": "korean",
+          "name": "용인공용버스터미널",
+          "activity": "구미로 이동",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-04\", \"사곡역\", \"other\"]",
+          "date": "2026-10-04",
+          "name": "사곡역",
+          "activity": "대구로 이동",
+          "category": "other",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1133,6 +1172,15 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
+          "key": "[\"2026-10-04\", \"하이디라오 대구점\", \"other\"]",
+          "date": "2026-10-04",
+          "name": "하이디라오 대구점",
+          "activity": "웨이팅 걸기",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
           "key": "[\"2026-10-04\", \"커피매거진\", \"cafe\"]",
           "date": "2026-10-04",
           "name": "커피매거진",
@@ -1151,12 +1199,30 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
+          "key": "[\"2026-10-04\", \"대구역\", \"other\"]",
+          "date": "2026-10-04",
+          "name": "대구역",
+          "activity": "구미로 복귀",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
           "key": "[\"2026-10-05\", \"미정\", \"food\", \"3:0\"]",
           "date": "2026-10-05",
           "name": "미정",
           "activity": "점심",
           "category": "food",
           "cuisine": "other",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-05\", \"구미종합터미널\", \"other\"]",
+          "date": "2026-10-05",
+          "name": "구미종합터미널",
+          "activity": "서울로 이동",
+          "category": "other",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1205,12 +1271,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"play\"]",
+          "date": "2026-10-06",
+          "name": "바이닐 성수",
+          "activity": "LP 카페",
+          "category": "play",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
           "key": "[\"2026-10-06\", \"오밀 혜화 대학로\", \"food\"]",
           "date": "2026-10-06",
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
