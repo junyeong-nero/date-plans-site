@@ -830,7 +830,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "28c87f53ff70199d0e7ef8862714fc3800c2873c421046631c57f8c879d7a6fd",
+      "fingerprint": "bda36280f7748ff39d919c900d3dd104a51c3abbb5957807937e7cf6a4c17c4e",
       "rows": [
         {
           "id": "0:0",
@@ -847,7 +847,7 @@
         {
           "id": "1:0",
           "categories": [
-            "other"
+            "play"
           ],
           "cuisine": null
         },
@@ -916,7 +916,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "asian"
         },
         {
           "id": "2:6",
@@ -1054,7 +1054,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-24T04:17:50.857605+00:00",
+      "generated_at": "2026-09-24T04:31:18.315208+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
@@ -1066,11 +1066,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"캐리비안베이\", \"other\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"play\"]",
           "date": "2026-10-03",
           "name": "캐리비안베이",
           "activity": "캐리비안베이",
-          "category": "other",
+          "category": "play",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1125,7 +1125,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "asian",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
