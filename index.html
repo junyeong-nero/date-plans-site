@@ -313,7 +313,6 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
 .map-caption { padding: 8px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .map-caption .route-message { flex: 1; }
-.selected-map-link { width: 44px; padding: 0; justify-content: center; flex-shrink: 0; margin: 0; }
 .route-message, .route-note { margin: 0; color: var(--text-secondary); font-size: .75rem; overflow-wrap: anywhere; }
 .map-retry { margin: 8px 0 0; cursor: pointer; }
 .map-pin { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bg-primary); border-radius: var(--r-full); background: var(--fill-brand); color: var(--text-alt); font: 600 13px var(--font); cursor: pointer; }
@@ -393,6 +392,14 @@ body:not(.explorer-ready) .map-pane { display: none; }
 .day-picker .day-label { display: flex; align-items: center; justify-content: center; padding: 0 4px; text-align: center; background: transparent; }
 .day-picker button { font-size: 1.5rem; cursor: pointer; }
 .day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
+
+/* 카카오맵 버튼은 각 장소 옆에 둔다. 카드를 펼치지 않아도 바로 연다. */
+.item-map, .place-map { margin: 0; padding: 0 12px; flex-shrink: 0; font-size: .8125rem; }
+.item-map .icon, .place-map .icon { width: 16px; height: 16px; }
+.day .item-map { position: absolute; top: 6px; right: 6px; }
+.day .item.has-map .time, .day .item.has-map .label { padding-right: 80px; }
+.place-head { display: flex; align-items: center; gap: 8px; }
+.place-head .place-select { flex: 1 1 auto; min-width: 0; }
 </style>
 <link rel="stylesheet" href="assets/dashboard.css">
 <script src="assets/dashboard.js" defer></script>
@@ -407,11 +414,11 @@ body:not(.explorer-ready) .map-pane { display: none; }
 <section id="schedule-view" aria-label="데이트 일정">
 
 <ul class="plans" id="plans">
-<li data-start="2026-11-14" data-end="2026-11-18"><a href="2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">삿포로 4박 5일 — 100일 여행</span><span class="d">2026년 11월 14일 (토) – 11/18 (수) · 34개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-10-02" data-end="2026-10-08"><a href="2026-10-02-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">연휴 6박 7일 — 용인 → 구미·대구 → 서울</span><span class="d">2026년 10월 2일 (금) – 10/8 (목) · 34개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-09-25" data-end="2026-09-26"><a href="2026-09-25-%EB%8C%80%EA%B5%AC/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">추석 대구 데이트</span><span class="d">2026년 9월 25일 (금) – 9/26 (토) · 9개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-11-14" data-end="2026-11-18"><a href="2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">삿포로 4박 5일 — 100일 여행</span><span class="d">2026년 11월 14일 (토) – 11/18 (수) · 30개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-10-02" data-end="2026-10-08"><a href="2026-10-02-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">연휴 6박 7일 — 용인 → 구미·대구 → 서울</span><span class="d">2026년 10월 2일 (금) – 10/8 (목) · 32개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-25" data-end="2026-09-26"><a href="2026-09-25-%EB%8C%80%EA%B5%AC/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">추석 대구 데이트</span><span class="d">2026년 9월 25일 (금) – 9/26 (토) · 8개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 <li data-start="2026-09-19" data-end="2026-09-19"><a href="2026-09-19-%EC%84%9C%EC%9A%B8/"><span class="t">해방촌 토터스와 남산 생일 데이트</span><span class="d">2026년 9월 19일 (토) · 10개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-09-12" data-end="2026-09-12"><a href="2026-09-12-%EB%B6%80%EC%B2%9C/"><span class="t">부평·상동 저녁 데이트</span><span class="d">2026년 9월 12일 (토) · 12개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-12" data-end="2026-09-12"><a href="2026-09-12-%EB%B6%80%EC%B2%9C/"><span class="t">부평·상동 저녁 데이트</span><span class="d">2026년 9월 12일 (토) · 11개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 <li data-start="2026-09-04" data-end="2026-09-06"><a href="2026-09-04-%EC%88%98%EC%9B%90/"><span class="t">수원 2박 3일 — 마라탕·행궁동·광교</span><span class="d">2026년 9월 4일 (금) – 9/6 (일) · 12개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 <li data-start="2026-08-29" data-end="2026-08-30"><a href="2026-08-29-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">충무로·종로·익선동 1박 2일</span><span class="d">2026년 8월 29일 (토) – 8/30 (일) · 9개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
 <li data-start="2026-08-22" data-end="2026-08-22"><a href="2026-08-22-%EC%84%9C%EC%9A%B8/"><span class="t">압구정 데이트</span><span class="d">2026년 8월 22일 (토) · 6개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
@@ -527,7 +534,6 @@ body:not(.explorer-ready) .map-pane { display: none; }
   document.body.classList.add('explorer-ready');
   var canvas = document.getElementById('route-map');
   var message = root.querySelector('.route-message');
-  var openLink = root.querySelector('.selected-map-link');
   var mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   root.querySelectorAll('.kakao-open').forEach(function (link) {
@@ -567,13 +573,6 @@ body:not(.explorer-ready) .map-pane { display: none; }
       ' · 목록이나 지도 번호를 선택해 주세요.' + (missing ? ' 위치 미확인 ' + missing + '개' : ''));
   }
   function highlight() {
-    openLink.hidden = !selected;
-    if (selected) {
-      openLink.href = selected.links[mobile ? 'mobile' : 'web'];
-      openLink.setAttribute('aria-label', selected.name + ' 카카오맵에서 열기');
-      openLink.title = selected.name + ' 카카오맵에서 열기';
-    } else { openLink.removeAttribute('href'); }
-
     root.querySelectorAll('[data-select]').forEach(function (button) {
       var active = !!selected && button.dataset.select === selected.id;
       button.setAttribute('aria-pressed', String(active));
