@@ -830,7 +830,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "dda4e4b3b8487713ed5d6c17c12d5e1bd5a21002a6c9104251104eebbf8b8d57",
+      "fingerprint": "f1a13e01c1cd93321eff60052e6169c1f690aad78d88e526071ced7ea93475c5",
       "rows": [
         {
           "id": "0:0",
@@ -1010,8 +1010,8 @@
         {
           "id": "5:3",
           "categories": [
-            "drink",
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
         },
@@ -1055,7 +1055,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-24T05:19:22.035979+00:00",
+      "generated_at": "2026-09-24T05:21:21.721547+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
@@ -1238,21 +1238,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
-          "date": "2026-10-07",
-          "name": "주락",
-          "activity": "저녁 (한식주점)",
-          "category": "drink",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-07\", \"주락\", \"food\"]",
           "date": "2026-10-07",
           "name": "주락",
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
