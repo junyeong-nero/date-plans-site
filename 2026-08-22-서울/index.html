@@ -350,8 +350,6 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 .day-picker button { font-size: 1.5rem; cursor: pointer; }
 .day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
 
-/* 지도 없이 목록만 본다 (2026-09-24). 페이지 자체가 스크롤한다. */
-.explorer { width: 100%; max-width: 38rem; margin: 0 auto; }
 .place-card.selected { background: var(--fill-weak); }
 .place-head { display: flex; align-items: center; gap: 8px; }
 .place-head .place-select { flex: 1 1 auto; min-width: 0; }
@@ -388,6 +386,46 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
   .timeline-node { flex-basis: 32px; height: 32px; font-size: .8125rem; margin-top: 6px; }
   .day .item:not(:last-child)::before { left: 15.5px; top: 38px; }
 }
+
+/* 지도는 남기고 위의 제목·전체 동선 줄만 없앴다 (2026-09-24). 목록만 스크롤한다. */
+body:not(.explorer-ready) .map-pane { display: none; }
+.explorer-ready .plan-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.explorer-ready .explorer { display: grid; grid-template-rows: minmax(180px, 40dvh) minmax(0, 1fr); flex: 1; min-height: 0; }
+.map-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--fill-weak); overflow: hidden; }
+.route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
+.map-caption { padding: 6px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.map-caption .route-message { flex: 1; }
+.route-message { margin: 0; color: var(--text-secondary); font-size: .75rem; overflow-wrap: anywhere; }
+.map-retry { margin: 4px 0 0; cursor: pointer; }
+.map-pin { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bg-primary); border-radius: var(--r-full); background: var(--fill-brand); color: var(--text-alt); font: 600 13px var(--font); cursor: pointer; }
+.map-pin.selected { background: var(--text-primary); outline: 3px solid var(--bg-primary); }
+.explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-top: 12px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+.explorer-ready .list-scroll { scroll-snap-type: y proximity; scroll-padding-top: 24px; }
+.explorer-ready .list-scroll .item { scroll-snap-align: start; }
+.explorer-ready .list-scroll .day { padding-bottom: var(--timeline-tail, 24px); }
+.day .item-select { cursor: pointer; outline: none; }
+.day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
+.day .item.selected .body { background: var(--blue-50); }
+@media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
+@media (min-width: 1024px) {
+  .plan-page .top { padding: 20px 24px; }
+  .plan-page .top h1 { font-size: 1.375rem; }
+  .explorer-ready .explorer { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px 24px; gap: 24px; grid-template-columns: 400px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
+  .map-pane { grid-column: 2; grid-row: 1; border-radius: var(--r-2xl); }
+  .list-pane { grid-column: 1; grid-row: 1; border: 1px solid var(--line-default); border-radius: var(--r-2xl); overflow: hidden; }
+}
+@media (max-height: 600px) and (max-width: 1023px) {
+  .plan-page .checked { display: none; }
+  .explorer-ready .explorer { grid-template-rows: minmax(120px, 35dvh) minmax(0, 1fr); }
+}
+
+/* 빠르게 두 번 눌러도 화면이 확대되지 않게 한다. 두 손가락 확대는 그대로 된다. */
+html { touch-action: manipulation; }
+button, a, .item-select { touch-action: manipulation; }
+
+/* 날짜 선택 바가 날짜를 이미 보여 주므로 여러 날 플랜에서는 목록 위 날짜 제목을 숨긴다. */
+.explorer-ready .day-picker ~ .list-scroll .day h2,
+.explorer-ready .tabs ~ .list-scroll .day h2 { display: none; }
 </style>
 </head>
 <body>
@@ -397,16 +435,16 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 <p class="range">2026년 8월 22일 (토)</p>
 <p class="checked ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>2026-08-17에 확인했어요</p>
 </header>
-<main class="explorer"><section class="list-pane" aria-label="일정">
+<main class="explorer"><section class="map-pane" aria-label="동선 지도"><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정">
 <div class="list-scroll"><div id="schedule-panel">
 <section class="day" data-day="">
 <div class="route-data" hidden data-route="[{&quot;point&quot;: [37.525158525834, 127.037202911556], &quot;name&quot;: &quot;규카츠정 압구정로데오점&quot;, &quot;time&quot;: &quot;11:45&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-1&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:20.443516+00:00&quot;}, {&quot;point&quot;: [37.5229110254398, 127.037043534807], &quot;name&quot;: &quot;CGV 청담씨네시티&quot;, &quot;time&quot;: &quot;13:20&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0&quot;}, &quot;id&quot;: &quot;stop-0-2&quot;, &quot;placeId&quot;: &quot;place-1&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:19.729390+00:00&quot;}, {&quot;point&quot;: [37.5260709109071, 127.037106639382], &quot;name&quot;: &quot;놀숲 더레이블도산점&quot;, &quot;time&quot;: &quot;16:30&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-3&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:21.591164+00:00&quot;}, {&quot;point&quot;: [37.2526579343798, 127.074394675407], &quot;name&quot;: &quot;골든타임 이스케이프&quot;, &quot;time&quot;: &quot;22:00&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84&quot;}, &quot;id&quot;: &quot;stop-0-4&quot;, &quot;placeId&quot;: &quot;place-2&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:20.089807+00:00&quot;}, {&quot;point&quot;: [37.2538188637482, 127.076894606632], &quot;name&quot;: &quot;아쿠아라운지&quot;, &quot;time&quot;: &quot;23:30&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80&quot;}, &quot;id&quot;: &quot;stop-0-5&quot;, &quot;placeId&quot;: &quot;place-3&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:22.158354+00:00&quot;}, {&quot;point&quot;: [37.2520637842978, 127.07102269696], &quot;name&quot;: &quot;스파렉스사우나&quot;, &quot;time&quot;: &quot;02:10&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98&quot;}, &quot;id&quot;: &quot;stop-0-6&quot;, &quot;placeId&quot;: &quot;place-4&quot;, &quot;checked&quot;: &quot;2026-09-10T13:40:21.852361+00:00&quot;}]"></div>
-<article class="item" id="stop-0-1"><div class="item-select"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90" aria-label="규카츠정 압구정로데오점 카카오맵에서 열기" title="규카츠정 압구정로데오점 카카오맵에서 열기">규카츠정 압구정로데오점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">11:45</span><span class="status risk"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 10 18H2Z M12 9v4 M12 17h.01"/></svg>리스크</span></span><span class="note"><strong class="label">점심</strong>11:40 도착 예정이에요. 예약 없으면 빠듯해요. 13:05엔 나와야 해요</span></span></div></article>
-<article class="item" id="stop-0-2"><div class="item-select"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0" data-mobile-href="https://m.map.kakao.com/scheme/search?q=CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0" aria-label="CGV 청담씨네시티 카카오맵에서 열기" title="CGV 청담씨네시티 카카오맵에서 열기">CGV 청담씨네시티<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">13:20</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">영화</strong>오디세이예요. 3관 스윗박스 프리미엄이고 16:22에 끝나요. 예매는 아직이에요</span></span></div></article>
-<article class="item" id="stop-0-3"><div class="item-select"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90" aria-label="놀숲 더레이블도산점 카카오맵에서 열기" title="놀숲 더레이블도산점 카카오맵에서 열기">놀숲 더레이블도산점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">16:30</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">저녁 겸 만화카페</strong>영업시간을 아직 못 알아봤어요. 20:30엔 나와야 해요</span></span></div></article>
-<article class="item" id="stop-0-4"><div class="item-select"><span class="timeline-node" aria-hidden="true">4</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84" aria-label="골든타임 이스케이프 카카오맵에서 열기" title="골든타임 이스케이프 카카오맵에서 열기">골든타임 이스케이프<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">22:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">방탈출</strong>예약해 뒀어요</span></span></div></article>
-<article class="item" id="stop-0-5"><div class="item-select"><span class="timeline-node" aria-hidden="true">5</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80" aria-label="아쿠아라운지 카카오맵에서 열기" title="아쿠아라운지 카카오맵에서 열기">아쿠아라운지<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">23:30</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">칵테일</strong>영업 중이에요. 토요일은 19:00-02:00. 방탈출 끝나는 대로 가요</span></span></div></article>
-<article class="item" id="stop-0-6"><div class="item-select"><span class="timeline-node" aria-hidden="true">6</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98" aria-label="스파렉스사우나 카카오맵에서 열기" title="스파렉스사우나 카카오맵에서 열기">스파렉스사우나<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">02:10</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">숙박</strong>24시간이에요. 야간요금은 약 15,000원이고 혼자 이용해요</span></span></div></article>
+<article class="item" id="stop-0-1"><div class="item-select" data-select="stop-0-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B7%9C%EC%B9%B4%EC%B8%A0%EC%A0%95%20%EC%95%95%EA%B5%AC%EC%A0%95%EB%A1%9C%EB%8D%B0%EC%98%A4%EC%A0%90" aria-label="규카츠정 압구정로데오점 카카오맵에서 열기" title="규카츠정 압구정로데오점 카카오맵에서 열기">규카츠정 압구정로데오점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">11:45</span><span class="status risk"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 10 18H2Z M12 9v4 M12 17h.01"/></svg>리스크</span></span><span class="note"><strong class="label">점심</strong>11:40 도착 예정이에요. 예약 없으면 빠듯해요. 13:05엔 나와야 해요</span></span></div></article>
+<article class="item" id="stop-0-2"><div class="item-select" data-select="stop-0-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0" data-mobile-href="https://m.map.kakao.com/scheme/search?q=CGV%20%EC%B2%AD%EB%8B%B4%EC%94%A8%EB%84%A4%EC%8B%9C%ED%8B%B0" aria-label="CGV 청담씨네시티 카카오맵에서 열기" title="CGV 청담씨네시티 카카오맵에서 열기">CGV 청담씨네시티<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">13:20</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">영화</strong>오디세이예요. 3관 스윗박스 프리미엄이고 16:22에 끝나요. 예매는 아직이에요</span></span></div></article>
+<article class="item" id="stop-0-3"><div class="item-select" data-select="stop-0-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%86%80%EC%88%B2%20%EB%8D%94%EB%A0%88%EC%9D%B4%EB%B8%94%EB%8F%84%EC%82%B0%EC%A0%90" aria-label="놀숲 더레이블도산점 카카오맵에서 열기" title="놀숲 더레이블도산점 카카오맵에서 열기">놀숲 더레이블도산점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">16:30</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">저녁 겸 만화카페</strong>영업시간을 아직 못 알아봤어요. 20:30엔 나와야 해요</span></span></div></article>
+<article class="item" id="stop-0-4"><div class="item-select" data-select="stop-0-4" tabindex="-1"><span class="timeline-node" aria-hidden="true">4</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%20%EC%9D%B4%EC%8A%A4%EC%BC%80%EC%9D%B4%ED%94%84" aria-label="골든타임 이스케이프 카카오맵에서 열기" title="골든타임 이스케이프 카카오맵에서 열기">골든타임 이스케이프<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">22:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">방탈출</strong>예약해 뒀어요</span></span></div></article>
+<article class="item" id="stop-0-5"><div class="item-select" data-select="stop-0-5" tabindex="-1"><span class="timeline-node" aria-hidden="true">5</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%95%84%EC%BF%A0%EC%95%84%EB%9D%BC%EC%9A%B4%EC%A7%80" aria-label="아쿠아라운지 카카오맵에서 열기" title="아쿠아라운지 카카오맵에서 열기">아쿠아라운지<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">23:30</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">칵테일</strong>영업 중이에요. 토요일은 19:00-02:00. 방탈출 끝나는 대로 가요</span></span></div></article>
+<article class="item" id="stop-0-6"><div class="item-select" data-select="stop-0-6" tabindex="-1"><span class="timeline-node" aria-hidden="true">6</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%8A%A4%ED%8C%8C%EB%A0%89%EC%8A%A4%EC%82%AC%EC%9A%B0%EB%82%98" aria-label="스파렉스사우나 카카오맵에서 열기" title="스파렉스사우나 카카오맵에서 열기">스파렉스사우나<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">02:10</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">숙박</strong>24시간이에요. 야간요금은 약 15,000원이고 혼자 이용해요</span></span></div></article>
 </section>
 </div>
 <section class="places" hidden><h2>장소</h2>
@@ -493,17 +531,206 @@ details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
 })();
 
 (function () {
-  // 지도와 장소 탭은 없앴다 (2026-09-24). 시간별 목록만 보이고, 카카오맵 링크만 다룬다.
+  // 지도 위 제목·전체 동선 줄과 장소 탭은 없앴다 (2026-09-24). 지도와 시간별 목록만 남는다.
   var root = document.querySelector('.explorer');
   if (!root) { return; }
   document.body.classList.add('explorer-ready');
-
-  // 폰에서는 카카오맵 앱으로 바로 연다.
+  var canvas = document.getElementById('route-map');
+  var message = root.querySelector('.route-message');
   var mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
     (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   root.querySelectorAll('.kakao-open').forEach(function (link) {
     if (mobile) { link.href = link.dataset.mobileHref; }
   });
+  var retry = root.querySelector('.map-retry');
+  var schedule = document.getElementById('schedule-panel');
+  var places = root.querySelector('.places');
+  var view = 'schedule';
+  var selected = null;
+  var scroller = root.querySelector('.list-scroll');
+  var scrollTimer;
+  var followScroll = false;
+  scroller.dataset.timelineView = view;
+  new ResizeObserver(function () {
+    scroller.style.setProperty('--timeline-tail', Math.max(24, scroller.clientHeight - 100) + 'px');
+  }).observe(scroller);
+  var map = null;
+  var overlays = [];
+  var pins = [];
+  var loading = false;
+  var mapError = '';
+  var allPlaces = Array.from(root.querySelectorAll('[data-location]'), function (node) {
+    return JSON.parse(node.dataset.location);
+  });
+
+  function stops() {
+    if (view === 'places') { return allPlaces; }
+    var day = root.querySelector('.day:not([hidden]) [data-route]');
+    return day ? JSON.parse(day.dataset.route) : [];
+  }
+  function position(stop) { return new kakao.maps.LatLng(stop.point[0], stop.point[1]); }
+  function summary() {
+    var current = stops();
+    var missing = current.filter(function (s) { return !s.point; }).length;
+    message.textContent = mapError || (current.length + (view === 'places' ? '개 장소' : '개 일정') +
+      ' · 목록이나 지도 번호를 선택해 주세요.' + (missing ? ' 위치 미확인 ' + missing + '개' : ''));
+  }
+  function highlight() {
+    root.querySelectorAll('[data-select]').forEach(function (node) {
+      node.closest('article').classList.toggle('selected', !!selected && node.dataset.select === selected.id);
+    });
+    pins.forEach(function (pin) {
+      var active = !!selected && pin.stops.some(function (stop) { return stop.id === selected.id; });
+      pin.button.classList.toggle('selected', active);
+      pin.button.setAttribute('aria-pressed', String(active));
+      pin.marker.setZIndex(active ? 100 : 1);
+    });
+  }
+  function moveCamera(target) {
+    // 중심과 확대 수준을 한 번에 전환한다. 중간 줌아웃·idle 대기는 두지 않는다.
+    map.jump(target, 3, {
+      animate: matchMedia('(prefers-reduced-motion: reduce)').matches ? false : { duration: 900 }
+    });
+  }
+
+  function select(stop, fromMap, fromScroll) {
+    if (!fromScroll) { followScroll = false; clearTimeout(scrollTimer); }
+    var samePoint = selected && selected.point && stop.point && selected.point.join() === stop.point.join();
+    selected = stop;
+    highlight();
+    message.textContent = (stop.time ? stop.time + ' · ' : '') + stop.name +
+      (stop.point ? ' · 주소 기준 위치' : ' · 위치를 확인하지 못했어요.') +
+      (stop.point && stop.checked ? ' · ' + stop.checked.slice(0, 10) + ' 조회' : '') +
+      (mapError ? ' · ' + mapError : '');
+    if (!samePoint || !fromScroll) {
+      if (map && stop.point) { moveCamera(position(stop)); }
+    }
+    if (!fromScroll && (fromMap || view === 'schedule')) {
+      var row = document.getElementById(stop.id);
+      if (row) {
+        scroller.scrollTo({
+          top: scroller.scrollTop + row.getBoundingClientRect().top - scroller.getBoundingClientRect().top - 24,
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+        });
+        if (fromMap) { row.querySelector('[data-select]').focus({ preventScroll: true }); }
+      }
+    }
+  }
+
+  // 사용자가 넘긴 스크롤만 선택으로 연결한다. 핀·전체 보기의 스크롤은 되먹임하지 않는다.
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(function (event) {
+    scroller.addEventListener(event, function () { followScroll = true; }, { passive: true });
+  });
+  scroller.addEventListener('scroll', function () {
+    clearTimeout(scrollTimer);
+    if (!followScroll || view !== 'schedule') { return; }
+    scrollTimer = setTimeout(function () {
+      if (!followScroll || view !== 'schedule') { return; }
+      var target = scroller.getBoundingClientRect().top + 24;
+      var nearest = null;
+      var distance = Infinity;
+      stops().forEach(function (stop) {
+        var row = document.getElementById(stop.id);
+        var delta = Math.abs(row.getBoundingClientRect().top - target);
+        if (delta < distance) { nearest = stop; distance = delta; }
+      });
+      if (nearest && (!selected || selected.id !== nearest.id)) { select(nearest, false, true); }
+    }, 140);
+  }, { passive: true });
+
+  function fit() {
+    followScroll = false; clearTimeout(scrollTimer);
+    selected = null;
+    highlight();
+    summary();
+    var known = stops().filter(function (stop) { return stop.point; });
+    if (map && known.length) {
+      var bounds = new kakao.maps.LatLngBounds();
+      known.forEach(function (stop) { bounds.extend(position(stop)); });
+      map.setBounds(bounds, 48, 48, 48, 48);
+      if (map.getLevel() < 3) { map.setLevel(3); }
+    }
+  }
+  function draw() {
+    overlays.forEach(function (overlay) { overlay.setMap(null); });
+    overlays = []; pins = [];
+    if (!map) { fit(); return; }
+    var groups = new Map();
+    stops().forEach(function (stop) {
+      if (!stop.point) { return; }
+      var key = stop.point.join(',');
+      if (!groups.has(key)) { groups.set(key, []); }
+      groups.get(key).push(stop);
+    });
+    groups.forEach(function (visits) {
+      var button = document.createElement('button');
+      button.type = 'button'; button.className = 'map-pin';
+      button.textContent = visits.map(function (stop) { return stop.number; }).join('·');
+      button.setAttribute('aria-label', visits.map(function (stop) { return stop.number + '. ' + stop.name; }).join(', '));
+      button.addEventListener('click', function () {
+        // 같은 건물의 반복 방문은 번호 하나로 묶고, 다시 누르면 다음 방문을 선택한다.
+        var index = selected ? visits.findIndex(function (stop) { return stop.id === selected.id; }) : -1;
+        select(visits[(index + 1) % visits.length], true);
+      });
+      var marker = new kakao.maps.CustomOverlay({ map: map, position: position(visits[0]),
+        content: button, xAnchor: 0.5, yAnchor: 0.5, clickable: true });
+      overlays.push(marker);
+      pins.push({ marker: marker, button: button, stops: visits });
+    });
+    fit();
+  }
+  // 카드를 누르면 지도가 그 장소로 간다. 장소 이름(카카오맵 링크)은 링크대로 연다.
+  // 선택한 카드를 한 번 더 누르면 선택을 풀고 그날 전체 동선을 보여 준다.
+  if (places) { places.hidden = true; }
+  root.querySelectorAll('[data-select]').forEach(function (node) {
+    node.addEventListener('click', function (event) {
+      if (event.target.closest('a')) { return; }
+      if (selected && selected.id === node.dataset.select) { fit(); return; }
+      var stop = stops().find(function (s) { return s.id === node.dataset.select; });
+      if (stop) { select(stop, false); }
+    });
+  });
+  document.addEventListener('daychange', draw);
+
+  function failure() {
+    mapError = '카카오 지도를 연결하지 못했어요. 장소 정보는 목록에서 볼 수 있어요.';
+    message.textContent = mapError;
+    retry.hidden = false;
+  }
+  async function connect() {
+    if (loading || map) { return; }
+    var key = document.querySelector('meta[name="kakao-maps-js-key"]').content;
+    if (!key) {
+      mapError = '지도를 준비하고 있어요. 장소 정보는 목록에서 볼 수 있어요.';
+      summary(); return;
+    }
+    loading = true; retry.hidden = true;
+    mapError = ''; message.textContent = '카카오 지도를 불러오고 있어요.';
+    try {
+      await new Promise(function (resolve, reject) {
+        var script = document.createElement('script');
+        var timer = setTimeout(fail, 15000);
+        function fail() { clearTimeout(timer); script.remove(); reject(new Error('Kakao Maps unavailable')); }
+        script.onload = function () {
+          if (!window.kakao || !kakao.maps) { fail(); return; }
+          kakao.maps.load(function () { clearTimeout(timer); resolve(); });
+        };
+        script.onerror = fail;
+        script.src = 'https://dapi.kakao.com/v2/maps/sdk.js?appkey=' + encodeURIComponent(key) + '&autoload=false';
+        document.head.appendChild(script);
+      });
+      var first = stops().find(function (stop) { return stop.point; });
+      map = new kakao.maps.Map(canvas, { center: first ? position(first) : new kakao.maps.LatLng(37.5665, 126.978), level: 5 });
+      map.addControl(new kakao.maps.ZoomControl(), kakao.maps.ControlPosition.RIGHT);
+      new ResizeObserver(function () { map.relayout(); }).observe(canvas);
+      var pending = selected;
+      draw();
+      if (pending && stops().some(function (stop) { return stop.id === pending.id; })) { select(pending, false); }
+    } catch (error) { failure(); }
+    finally { loading = false; }
+  }
+  retry.addEventListener('click', connect);
+  connect();
 })();
 </script>
 </body>
