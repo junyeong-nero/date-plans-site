@@ -830,7 +830,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "bda36280f7748ff39d919c900d3dd104a51c3abbb5957807937e7cf6a4c17c4e",
+      "fingerprint": "3b6e365be731b98ff667425f812aef59f22aaf176b177fdfbb80574fe93d15b4",
       "rows": [
         {
           "id": "0:0",
@@ -941,7 +941,7 @@
             "food",
             "drink"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "4:0",
@@ -1054,7 +1054,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-24T04:31:18.315208+00:00",
+      "generated_at": "2026-09-24T04:57:03.225660+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
@@ -1143,7 +1143,7 @@
           "name": "달맞이광장바베큐 본점",
           "activity": "저녁 (야장)",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
