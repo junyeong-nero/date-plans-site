@@ -830,11 +830,13 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "3b6e365be731b98ff667425f812aef59f22aaf176b177fdfbb80574fe93d15b4",
+      "fingerprint": "dda4e4b3b8487713ed5d6c17c12d5e1bd5a21002a6c9104251104eebbf8b8d57",
       "rows": [
         {
           "id": "0:0",
-          "categories": [],
+          "categories": [
+            "stay"
+          ],
           "cuisine": null
         },
         {
@@ -916,7 +918,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "2:6",
@@ -938,10 +940,9 @@
         {
           "id": "3:2",
           "categories": [
-            "food",
-            "drink"
+            "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "4:0",
@@ -1009,8 +1010,8 @@
         {
           "id": "5:3",
           "categories": [
-            "food",
-            "drink"
+            "drink",
+            "food"
           ],
           "cuisine": "korean"
         },
@@ -1054,8 +1055,17 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-24T04:57:03.225660+00:00",
+      "generated_at": "2026-09-24T05:19:22.035979+00:00",
       "activities": [
+        {
+          "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
+          "date": "2026-10-02",
+          "name": "용인 숙소",
+          "activity": "만남",
+          "category": "stay",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
           "date": "2026-10-02",
@@ -1125,7 +1135,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1143,16 +1153,7 @@
           "name": "달맞이광장바베큐 본점",
           "activity": "저녁 (야장)",
           "category": "food",
-          "cuisine": "other",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
-          "date": "2026-10-05",
-          "name": "달맞이광장바베큐 본점",
-          "activity": "저녁 (야장)",
-          "category": "drink",
-          "cuisine": null,
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1237,21 +1238,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-07\", \"주락\", \"food\"]",
-          "date": "2026-10-07",
-          "name": "주락",
-          "activity": "저녁 (한식주점)",
-          "category": "food",
-          "cuisine": "korean",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
           "date": "2026-10-07",
           "name": "주락",
           "activity": "저녁 (한식주점)",
           "category": "drink",
           "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"주락\", \"food\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "food",
+          "cuisine": "korean",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
