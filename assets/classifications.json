@@ -689,7 +689,7 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "b33b3aeacb73863f61db27f7ce39ec2fe6007e4939cb4dee08e17bc72f410536",
+      "fingerprint": "08293e418426f88425c5bbbcb1b3661825bde12ddc4f36a3dc2d2f972978d634",
       "rows": [
         {
           "id": "0:0",
@@ -699,7 +699,8 @@
         {
           "id": "0:1",
           "categories": [
-            "food"
+            "food",
+            "cafe"
           ],
           "cuisine": "western"
         },
@@ -723,7 +724,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "0:5",
@@ -753,7 +754,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-21T13:35:17.891584+00:00",
+      "generated_at": "2026-09-25T03:53:23.878327+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"food\"]",
@@ -762,6 +763,15 @@
           "activity": "브런치",
           "category": "food",
           "cuisine": "western",
+          "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
+        },
+        {
+          "key": "[\"2026-09-25\", \"덴토\", \"cafe\"]",
+          "date": "2026-09-25",
+          "name": "덴토",
+          "activity": "브런치",
+          "category": "cafe",
+          "cuisine": null,
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
@@ -797,7 +807,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-09-25-%EB%8C%80%EA%B5%AC/"
         },
         {
