@@ -830,13 +830,11 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "f1a13e01c1cd93321eff60052e6169c1f690aad78d88e526071ced7ea93475c5",
+      "fingerprint": "f63f25d7ef2fab555159e9637c0b5fe178104d4ddc4881c4456689d9ec1abdb1",
       "rows": [
         {
           "id": "0:0",
-          "categories": [
-            "stay"
-          ],
+          "categories": [],
           "cuisine": null
         },
         {
@@ -849,7 +847,7 @@
         {
           "id": "1:0",
           "categories": [
-            "play"
+            "stay"
           ],
           "cuisine": null
         },
@@ -918,7 +916,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "asian"
         },
         {
           "id": "2:6",
@@ -942,7 +940,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "4:0",
@@ -977,7 +975,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "4:5",
@@ -1055,17 +1053,8 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-24T05:21:21.721547+00:00",
+      "generated_at": "2026-09-25T02:50:02.688789+00:00",
       "activities": [
-        {
-          "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
-          "date": "2026-10-02",
-          "name": "용인 숙소",
-          "activity": "만남",
-          "category": "stay",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
           "date": "2026-10-02",
@@ -1076,18 +1065,18 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"캐리비안베이\", \"play\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"stay\"]",
           "date": "2026-10-03",
           "name": "캐리비안베이",
           "activity": "캐리비안베이",
-          "category": "play",
+          "category": "stay",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"미정\", \"food\", \"1:1\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"food\"]",
           "date": "2026-10-03",
-          "name": "미정",
+          "name": "캐리비안베이",
           "activity": "점심",
           "category": "food",
           "cuisine": "other",
@@ -1112,9 +1101,9 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"미정\", \"food\", \"2:2\"]",
+          "key": "[\"2026-10-04\", \"이월드\", \"food\"]",
           "date": "2026-10-04",
-          "name": "미정",
+          "name": "이월드",
           "activity": "점심",
           "category": "food",
           "cuisine": "other",
@@ -1135,7 +1124,7 @@
           "name": "하이디라오 대구점",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "asian",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1153,7 +1142,7 @@
           "name": "달맞이광장바베큐 본점",
           "activity": "저녁 (야장)",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1198,7 +1187,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
