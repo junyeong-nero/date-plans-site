@@ -830,11 +830,13 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "f63f25d7ef2fab555159e9637c0b5fe178104d4ddc4881c4456689d9ec1abdb1",
+      "fingerprint": "cde14d6a3d249529beae2b2ad6136193526a98d5c16383cd2bce44c7ba2dbad2",
       "rows": [
         {
           "id": "0:0",
-          "categories": [],
+          "categories": [
+            "stay"
+          ],
           "cuisine": null
         },
         {
@@ -847,7 +849,7 @@
         {
           "id": "1:0",
           "categories": [
-            "stay"
+            "play"
           ],
           "cuisine": null
         },
@@ -1053,8 +1055,17 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-25T02:50:02.688789+00:00",
+      "generated_at": "2026-09-25T02:58:50.240599+00:00",
       "activities": [
+        {
+          "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
+          "date": "2026-10-02",
+          "name": "용인 숙소",
+          "activity": "만남",
+          "category": "stay",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
           "date": "2026-10-02",
@@ -1065,11 +1076,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"캐리비안베이\", \"stay\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"play\"]",
           "date": "2026-10-03",
           "name": "캐리비안베이",
           "activity": "캐리비안베이",
-          "category": "stay",
+          "category": "play",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
