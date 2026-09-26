@@ -840,13 +840,11 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "cfaaa6ca914a38e9b517a64becfb7d38e322e9208aa2eb0e0cc55cce2c84b5fc",
+      "fingerprint": "f154f0c3c0914325f170aec39b269c4d416aaada414d27f83b620b2439c3fa7a",
       "rows": [
         {
           "id": "0:0",
-          "categories": [
-            "stay"
-          ],
+          "categories": [],
           "cuisine": null
         },
         {
@@ -859,6 +857,7 @@
         {
           "id": "1:0",
           "categories": [
+            "stay",
             "play"
           ],
           "cuisine": null
@@ -916,7 +915,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "other"
         },
         {
           "id": "2:4",
@@ -938,7 +937,6 @@
         {
           "id": "3:2",
           "categories": [
-            "drink",
             "food"
           ],
           "cuisine": "other"
@@ -1016,55 +1014,56 @@
         },
         {
           "id": "6:0",
-          "categories": [
-            "walk"
-          ],
+          "categories": [],
           "cuisine": null
         },
         {
           "id": "6:1",
+          "categories": [],
+          "cuisine": null
+        },
+        {
+          "id": "6:2",
           "categories": [
             "food"
           ],
           "cuisine": "korean"
         },
         {
-          "id": "6:2",
+          "id": "6:3",
           "categories": [
             "cafe"
           ],
           "cuisine": null
         },
         {
-          "id": "6:3",
-          "categories": [],
+          "id": "6:4",
+          "categories": [
+            "walk"
+          ],
           "cuisine": null
         },
         {
-          "id": "6:4",
+          "id": "6:5",
           "categories": [
             "food"
           ],
           "cuisine": "japanese"
         },
         {
-          "id": "6:5",
+          "id": "6:6",
+          "categories": [],
+          "cuisine": null
+        },
+        {
+          "id": "6:7",
           "categories": [],
           "cuisine": null
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-26T13:50:44.846865+00:00",
+      "generated_at": "2026-09-26T13:57:07.877545+00:00",
       "activities": [
-        {
-          "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
-          "date": "2026-10-02",
-          "name": "용인 숙소",
-          "activity": "만남",
-          "category": "stay",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
           "date": "2026-10-02",
@@ -1072,6 +1071,15 @@
           "activity": "저녁",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"stay\"]",
+          "date": "2026-10-03",
+          "name": "캐리비안베이",
+          "activity": "캐리비안베이",
+          "category": "stay",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1120,12 +1128,12 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"미스터봉막창 이월드점\", \"food\"]",
+          "key": "[\"2026-10-04\", \"양복점 광장코아점\", \"food\"]",
           "date": "2026-10-04",
-          "name": "미스터봉막창 이월드점",
-          "activity": "저녁 (막창)",
+          "name": "양복점 광장코아점",
+          "activity": "저녁 (양꼬치)",
           "category": "food",
-          "cuisine": "korean",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1135,15 +1143,6 @@
           "activity": "점심 (초밥)",
           "category": "food",
           "cuisine": "japanese",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
-          "date": "2026-10-05",
-          "name": "달맞이광장바베큐 본점",
-          "activity": "저녁 (야장)",
-          "category": "drink",
-          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1255,15 +1254,6 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-08\", \"덕수궁\", \"walk\"]",
-          "date": "2026-10-08",
-          "name": "덕수궁",
-          "activity": "궁궐 산책",
-          "category": "walk",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-08\", \"드밑\", \"food\"]",
           "date": "2026-10-08",
           "name": "드밑",
@@ -1278,6 +1268,15 @@
           "name": "인왕산 대충유원지",
           "activity": "카페",
           "category": "cafe",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-08\", \"덕수궁\", \"walk\"]",
+          "date": "2026-10-08",
+          "name": "덕수궁",
+          "activity": "궁궐 산책",
+          "category": "walk",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
