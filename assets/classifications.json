@@ -840,7 +840,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "cde14d6a3d249529beae2b2ad6136193526a98d5c16383cd2bce44c7ba2dbad2",
+      "fingerprint": "cfaaa6ca914a38e9b517a64becfb7d38e322e9208aa2eb0e0cc55cce2c84b5fc",
       "rows": [
         {
           "id": "0:0",
@@ -913,25 +913,13 @@
         },
         {
           "id": "2:3",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "2:4",
-          "categories": [
-            "cafe"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "2:5",
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "korean"
         },
         {
-          "id": "2:6",
+          "id": "2:4",
           "categories": [],
           "cuisine": null
         },
@@ -950,6 +938,7 @@
         {
           "id": "3:2",
           "categories": [
+            "drink",
             "food"
           ],
           "cuisine": "other"
@@ -987,7 +976,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "4:5",
@@ -1065,7 +1054,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-25T02:58:50.240599+00:00",
+      "generated_at": "2026-09-26T13:50:44.846865+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
@@ -1131,21 +1120,12 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"커피매거진\", \"cafe\"]",
+          "key": "[\"2026-10-04\", \"미스터봉막창 이월드점\", \"food\"]",
           "date": "2026-10-04",
-          "name": "커피매거진",
-          "activity": "카페",
-          "category": "cafe",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-04\", \"하이디라오 대구점\", \"food\"]",
-          "date": "2026-10-04",
-          "name": "하이디라오 대구점",
-          "activity": "저녁",
+          "name": "미스터봉막창 이월드점",
+          "activity": "저녁 (막창)",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "korean",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1155,6 +1135,15 @@
           "activity": "점심 (초밥)",
           "category": "food",
           "cuisine": "japanese",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
+          "date": "2026-10-05",
+          "name": "달맞이광장바베큐 본점",
+          "activity": "저녁 (야장)",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1208,7 +1197,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
