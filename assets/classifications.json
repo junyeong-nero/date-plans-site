@@ -840,7 +840,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "9890fd1d0be5b35b218c9f41da92953236d0bafd80ac0c3d65c05b46285c2dcd",
+      "fingerprint": "f2ec7a30cdc49032461b03729b196a624983a35d0ab33a6f3ec3b78b12bf6773",
       "rows": [
         {
           "id": "0:0",
@@ -859,7 +859,7 @@
         {
           "id": "1:0",
           "categories": [
-            "play"
+            "other"
           ],
           "cuisine": null
         },
@@ -900,7 +900,7 @@
         {
           "id": "2:1",
           "categories": [
-            "play"
+            "other"
           ],
           "cuisine": null
         },
@@ -968,7 +968,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "japanese"
         },
         {
           "id": "4:4",
@@ -1001,7 +1001,8 @@
         {
           "id": "5:3",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
         },
@@ -1020,7 +1021,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "western"
         },
         {
           "id": "6:3",
@@ -1055,7 +1056,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-27T11:49:23.684963+00:00",
+      "generated_at": "2026-09-27T12:03:32.445854+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
@@ -1076,11 +1077,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"캐리비안베이\", \"play\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"other\"]",
           "date": "2026-10-03",
           "name": "캐리비안베이",
           "activity": "캐리비안베이",
-          "category": "play",
+          "category": "other",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1103,11 +1104,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"이월드\", \"play\"]",
+          "key": "[\"2026-10-04\", \"이월드\", \"other\"]",
           "date": "2026-10-04",
           "name": "이월드",
           "activity": "이월드",
-          "category": "play",
+          "category": "other",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1180,7 +1181,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1229,12 +1230,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-08\", \"드밑\", \"food\"]",
+          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "drink",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-08\", \"고트델리 서촌\", \"food\"]",
           "date": "2026-10-08",
-          "name": "드밑",
-          "activity": "점심 (한식)",
+          "name": "고트델리 서촌",
+          "activity": "점심 (피자·샌드위치)",
           "category": "food",
-          "cuisine": "korean",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
