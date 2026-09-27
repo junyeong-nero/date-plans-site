@@ -840,11 +840,13 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "f154f0c3c0914325f170aec39b269c4d416aaada414d27f83b620b2439c3fa7a",
+      "fingerprint": "3200d954ef196000dbf3f8d1b88b509c4c4c1da808379cdae35c2b0aefb0df7d",
       "rows": [
         {
           "id": "0:0",
-          "categories": [],
+          "categories": [
+            "stay"
+          ],
           "cuisine": null
         },
         {
@@ -857,7 +859,6 @@
         {
           "id": "1:0",
           "categories": [
-            "stay",
             "play"
           ],
           "cuisine": null
@@ -915,7 +916,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "chinese"
         },
         {
           "id": "2:4",
@@ -937,47 +938,41 @@
         {
           "id": "3:2",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "other"
         },
         {
           "id": "4:0",
           "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "4:1",
-          "categories": [
             "food"
           ],
           "cuisine": "japanese"
         },
         {
-          "id": "4:2",
+          "id": "4:1",
           "categories": [
             "walk"
           ],
           "cuisine": null
         },
         {
-          "id": "4:3",
+          "id": "4:2",
           "categories": [
             "cafe"
           ],
           "cuisine": null
         },
         {
-          "id": "4:4",
+          "id": "4:3",
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "japanese"
         },
         {
-          "id": "4:5",
+          "id": "4:4",
           "categories": [
             "walk"
           ],
@@ -1062,8 +1057,17 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-26T13:57:07.877545+00:00",
+      "generated_at": "2026-09-27T02:02:56.477648+00:00",
       "activities": [
+        {
+          "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
+          "date": "2026-10-02",
+          "name": "용인 숙소",
+          "activity": "만남",
+          "category": "stay",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
         {
           "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
           "date": "2026-10-02",
@@ -1071,15 +1075,6 @@
           "activity": "저녁",
           "category": "food",
           "cuisine": "korean",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-03\", \"캐리비안베이\", \"stay\"]",
-          "date": "2026-10-03",
-          "name": "캐리비안베이",
-          "activity": "캐리비안베이",
-          "category": "stay",
-          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1133,7 +1128,7 @@
           "name": "양복점 광장코아점",
           "activity": "저녁 (양꼬치)",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "chinese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1155,11 +1150,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-06\", \"북촌한옥마을\", \"walk\"]",
-          "date": "2026-10-06",
-          "name": "북촌한옥마을",
-          "activity": "북촌 산책",
-          "category": "walk",
+          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
+          "date": "2026-10-05",
+          "name": "달맞이광장바베큐 본점",
+          "activity": "저녁 (야장)",
+          "category": "drink",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1196,7 +1191,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
