@@ -840,7 +840,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "3200d954ef196000dbf3f8d1b88b509c4c4c1da808379cdae35c2b0aefb0df7d",
+      "fingerprint": "9890fd1d0be5b35b218c9f41da92953236d0bafd80ac0c3d65c05b46285c2dcd",
       "rows": [
         {
           "id": "0:0",
@@ -916,7 +916,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "chinese"
+          "cuisine": "other"
         },
         {
           "id": "2:4",
@@ -928,7 +928,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "western"
         },
         {
           "id": "3:1",
@@ -938,8 +938,7 @@
         {
           "id": "3:2",
           "categories": [
-            "food",
-            "drink"
+            "food"
           ],
           "cuisine": "other"
         },
@@ -969,7 +968,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "4:4",
@@ -1002,8 +1001,7 @@
         {
           "id": "5:3",
           "categories": [
-            "food",
-            "drink"
+            "food"
           ],
           "cuisine": "korean"
         },
@@ -1057,7 +1055,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-27T02:02:56.477648+00:00",
+      "generated_at": "2026-09-27T11:49:23.684963+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
@@ -1128,16 +1126,16 @@
           "name": "양복점 광장코아점",
           "activity": "저녁 (양꼬치)",
           "category": "food",
-          "cuisine": "chinese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-05\", \"명인스시\", \"food\"]",
+          "key": "[\"2026-10-05\", \"제이미버거하우스\", \"food\"]",
           "date": "2026-10-05",
-          "name": "명인스시",
-          "activity": "점심 (초밥)",
+          "name": "제이미버거하우스",
+          "activity": "점심 (수제버거)",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1147,15 +1145,6 @@
           "activity": "저녁 (야장)",
           "category": "food",
           "cuisine": "other",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
-          "date": "2026-10-05",
-          "name": "달맞이광장바베큐 본점",
-          "activity": "저녁 (야장)",
-          "category": "drink",
-          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1191,7 +1180,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1237,15 +1226,6 @@
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
-          "date": "2026-10-07",
-          "name": "주락",
-          "activity": "저녁 (한식주점)",
-          "category": "drink",
-          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
