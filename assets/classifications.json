@@ -840,26 +840,26 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "f2ec7a30cdc49032461b03729b196a624983a35d0ab33a6f3ec3b78b12bf6773",
+      "fingerprint": "7a4453d3d94523a6620fe957639c3ddd44363c099cdec1a54ba38b363a19d75f",
       "rows": [
         {
           "id": "0:0",
           "categories": [
-            "stay"
+            "food"
           ],
-          "cuisine": null
+          "cuisine": "other"
         },
         {
           "id": "0:1",
           "categories": [
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "other"
         },
         {
           "id": "1:0",
           "categories": [
-            "other"
+            "play"
           ],
           "cuisine": null
         },
@@ -885,7 +885,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "korean"
+          "cuisine": "other"
         },
         {
           "id": "1:5",
@@ -900,7 +900,7 @@
         {
           "id": "2:1",
           "categories": [
-            "other"
+            "play"
           ],
           "cuisine": null
         },
@@ -968,7 +968,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "japanese"
+          "cuisine": "other"
         },
         {
           "id": "4:4",
@@ -1056,32 +1056,23 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-27T12:03:32.445854+00:00",
+      "generated_at": "2026-09-29T13:18:14.213180+00:00",
       "activities": [
         {
-          "key": "[\"2026-10-02\", \"용인 숙소\", \"stay\"]",
+          "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
           "date": "2026-10-02",
-          "name": "용인 숙소",
+          "name": "탕화쿵푸마라탕 CGV용인점",
           "activity": "만남",
-          "category": "stay",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-02\", \"오늘손두부\", \"food\"]",
-          "date": "2026-10-02",
-          "name": "오늘손두부",
-          "activity": "저녁",
           "category": "food",
-          "cuisine": "korean",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-03\", \"캐리비안베이\", \"other\"]",
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"play\"]",
           "date": "2026-10-03",
           "name": "캐리비안베이",
           "activity": "캐리비안베이",
-          "category": "other",
+          "category": "play",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1100,15 +1091,15 @@
           "name": "용인동태탕&쭈꾸미",
           "activity": "저녁 (동태탕)",
           "category": "food",
-          "cuisine": "korean",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"이월드\", \"other\"]",
+          "key": "[\"2026-10-04\", \"이월드\", \"play\"]",
           "date": "2026-10-04",
           "name": "이월드",
           "activity": "이월드",
-          "category": "other",
+          "category": "play",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1181,7 +1172,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "japanese",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
