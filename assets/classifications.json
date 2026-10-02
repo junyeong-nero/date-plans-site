@@ -840,11 +840,13 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "f240b5151cf4fcb8bdb2bb878fa24be080d54bf678bc16c6255174258255abac",
+      "fingerprint": "718758e17c35be1ce795ffb4fcb9311713071ae8731f62459b923f4e22ec03c6",
       "rows": [
         {
           "id": "0:0",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -958,7 +960,7 @@
         {
           "id": "4:2",
           "categories": [
-            "cafe"
+            "culture"
           ],
           "cuisine": null
         },
@@ -967,7 +969,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "4:4",
@@ -1038,15 +1040,15 @@
         },
         {
           "id": "6:5",
+          "categories": [],
+          "cuisine": null
+        },
+        {
+          "id": "6:6",
           "categories": [
             "food"
           ],
           "cuisine": "japanese"
-        },
-        {
-          "id": "6:6",
-          "categories": [],
-          "cuisine": null
         },
         {
           "id": "6:7",
@@ -1055,8 +1057,17 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-02T09:15:00.172604+00:00",
+      "generated_at": "2026-10-02T15:14:00.919355+00:00",
       "activities": [
+        {
+          "key": "[\"2026-10-02\", \"용인공용버스터미널\", \"other\"]",
+          "date": "2026-10-02",
+          "name": "용인공용버스터미널",
+          "activity": "만남",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
           "date": "2026-10-02",
@@ -1166,11 +1177,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-06\", \"바이닐 성수\", \"cafe\"]",
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"culture\"]",
           "date": "2026-10-06",
           "name": "바이닐 성수",
           "activity": "LP 카페",
-          "category": "cafe",
+          "category": "culture",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1180,7 +1191,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1256,9 +1267,9 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-08\", \"덕수궁\", \"walk\"]",
+          "key": "[\"2026-10-08\", \"경복궁\", \"walk\"]",
           "date": "2026-10-08",
-          "name": "덕수궁",
+          "name": "경복궁",
           "activity": "궁궐 산책",
           "category": "walk",
           "cuisine": null,
