@@ -840,11 +840,13 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "b7752d21fe25ae1d0a4146e10e1696b49a037e2ce8e6fcc47f190d20d5cac2fe",
+      "fingerprint": "891ba00f4296d7f618b29af15353a396edb6c40fa286d325c6c53531fdc0e6d2",
       "rows": [
         {
           "id": "0:0",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -852,7 +854,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "1:0",
@@ -914,7 +916,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "chinese"
         },
         {
           "id": "2:4",
@@ -966,7 +968,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "4:4",
@@ -999,7 +1001,8 @@
         {
           "id": "5:3",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
         },
@@ -1053,15 +1056,24 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-02T07:36:17.322952+00:00",
+      "generated_at": "2026-10-02T07:45:51.542870+00:00",
       "activities": [
+        {
+          "key": "[\"2026-10-02\", \"용인공용버스터미널\", \"other\"]",
+          "date": "2026-10-02",
+          "name": "용인공용버스터미널",
+          "activity": "만남",
+          "category": "other",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
           "date": "2026-10-02",
           "name": "탕화쿵푸마라탕 CGV용인점",
           "activity": "저녁 (마라샹궈)",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1115,7 +1127,7 @@
           "name": "양복점 광장코아점",
           "activity": "저녁 (양꼬치)",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "chinese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1169,7 +1181,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1215,6 +1227,15 @@
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
