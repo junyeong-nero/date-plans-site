@@ -840,13 +840,11 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "8500ff812a72e665ba13859be22ca96a9cb68d95e27711de89a42dfc24297a67",
+      "fingerprint": "f240b5151cf4fcb8bdb2bb878fa24be080d54bf678bc16c6255174258255abac",
       "rows": [
         {
           "id": "0:0",
-          "categories": [
-            "other"
-          ],
+          "categories": [],
           "cuisine": null
         },
         {
@@ -854,7 +852,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "1:0",
@@ -938,7 +936,8 @@
         {
           "id": "3:2",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "other"
         },
@@ -959,7 +958,7 @@
         {
           "id": "4:2",
           "categories": [
-            "play"
+            "cafe"
           ],
           "cuisine": null
         },
@@ -1001,7 +1000,8 @@
         {
           "id": "5:3",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
         },
@@ -1055,24 +1055,15 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-02T08:12:55.694803+00:00",
+      "generated_at": "2026-10-02T09:15:00.172604+00:00",
       "activities": [
-        {
-          "key": "[\"2026-10-02\", \"용인공용버스터미널\", \"other\"]",
-          "date": "2026-10-02",
-          "name": "용인공용버스터미널",
-          "activity": "만남",
-          "category": "other",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
           "date": "2026-10-02",
           "name": "탕화쿵푸마라탕 CGV용인점",
           "activity": "저녁 (마라샹궈)",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1148,6 +1139,15 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
+          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
+          "date": "2026-10-05",
+          "name": "달맞이광장바베큐 본점",
+          "activity": "저녁 (야장)",
+          "category": "drink",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
           "key": "[\"2026-10-06\", \"미쁘동 성수\", \"food\"]",
           "date": "2026-10-06",
           "name": "미쁘동 성수",
@@ -1166,11 +1166,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-06\", \"바이닐 성수\", \"play\"]",
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"cafe\"]",
           "date": "2026-10-06",
           "name": "바이닐 성수",
           "activity": "LP 카페",
-          "category": "play",
+          "category": "cafe",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1226,6 +1226,15 @@
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
