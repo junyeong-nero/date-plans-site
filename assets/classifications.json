@@ -840,13 +840,11 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "9e1713f9f49f539f15216c2c2706ac8fc26742a3838d4786cfccbbfe0de62042",
+      "fingerprint": "9f38438182f7b996bd32bef5ccc2fef93de5ef9c5d73130568109ac6f68ff489",
       "rows": [
         {
           "id": "0:0",
-          "categories": [
-            "other"
-          ],
+          "categories": [],
           "cuisine": null
         },
         {
@@ -900,23 +898,21 @@
         {
           "id": "2:1",
           "categories": [
+            "food"
+          ],
+          "cuisine": "other"
+        },
+        {
+          "id": "2:2",
+          "categories": [
             "play"
           ],
           "cuisine": null
         },
         {
-          "id": "2:2",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
           "id": "2:3",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
+          "categories": [],
+          "cuisine": null
         },
         {
           "id": "2:4",
@@ -959,7 +955,7 @@
         {
           "id": "4:2",
           "categories": [
-            "play"
+            "cafe"
           ],
           "cuisine": null
         },
@@ -1055,17 +1051,8 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-03T10:10:21.582100+00:00",
+      "generated_at": "2026-10-04T03:41:48.886052+00:00",
       "activities": [
-        {
-          "key": "[\"2026-10-02\", \"용인공용버스터미널\", \"other\"]",
-          "date": "2026-10-02",
-          "name": "용인공용버스터미널",
-          "activity": "만남",
-          "category": "other",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
           "date": "2026-10-02",
@@ -1103,30 +1090,21 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-04\", \"이월드\", \"play\"]",
-          "date": "2026-10-04",
-          "name": "이월드",
-          "activity": "이월드",
-          "category": "play",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-04\", \"이월드\", \"food\"]",
-          "date": "2026-10-04",
-          "name": "이월드",
-          "activity": "점심",
-          "category": "food",
-          "cuisine": "other",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-04\", \"양복점 광장코아점\", \"food\"]",
           "date": "2026-10-04",
           "name": "양복점 광장코아점",
           "activity": "저녁 (양꼬치)",
           "category": "food",
           "cuisine": "other",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-04\", \"이월드\", \"play\"]",
+          "date": "2026-10-04",
+          "name": "이월드",
+          "activity": "이월드 (야간권)",
+          "category": "play",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1166,11 +1144,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-06\", \"바이닐 성수\", \"play\"]",
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"cafe\"]",
           "date": "2026-10-06",
           "name": "바이닐 성수",
           "activity": "LP 카페",
-          "category": "play",
+          "category": "cafe",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
