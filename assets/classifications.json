@@ -840,7 +840,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "9630a3fe8c9aed101b5f3ede4d112cc2647032db489272cabfd832392083fd90",
+      "fingerprint": "23ed423d34ae1c176d3abb34a09353107597831ce443495313b6e237b6b87442",
       "rows": [
         {
           "id": "0:0",
@@ -872,7 +872,9 @@
         },
         {
           "id": "1:2",
-          "categories": [],
+          "categories": [
+            "other"
+          ],
           "cuisine": null
         },
         {
@@ -936,8 +938,7 @@
         {
           "id": "3:2",
           "categories": [
-            "food",
-            "drink"
+            "food"
           ],
           "cuisine": "other"
         },
@@ -958,7 +959,7 @@
         {
           "id": "4:2",
           "categories": [
-            "cafe"
+            "play"
           ],
           "cuisine": null
         },
@@ -967,7 +968,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "western"
         },
         {
           "id": "4:4",
@@ -1000,8 +1001,7 @@
         {
           "id": "5:3",
           "categories": [
-            "food",
-            "drink"
+            "food"
           ],
           "cuisine": "korean"
         },
@@ -1055,7 +1055,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-04T03:48:28.083873+00:00",
+      "generated_at": "2026-10-04T03:53:11.292810+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"용인공용버스터미널\", \"other\"]",
@@ -1091,6 +1091,15 @@
           "activity": "점심",
           "category": "food",
           "cuisine": "other",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"other\"]",
+          "date": "2026-10-03",
+          "name": "캐리비안베이",
+          "activity": "샤워·나오기",
+          "category": "other",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1139,15 +1148,6 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-05\", \"달맞이광장바베큐 본점\", \"drink\"]",
-          "date": "2026-10-05",
-          "name": "달맞이광장바베큐 본점",
-          "activity": "저녁 (야장)",
-          "category": "drink",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-06\", \"미쁘동 성수\", \"food\"]",
           "date": "2026-10-06",
           "name": "미쁘동 성수",
@@ -1166,11 +1166,11 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-06\", \"바이닐 성수\", \"cafe\"]",
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"play\"]",
           "date": "2026-10-06",
           "name": "바이닐 성수",
           "activity": "LP 카페",
-          "category": "cafe",
+          "category": "play",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1180,7 +1180,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "western",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1226,15 +1226,6 @@
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
-          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
-          "date": "2026-10-07",
-          "name": "주락",
-          "activity": "저녁 (한식주점)",
-          "category": "drink",
-          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
