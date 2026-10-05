@@ -840,7 +840,7 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "b3ea47162cf52403f0500783c5ca9cb842ecb2650df0711db24828a79c38e04b",
+      "fingerprint": "e5d66e99a88cae8911d67cbd9efa75a012522b8683fe7a08a3f62703604f440a",
       "rows": [
         {
           "id": "0:0",
@@ -857,6 +857,7 @@
         {
           "id": "1:0",
           "categories": [
+            "stay",
             "play"
           ],
           "cuisine": null
@@ -964,7 +965,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "other"
+          "cuisine": "japanese"
         },
         {
           "id": "4:4",
@@ -1009,7 +1010,8 @@
         {
           "id": "5:5",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
         },
@@ -1063,7 +1065,7 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-05T01:06:52.322017+00:00",
+      "generated_at": "2026-10-05T02:36:13.771441+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
@@ -1072,6 +1074,15 @@
           "activity": "저녁 (마라샹궈)",
           "category": "food",
           "cuisine": "other",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-03\", \"캐리비안베이\", \"stay\"]",
+          "date": "2026-10-03",
+          "name": "캐리비안베이",
+          "activity": "캐리비안베이",
+          "category": "stay",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1170,7 +1181,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1225,6 +1236,15 @@
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "drink",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
