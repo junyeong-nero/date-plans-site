@@ -2,15 +2,19 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%233182f6%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%2218%22%20height%3D%2217%22%20rx%3D%223%22/%3E%3Cpath%20d%3D%22M11%206v6%20M21%206v6%20M7%2015h18%20M12%2020l3%203%205-5%22/%3E%3C/g%3E%3C/svg%3E">
 <title>데이트 플랜</title>
 <meta name="kakao-maps-js-key" content="b353f7a5f09a5ae5cd662f5735db7bd6">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
 <style>/* 토스 디자인 시스템(TDS). 정본은 저장소 루트의 DESIGN.md.
-   원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다. */
+   원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다.
+   다크 값은 공개된 alias 표가 없어 추정값이다 (DESIGN.md 「2026-10-06 리뉴얼」). */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
   /* base — 회색은 전부 차가운 navy 계열이다. 순수 검정은 쓰지 않는다 */
   --white: #ffffff;
@@ -22,37 +26,45 @@
   --grey-500: #87919c;
   --grey-600: #6a7480;
   --grey-700: #4b5765;
+  --grey-800: #2d3a48;
   --grey-900: #141f2c;
 
   /* brand — 문서가 명시한 공식 hex. OKLCH 앵커를 변환하면 미묘하게 어긋난다 */
   --blue-500: #3182f6;
-  --blue-600: #1065cc;
+  --blue-700: #1b64da;
   --blue-50: #eaf5ff;
-
   --green-500: #007738;
   --orange-500: #ff8800;
-  --red-500: #f03848;
-
-  /* badge washed — 공식 토큰이 없어 base hue에서 명도만 올린 추정값이다 */
-  --green-washed: #d7f6df;
-  --orange-washed: #ffe8d2;
-
-  --navy-900: #010a25;
-  --fg-tertiary: rgba(1, 10, 37, .58);
-  --line-subtle: rgba(0, 0, 0, .08);
-  --press-overlay: rgba(0, 0, 0, .26);
 
   /* semantic — product 표면은 base가 아니라 이쪽 이름으로 부른다 */
-  --fill-brand: var(--blue-500);
+  --bg-canvas: var(--grey-100);       /* 카드 뒤 바탕. 토스 홈처럼 회색 위에 흰 카드를 얹는다 */
+  --bg-card: var(--white);
   --fill-secondary: var(--grey-100);
   --fill-weak: var(--grey-50);
+  --fill-pressed: var(--grey-200);
+  --fill-brand: var(--blue-500);
+  --fill-brand-weak: var(--blue-50);
   --text-primary: var(--grey-900);
   --text-secondary: var(--grey-700);
-  --text-tertiary: var(--fg-tertiary);
+  --text-tertiary: rgba(1, 10, 37, .58);
   --text-alt: var(--white);
-  --text-brand: var(--blue-500);
-  --bg-primary: var(--white);
+  /* blue-500 글자는 흰 바탕 대비가 3.7:1이라 작은 글자에는 한 단계 진한 값을 쓴다 */
+  --text-brand: var(--blue-700);
   --line-default: var(--grey-200);
+  --press-overlay: rgba(0, 0, 0, .26);
+  --seg-track: var(--grey-100);
+  --seg-on: var(--white);
+
+  /* badge washed — 공식 토큰이 없어 base hue에서 명도만 올린 추정값이다 */
+  --ok-fg: var(--green-500);
+  --ok-bg: #d7f6df;
+  --warn-fg: #9c5000;
+  --warn-bg: #ffe8d2;
+
+  /* 지도 핀은 테마와 상관없이 밝은 지도 타일 위에 앉는다 */
+  --pin: #141f2c;
+  --pin-on: #3182f6;
+  --pin-ring: #ffffff;
 
   /* rounded ladder */
   --r-xs: 4px; --r-s: 8px; --r-m: 12px; --r-l: 14px;
@@ -61,377 +73,429 @@
   /* elevation — 평면이 기본이고 떠 있는 표면에만 쓴다 */
   --shadow-1: 0 1px 2px rgba(1, 10, 37, .04), 0 1px 1px rgba(1, 10, 37, .04);
   --shadow-2: 0 4px 12px rgba(1, 10, 37, .06), 0 1px 2px rgba(1, 10, 37, .04);
+  --shadow-pin: 0 2px 6px rgba(1, 10, 37, .28);
 
   /* motion — 이 셋 밖으로 나가지 않는다 */
   --ease: cubic-bezier(.22, .61, .36, 1);
   --dur-fast: 120ms;
   --dur-base: 200ms;
+  --dur-slow: 320ms;
 
-  /* TPS는 재배포가 막혀 있어 Pretendard가 1순위 대체다. 웹폰트는 받지 않는다 */
+  /* TPS는 재배포가 막혀 있어 Pretendard가 1순위 대체다. 웹폰트는 렌더링을 막지 않게 받는다 */
   --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
           "SF Pro Text", "SF Pro", "Apple SD Gothic Neo", "Noto Sans KR", Roboto,
           "Helvetica Neue", Arial, sans-serif;
 
   /* 화면 좌우 여백. 원문 룰 오브 섬은 24px인데 시각 칼럼까지 들어가면 폰에서 좁다 */
   --gutter: 20px;
+  --column: 40rem;
+}
+
+/* 밤 데이트에 폰을 켜면 눈이 부시다. 시스템 설정을 따라 어두운 표면으로 바꾼다 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-canvas: #17171c;
+    --bg-card: #202027;
+    --fill-secondary: #2c2c35;
+    --fill-weak: #26262e;
+    --fill-pressed: #3c3c47;
+    --fill-brand-weak: #23324c;
+    --text-primary: #ececee;
+    --text-secondary: #b0b0b8;
+    --text-tertiary: #8a8a93;
+    --text-brand: #64a8ff;
+    --line-default: #34343d;
+    --seg-track: #2c2c35;
+    --seg-on: #45454f;
+    --ok-fg: #2fca73;
+    --ok-bg: #223b33;
+    --warn-fg: #ffb057;
+    --warn-bg: #443121;
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, .3);
+    --shadow-2: 0 4px 12px rgba(0, 0, 0, .32), 0 1px 2px rgba(0, 0, 0, .24);
+  }
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0; padding: 0 0 64px;
-  background: var(--bg-primary); color: var(--text-primary);
+  background: var(--bg-card); color: var(--text-primary);
   /* body-2 — 한글 가독성 때문에 1.5가 표준이다 */
   font: 400 15px/1.5 var(--font);
   letter-spacing: -.005em;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
 }
-
-/* 모바일 단일 컬럼. 태블릿·데스크톱에서도 컬럼을 늘리지 않는다 */
-.top, .day, .places, .plans, .tabs, .empty, details.past {
-  max-width: 38rem; margin-left: auto; margin-right: auto;
-  padding-left: var(--gutter); padding-right: var(--gutter);
-}
+body.home { background: var(--bg-canvas); }
 
 a { color: inherit; text-decoration: none; }
 h1, h2, h3 { word-break: keep-all; overflow-wrap: anywhere; margin: 0; color: var(--text-primary); font-weight: 700; }
 :focus-visible { outline: 2px solid var(--fill-brand); outline-offset: 2px; border-radius: var(--r-s); }
-::selection { background: var(--blue-50); color: var(--text-primary); }
+::selection { background: var(--fill-brand-weak); color: var(--text-primary); }
 
-/* ── 머리말 ─────────────────────────────────────────── */
-.top { padding-top: 32px; padding-bottom: 16px; }
-/* h1 — 28/700/-2% */
-.top h1 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.02em; }
-
-/* top-app-bar 자리의 뒤로가기. button-secondary S */
-.back {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
-  margin-bottom: 24px; border-radius: var(--r-m);
-  background: var(--fill-secondary); color: var(--text-secondary);
-  font-size: .8125rem; font-weight: 600; letter-spacing: 0;
-  transition: background var(--dur-fast) var(--ease);
+.icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.back:active { background: var(--grey-200); }
 
-/* body-2 보조 텍스트 */
-.range { margin: 6px 0 0; color: var(--text-secondary); font-size: .9375rem; }
+/* 빠르게 두 번 눌러도 화면이 확대되지 않게 한다. 두 손가락 확대는 그대로 된다. */
+html { touch-action: manipulation; }
+button, a, .item-select { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* ── 공통 컴포넌트 ─────────────────────────────────── */
 
 /* badge — 22px, 6px radius, washed 배경 + 시맨틱 텍스트 */
-.checked {
-  display: inline-flex; align-items: center; min-height: 22px;
-  margin: 14px 0 0; padding: 2px 8px; border-radius: 6px;
-  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0;
+.checked, .status {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 22px;
+  margin: 0; padding: 2px 8px; border-radius: 6px;
+  background: var(--fill-secondary); color: var(--text-secondary);
+  font-size: .75rem; font-weight: 600; line-height: 1.4; letter-spacing: 0;
+  white-space: nowrap;
 }
-.checked.ok { background: var(--green-washed); color: var(--green-500); }
-.checked.todo { background: var(--orange-washed); color: #b35f00; }
-.empty { color: var(--text-secondary); }
+.checked .icon, .status .icon { width: 14px; height: 14px; }
+.checked.ok, .status.ok { background: var(--ok-bg); color: var(--ok-fg); }
+.checked.todo, .status.risk { background: var(--warn-bg); color: var(--warn-fg); }
 
-/* ── 플랜 목록 (list-row) ───────────────────────────── */
-.plans { margin-top: 16px; margin-bottom: 0; padding-top: 0; list-style: none; }
-.plans li { position: relative; border-radius: var(--r-2xl); background: var(--fill-weak); }
-.plans li + li { margin-top: 12px; }
-.plans a {
-  display: block; padding: 24px 44px 24px 20px; border-radius: var(--r-2xl);
+/* segmented-control — 상호 배타적 단일 선택. 선택된 분절만 흰 표면으로 떠오른다 */
+.home-switch, .tabs {
+  display: flex; gap: 4px; padding: 4px;
+  border-radius: var(--r-l); background: var(--seg-track);
+}
+.home-switch button, .tabs button {
+  position: relative; flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
+  border: 0; border-radius: 10px; background: transparent;
+  color: var(--text-secondary); font: 600 .9375rem/1.25 var(--font); letter-spacing: -.005em;
+  white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+}
+.home-switch button[aria-pressed="true"], .tabs button.on {
+  background: var(--seg-on); color: var(--text-primary); box-shadow: var(--shadow-1);
+}
+
+/* button-secondary — 화면에 primary CTA가 하나뿐이라 블루를 쓰지 않는다 */
+.map {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-m);
+  background: var(--fill-secondary); color: var(--text-primary);
+  font: 600 .9375rem/1.25 var(--font); letter-spacing: -.005em; cursor: pointer;
   transition: background var(--dur-fast) var(--ease);
 }
-.plan-arrow { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
-.plans a:active { background: var(--fill-secondary); }
-/* title-1 18/600 */
-.plans .t {
-  display: block; overflow-wrap: anywhere; word-break: keep-all;
+.map:active { background: var(--fill-pressed); }
+
+/* ── 메인: 머리말 ──────────────────────────────────── */
+.top { width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto; }
+.home-top { padding: 28px 0 20px; }
+/* h1 — 28/700/-2% */
+.home-top h1 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.02em; }
+.home-top .range { margin: 4px 0 0; color: var(--text-secondary); font-size: .9375rem; }
+
+.home-switch { width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto 16px; }
+
+/* ── 메인: 지금·다음 데이트 ───────────────────────── */
+.hero-slot { width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto 12px; }
+.hero {
+  display: block; padding: 24px 22px 22px; border-radius: var(--r-3xl);
+  background: var(--bg-card); color: var(--text-primary);
+}
+.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hero-eyebrow { color: var(--text-brand); font-size: .875rem; font-weight: 700; letter-spacing: -.005em; }
+/* display — 강조 숫자라 비례폭이 아니라 고정폭으로 맞춘다 */
+.hero-figure { display: flex; align-items: baseline; gap: 6px; margin-top: 10px; }
+.hero-figure strong {
+  font-size: 2.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+}
+.hero-figure .of { color: var(--text-secondary); font-size: 1.0625rem; font-weight: 600; }
+.hero-title {
+  display: block; margin-top: 14px; word-break: keep-all; overflow-wrap: anywhere;
   font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em;
 }
-/* body-3 13/400 */
-.plans .d {
-  display: block; margin-top: 8px; color: var(--text-secondary);
-  font-size: .8125rem; letter-spacing: 0;
+.hero-meta { display: block; margin-top: 4px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
+.hero-progress {
+  display: block; height: 6px; margin-top: 18px; overflow: hidden;
+  border-radius: var(--r-full); background: var(--fill-secondary);
 }
-.plans .checked { margin: 0 0 8px; }
+.hero-progress > span { display: block; height: 100%; border-radius: inherit; background: var(--fill-brand); }
+/* button-primary L — 이 화면에서 단 하나의 강조 액션이다 */
+.hero-cta {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 4px;
+  min-height: 48px; margin-top: 20px; overflow: hidden; border-radius: var(--r-l);
+  background: var(--fill-brand); color: var(--text-alt);
+  font-size: 1.0625rem; font-weight: 700; letter-spacing: -.005em;
+}
+.hero-cta::after {
+  content: ""; position: absolute; inset: 0; background: var(--press-overlay);
+  opacity: 0; transition: opacity var(--dur-fast) var(--ease);
+}
+.hero:active .hero-cta::after { opacity: 1; }
 
-/* 오늘 걸린 플랜 — brand-weak 행. 이 화면의 유일한 강조다 */
-.plans li.now { background: var(--blue-50); }
-.plans li.now a:active { background: #dcedff; }
-.plans li.now .t { color: var(--text-brand); }
-.plans li.now .t::before {
-  content: "오늘"; display: inline-block; margin-right: 6px; padding: 2px 7px;
-  border-radius: 6px; background: var(--fill-brand); color: var(--text-alt);
-  font-size: .6875rem; font-weight: 600; letter-spacing: 0; vertical-align: 2px;
+/* ── 메인: 플랜 목록 (list-row) ───────────────────── */
+.plan-group, .empty {
+  width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto 12px;
 }
-.plans li.now .checked { background: var(--white); }
+.plan-group { padding: 6px 0; overflow: hidden; border-radius: var(--r-3xl); background: var(--bg-card); }
+/* list-header */
+.group-title {
+  display: flex; align-items: baseline; gap: 6px; padding: 14px 22px 6px;
+  font-size: 1.0625rem; line-height: 1.4; letter-spacing: -.01em;
+}
+.group-title .count { color: var(--text-tertiary); font-size: .9375rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.empty { padding: 24px 22px; border-radius: var(--r-3xl); background: var(--bg-card); color: var(--text-secondary); }
 
-/* list-footer 성격의 더보기 행 */
-details.past { margin-top: 28px; }
-details.past summary {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
-  border-radius: var(--r-m); background: var(--fill-secondary);
-  color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
-  letter-spacing: -.005em; cursor: pointer; list-style: none;
-}
-details.past summary::after { content: "+"; margin-left: 12px; }
-details.past[open] summary::after { content: "−"; }
-details.past summary::-webkit-details-marker { display: none; }
-details.past summary:active { background: var(--grey-200); }
-details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
-
-/* ── 날짜 선택 (segmented-control) ──────────────────── */
-.tabs {
-  display: flex; gap: 4px; padding: 4px;
-  border-radius: var(--r-m); background: var(--fill-secondary);
-}
-.tabs button {
-  position: relative; flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
-  border: 0; border-radius: var(--r-s); background: transparent;
-  color: var(--text-secondary);
-  font: 600 .8125rem/1.25 var(--font); letter-spacing: 0;
-  white-space: nowrap; cursor: pointer;
-  transition: background 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease);
-}
-/* 선택된 분절만 흰 배경으로 떠오른다 */
-.tabs button.on {
-  background: var(--white); color: var(--text-primary); box-shadow: var(--shadow-1);
-}
-
-/* ── 일정 (list-row) ───────────────────────────────── */
-.day, .places { padding-top: 0; }
-/* h3 22/700 */
-.day h2, .places h2 {
-  margin: 32px 0 4px; font-size: 1.375rem; line-height: 1.3; letter-spacing: -.015em;
-}
-.tabs + .day h2 { margin-top: 20px; }
-
-.item { border-radius: var(--r-xl); }
-.item-select { display: flex; gap: 16px; width: 100%; padding: 20px 12px; border: 0; border-radius: inherit; background: transparent; text-align: left; color: inherit; font: inherit; cursor: pointer; }
-.item .body, .item .label, .item .place, .item .note { display: block; }
-.item + .item { border-top: 1px solid var(--line-default); }
-/* 시각은 고정폭 숫자로. 실시간 데이터 칼럼과 같은 취급이다 */
-.item .time {
-  flex: 0 0 3.25rem; padding-top: 2px;
-  color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
-  font-variant-numeric: tabular-nums; letter-spacing: -.005em;
-}
-.item .body { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
-/* title-1 18/600 */
-.item .label { font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; }
-.item .place { margin-top: 2px; color: var(--text-secondary); font-size: .9375rem; }
-/* 행 전체가 아니라 장소만 눌리므로 chevron으로 눌린다는 걸 알린다 */
-.item .place a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-weight: 500; }
-
-.item .place a:active { color: var(--text-secondary); }
-.item .status {
-  display: inline-flex; align-items: center; min-height: 22px;
-  margin-top: 8px; padding: 2px 8px; border-radius: 6px;
-  background: var(--fill-secondary); color: var(--text-secondary);
-  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0;
-}
-.item .status.ok { background: var(--green-washed); color: var(--green-500); }
-.item .status.risk { background: var(--orange-washed); color: #b35f00; }
-/* body-3 */
-.item .note { margin-top: 6px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
-
-/* ── 장소 ───────────────────────────────────────────── */
-.places { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.places h2 { grid-column: 1 / -1; margin-bottom: 6px; }
-.place-card {
-  padding: 20px; border-radius: var(--r-2xl); background: var(--fill-weak);
-  scroll-margin-top: 96px;
-}
-.place-card:target { box-shadow: 0 0 0 1.5px var(--fill-brand); }
-/* h4 20/700 */
-.place-card h3 { margin: 0 0 10px; font-size: 1.25rem; line-height: 1.35; letter-spacing: -.015em; }
-
-/* table-row — 라벨/값을 헤어라인으로 가른다 */
-.place-card dl { display: grid; grid-template-columns: 4rem 1fr; margin: 0; }
-.place-card dt {
-  grid-column: 1; padding: 9px 0; color: var(--text-secondary);
-  font-size: .8125rem; font-weight: 500; letter-spacing: 0;
-}
-.place-card dd {
-  grid-column: 2; margin: 0; padding: 9px 0;
-  font-size: .9375rem; overflow-wrap: anywhere;
-}
-.place-card dt:not(:first-of-type),
-.place-card dd:not(:first-of-type) { border-top: 1px solid var(--grey-200); }
-.place-card dd a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-weight: 500; }
-
-/* button-secondary M — 화면에 primary CTA가 없으므로 블루를 쓰지 않는다 */
-.map {
-  display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px;
-  padding: 0 16px; border: 1px solid var(--grey-200); border-radius: var(--r-m);
-  background: var(--white); color: var(--text-primary);
-  font-size: .9375rem; font-weight: 600; letter-spacing: -.005em;
+.plans { margin: 0; padding: 0; list-style: none; }
+.plans a {
+  display: flex; align-items: center; gap: 14px; min-height: 76px; padding: 12px 18px 12px 22px;
   transition: background var(--dur-fast) var(--ease);
 }
-.map:active { background: var(--grey-100); }
+.plans a:active { background: var(--fill-secondary); }
+/* 아바타 자리의 날짜 타일. 44px · radius 14가 list-row의 아바타 규격이다 */
+.cal {
+  display: flex; flex: 0 0 44px; flex-direction: column; align-items: center; justify-content: center;
+  height: 44px; border-radius: var(--r-l); background: var(--fill-secondary);
+  line-height: 1.1; font-variant-numeric: tabular-nums;
+}
+.cal-m { color: var(--text-secondary); font-size: .6875rem; font-weight: 600; letter-spacing: 0; }
+.cal-d { color: var(--text-primary); font-size: 1.0625rem; font-weight: 700; }
+.plan-main { flex: 1 1 auto; min-width: 0; }
+/* title-2 17/600 */
+.plans .t {
+  display: block; overflow-wrap: anywhere; word-break: keep-all;
+  font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-spacing: -.01em;
+}
+/* body-3 13/400 */
+.plans .d { display: block; margin-top: 2px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
+.plans .nw { white-space: nowrap; }
+.plan-check { display: none; }
+.plan-side { display: flex; flex: 0 0 auto; flex-direction: column; align-items: flex-end; gap: 4px; }
+.plan-side:empty { display: none; }
+.dday { color: var(--text-brand); font-size: .9375rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.plan-arrow { display: flex; flex: 0 0 auto; margin-left: -6px; color: var(--text-tertiary); }
 
-.place-card strong, .item .note strong { font-weight: 600; color: var(--text-primary); }
-.place-card code, .item code {
-  padding: 1px 5px; border-radius: var(--r-xs); background: var(--grey-100);
+/* 지난 데이트는 접지 않고 흐린 색으로 둔다. 확인 여부는 이제 의미가 없어 숨긴다 */
+.plan-group.is-past .t, .plan-group.is-past .cal-d { color: var(--text-secondary); }
+.plan-group.is-past .cal { background: var(--fill-weak); }
+.plan-group.is-past .checked { display: none; }
+
+/* ── 상세: 앱 바 ───────────────────────────────────── */
+.plan-page .top {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 8px; align-items: start;
+  width: 100%; max-width: 1440px; padding: 10px var(--gutter) 14px 8px;
+}
+.back {
+  display: inline-flex; grid-row: 1 / span 2; align-items: center; justify-content: center; gap: 4px;
+  width: 44px; height: 44px; border-radius: var(--r-m); color: var(--text-primary);
+  transition: background var(--dur-fast) var(--ease);
+}
+.back:active { background: var(--fill-secondary); }
+.back .icon { width: 24px; height: 24px; }
+.back-label { display: none; }
+.plan-page .top h1 {
+  grid-column: 2; padding-top: 9px;
+  font-size: 1.125rem; line-height: 1.4; letter-spacing: -.015em;
+}
+.plan-meta {
+  grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 4px;
+}
+.plan-page .range { margin: 0; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
+.range-full { display: none; }
+/* 앱 바에서는 badge 바탕 없이 아이콘과 글자색만 둔다. 지도와 목록이 주인공이다 */
+.plan-page .checked { min-height: 0; padding: 0; background: transparent; font-size: .8125rem; font-weight: 500; }
+.plan-page .checked.ok { color: var(--ok-fg); }
+.plan-page .checked.todo { color: var(--warn-fg); }
+
+/* ── 상세: 지도와 목록 ─────────────────────────────── */
+.list-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg-card); }
+body:not(.explorer-ready) .map-pane { display: none; }
+.explorer-ready .plan-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.explorer-ready .explorer {
+  display: grid; grid-template-rows: minmax(180px, 40dvh) minmax(0, 1fr); flex: 1; min-height: 0;
+}
+.explorer-ready { padding-bottom: 0; }
+.map-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; background: var(--fill-weak); }
+.route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
+/* 카카오 지도 타일은 밝은 한 벌뿐이다. 어두운 화면에서는 눈부심만 살짝 줄인다 */
+@media (prefers-color-scheme: dark) {
+  .route-canvas, #record-map { filter: brightness(.86); }
+}
+.map-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px var(--gutter); }
+.map-caption .route-message { flex: 1 1 12rem; }
+.route-message { margin: 0; color: var(--text-secondary); font-size: .75rem; line-height: 1.45; letter-spacing: 0; overflow-wrap: anywhere; }
+.map-retry { flex: 0 0 auto; min-height: 36px; padding: 0 12px; font-size: .8125rem; }
+
+/* 방문 번호 핀. 겹쳐도 번호가 읽히게 작게 두고, 선택한 핀만 블루로 키운다 */
+.map-pin {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 30px; height: 30px; padding: 0 8px; border: 0; border-radius: var(--r-full);
+  background: var(--pin); color: #ffffff; box-shadow: 0 0 0 2px var(--pin-ring), var(--shadow-pin);
+  font: 700 13px/1 var(--font); font-variant-numeric: tabular-nums; letter-spacing: 0; cursor: pointer;
+  transition: background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+}
+.map-pin.selected { background: var(--pin-on); transform: scale(1.2); }
+
+/* 날짜 넘기기 — 긴 여행은 한 줄짜리 고정 바에서 하루씩 넘긴다 */
+.day-picker {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; flex-shrink: 0;
+  align-items: center; gap: 4px; margin: 12px var(--gutter) 4px; padding: 4px;
+  border-radius: var(--r-l); background: var(--seg-track);
+}
+.day-picker button {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 0; min-height: 44px; border: 0; border-radius: 10px;
+  background: var(--seg-on); color: var(--text-primary); box-shadow: var(--shadow-1); cursor: pointer;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.day-picker button:disabled { opacity: .3; box-shadow: none; cursor: default; }
+.day-picker .day-label {
+  display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; padding: 0 4px;
+  text-align: center; font: 600 .9375rem/1.25 var(--font); letter-spacing: -.005em;
+}
+.day-label [data-day-label] { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 6px; }
+.day-label .day-index { color: var(--text-secondary); font-size: .8125rem; font-weight: 500; letter-spacing: 0; }
+.explorer .tabs { flex-shrink: 0; margin: 12px var(--gutter) 4px; }
+.tabs button { font-size: .875rem; }
+/* 오늘 날짜 표시. 탭은 점, 날짜 넘기기는 글자 태그로 둔다 */
+.tabs button.is-today::after {
+  content: ""; position: absolute; top: 7px; right: 8px; width: 5px; height: 5px;
+  border-radius: var(--r-full); background: var(--fill-brand);
+}
+.day-label .is-today::after {
+  content: "오늘"; align-self: center; padding: 1px 6px; border-radius: 6px;
+  background: var(--fill-brand-weak); color: var(--text-brand); font-size: .6875rem; font-weight: 700; letter-spacing: 0;
+}
+
+/* ── 상세: 일정 타임라인 ───────────────────────────── */
+.list-scroll { padding-top: 8px; }
+.explorer-ready .list-scroll {
+  overflow-y: auto; min-height: 0; overscroll-behavior: contain;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  scroll-snap-type: y proximity; scroll-padding-top: 24px;
+}
+.explorer-ready .list-scroll .item { scroll-snap-align: start; }
+.day { padding: 0 var(--gutter); }
+.explorer-ready .list-scroll .day { padding-bottom: var(--timeline-tail, 24px); }
+/* 날짜 제목은 JS가 없을 때만 보인다. 날짜 선택 바가 날짜를 이미 보여 준다 */
+.day h2 { margin: 20px 0 10px 4px; color: var(--text-secondary); font-size: .9375rem; line-height: 1.4; letter-spacing: -.005em; }
+.explorer-ready .day-picker ~ .list-scroll .day h2,
+.explorer-ready .tabs ~ .list-scroll .day h2 { display: none; }
+
+/* 방문 번호를 따라 내려가는 세로 타임라인. 본문 높이는 고정하지 않는다 */
+.day .item { position: relative; padding-bottom: 6px; }
+.day .item:not(:last-child)::before {
+  content: ""; position: absolute; left: 15.5px; top: 44px; bottom: -4px;
+  width: 1px; background: var(--line-default); pointer-events: none;
+}
+.item-select {
+  position: relative; display: flex; align-items: flex-start; gap: 8px;
+  width: 100%; cursor: pointer; outline: none; color: inherit;
+}
+.timeline-node {
+  display: flex; flex: 0 0 32px; align-items: center; justify-content: center;
+  height: 32px; margin-top: 6px; border: 1px solid var(--line-default); border-radius: var(--r-full);
+  background: var(--bg-card); color: var(--text-secondary);
+  font-size: .8125rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0;
+  transition: background var(--dur-slow) var(--ease), color var(--dur-slow) var(--ease), border-color var(--dur-slow) var(--ease);
+}
+.item .body {
+  display: block; flex: 1 1 auto; min-width: 0; padding: 0 12px 12px; overflow-wrap: anywhere;
+  border-radius: var(--r-xl); transition: background var(--dur-base) var(--ease);
+}
+/* 첫 줄 `장소 · 시간 ···· 상태`. 장소 이름이 곧 카카오맵 링크다 */
+.item .head { display: flex; align-items: center; column-gap: 8px; min-height: 44px; }
+.item .head .place {
+  display: inline-flex; flex: 0 1 auto; align-items: center; gap: 4px; min-width: 0; min-height: 44px;
+  color: var(--text-primary); font-size: 1rem; font-weight: 600; line-height: 1.35; letter-spacing: -.01em;
+}
+.item .head a.place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
+.item .head .time {
+  flex-shrink: 0; white-space: nowrap; color: var(--text-secondary);
+  font-size: .875rem; font-weight: 500; font-variant-numeric: tabular-nums;
+}
+.item .head .time::before { content: "·"; margin-right: 8px; color: var(--text-tertiary); }
+.item .head .status { flex-shrink: 0; margin-left: auto; }
+/* 확정은 대부분이라 조용하게, 미확인·리스크만 바탕색으로 눈에 띄게 둔다 */
+.item .head .status.ok { padding-right: 0; background: transparent; }
+.item .note { display: block; margin-top: -2px; color: var(--text-secondary); font-size: .875rem; line-height: 1.55; letter-spacing: -.005em; }
+.item .note .label { display: inline; margin-right: 6px; color: var(--text-primary); font-weight: 600; }
+.item .note strong { font-weight: 600; color: var(--text-primary); }
+.item code, .place-card code {
+  padding: 1px 5px; border-radius: var(--r-xs); background: var(--fill-secondary);
   font-family: inherit; font-variant-numeric: tabular-nums; font-size: .95em;
 }
 
-/* ── 반응형 — 컬럼을 늘리지 않고 여백만 넓힌다 ─────── */
+.day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
+.day .item.selected .body { background: var(--fill-brand-weak); }
+
+/* ── 상세: 장소 카드 (숨김) ────────────────────────
+   화면에는 시간별만 보인다. 전체 플랜 대시보드가 이 카드의 주소·좌표를 읽어서 HTML에만 남긴다 */
+.place-card dl { display: grid; grid-template-columns: 4rem 1fr; margin: 0; }
+.place-card dt { color: var(--text-secondary); font-size: .8125rem; }
+.place-card dd { margin: 0; }
+.place-head { display: flex; align-items: center; gap: 8px; }
+.place-select { flex: 1 1 auto; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; }
+
+/* ── 반응형 ─────────────────────────────────────────── */
 @media (min-width: 641px) {
   :root { --gutter: 24px; }
-  .top { padding-top: 64px; padding-bottom: 24px; }
-  .top h1 { font-size: 2.5rem; }
-  .place-card { padding: 24px; }
+  .range-full { display: inline; }
+  .range-short { display: none; }
+  .home-top { padding: 56px 0 24px; }
+  .home-top h1 { font-size: 2.5rem; letter-spacing: -.02em; }
+  .home-top .range { font-size: 1.0625rem; }
+  .hero { padding: 28px 28px 24px; }
+  .plans a { padding-left: 28px; padding-right: 24px; }
+  .group-title { padding-left: 28px; padding-right: 28px; }
 }
 @media (hover: hover) {
-  .plans a:hover, .back:hover, .map:hover, details.past summary:hover { background: var(--fill-secondary); }
-  .item .place a:hover, .place-card dd a:hover { text-decoration: underline; }
+  .plans a:hover { background: var(--fill-weak); }
+  .back:hover, .map:hover { background: var(--fill-secondary); }
+  .home-switch button:not([aria-pressed="true"]):hover, .tabs button:not(.on):hover { color: var(--text-primary); }
+  .hero:hover .hero-cta::after { opacity: .5; }
+  .item .head a.place:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .day .item:not(.selected) .item-select:hover .body { background: var(--fill-weak); }
+  .day-picker button:not(:disabled):hover { background: var(--fill-weak); }
 }
-[hidden] { display: none !important; }
 @media (max-width: 380px) {
-  .item { gap: 10px; }
-  .item .time { flex-basis: 3rem; }
-  .place-card dl { grid-template-columns: 3.5rem 1fr; }
+  .item .head .place { font-size: .9375rem; }
+  .hero-figure strong { font-size: 2.25rem; }
 }
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-
-.icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
-.back, .map, .checked, .status, .item .place a { gap: 6px; }
-.checked .icon, .status .icon { width: 14px; height: 14px; }
-.item .place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
-
-/* 지도와 목록을 함께 탐색한다. JS가 없으면 원래 문서 흐름으로 읽는다. */
-.explorer-ready { padding-bottom: 0; }
-.plan-page .top { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; width: 100%; max-width: 1440px; padding: 12px 20px; }
-.plan-page .back { grid-row: 1 / 4; align-self: start; justify-content: center; gap: 0; padding: 0; margin: 0; font-size: 0; background: var(--fill-weak); }
-.plan-page .top h1 { grid-column: 2; font-size: 1.125rem; }
-.plan-page .range { grid-column: 2; margin-top: 4px; font-size: .8125rem; }
-.plan-page .checked { grid-column: 2; justify-self: start; margin-top: 4px; }
-.list-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg-primary); }
-.explorer .day, .explorer .places { max-width: none; width: 100%; }
-.explorer .tabs { flex-shrink: 0; max-width: none; margin: 0 20px 8px; }
-.explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
-.place-select { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; text-align: left; color: inherit; font: inherit; cursor: pointer; }
-.place-select .icon { color: var(--text-secondary); }
-@media (hover: hover) {
-  .item-select:hover { background: var(--fill-weak); }
-  .place-select:hover { color: var(--blue-600); }
-}
-
-.explorer-ready .place-card:not(.selected) dl,
-.explorer-ready .place-card:not(.selected) > .map { display: none; }
-.explorer-ready .place-card h3 { margin-bottom: 0; }
-
-/* 방문 번호를 따라 올라가는 세로 타임라인. 본문 높이는 고정하지 않는다. */
-.day .item { position: relative; border-radius: 0; padding-bottom: 16px; }
-.day .item + .item { border-top: 0; }
-.day .item:not(:last-child)::before {
-  content: ""; position: absolute; left: 21px; top: 42px; bottom: -2px;
-  width: 1px; background: var(--line-default); pointer-events: none;
-}
-.day .item-select { position: relative; gap: 12px; padding: 0; align-items: flex-start; border-radius: var(--r-xl); }
-.timeline-node {
-  display: flex; flex: 0 0 44px; align-items: center; justify-content: center;
-  height: 44px; border: 1px solid var(--line-default); border-radius: var(--r-full);
-  background: var(--bg-primary); color: var(--text-secondary); font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  transition: background 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease);
-}
-.day .item .body { padding: 16px; border-radius: var(--r-xl); background: var(--fill-weak); transition: background var(--dur-base) var(--ease), transform 320ms var(--ease); }
-.day .item .time { display: block; padding: 0; margin-bottom: 6px; font-size: .8125rem; }
-
-/* Keep long trips in one fixed date-control row, above the scrolling timeline. */
-.day-picker {
-  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px;
-  flex-shrink: 0; gap: 4px; margin: 0 var(--gutter) 8px;
-  padding: 4px; border-radius: var(--r-m); background: var(--fill-secondary);
-}
-.day-picker button, .day-picker .day-label {
-  min-width: 0; min-height: 44px; border: 0; border-radius: var(--r-s);
-  color: var(--text-primary); background: var(--white); font: 600 .8125rem/1.25 var(--font);
-}
-.day-picker .day-label { display: flex; align-items: center; justify-content: center; padding: 0 4px; text-align: center; background: transparent; }
-.day-picker button { font-size: 1.5rem; cursor: pointer; }
-.day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
-
-.place-card.selected { background: var(--fill-weak); }
-.place-head { display: flex; align-items: center; gap: 8px; }
-.place-head .place-select { flex: 1 1 auto; min-width: 0; }
-.place-map { margin: 0; padding: 0 12px; flex-shrink: 0; font-size: .8125rem; }
-.place-map .icon { width: 16px; height: 16px; }
-
-/* 일정 카드: 첫 줄 `장소 · 시간 ···· 상태`, 둘째 줄 설명. 장소 이름이 카카오맵 링크다. */
-.day .item .head { display: flex; align-items: center; column-gap: 8px; min-height: 44px; }
-.day .item .head .place {
-  display: inline-flex; flex: 0 1 auto; min-width: 0; align-items: center; gap: 4px; min-height: 44px; margin: 0;
-  color: var(--text-primary); font-size: 1.0625rem; font-weight: 600; letter-spacing: -.01em;
-}
-.day .item .head a.place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
-.day .item .head .time { flex-shrink: 0; white-space: nowrap; margin: 0; padding: 0; color: var(--text-secondary); font-size: .875rem; font-weight: 500; }
-.day .item .head .time::before { content: "·"; margin-right: 8px; color: var(--text-tertiary); }
-.day .item .head .status { flex-shrink: 0; margin: 0 0 0 auto; white-space: nowrap; }
-.day .item .note { margin-top: 2px; }
-.day .item .note .label { display: inline; margin-right: 6px; font-size: inherit; font-weight: 600; color: var(--text-primary); }
-.day .item .body { padding: 4px 16px 12px; }
-@media (hover: hover) { .day .item .head a.place:hover { text-decoration: underline; } }
-
-/* 모바일은 카드를 더 촘촘하게 */
-@media (max-width: 767px) {
-  .places { gap: 8px; }
-  .place-card { padding: 4px 14px; border-radius: var(--r-xl); }
-  .place-card.selected { padding-bottom: 12px; }
-  .place-card h3 { font-size: 1.0625rem; }
-  .place-card dl { grid-template-columns: 3.5rem 1fr; }
-  .place-card dt, .place-card dd { padding: 7px 0; }
-  .day .item { padding-bottom: 8px; }
-  .day .item .body { padding: 2px 12px 10px; }
-  .day .item .head .place { font-size: 1rem; }
-  .day .item-select { gap: 8px; }
-  .timeline-node { flex-basis: 32px; height: 32px; font-size: .8125rem; margin-top: 6px; }
-  .day .item:not(:last-child)::before { left: 15.5px; top: 38px; }
-}
-
-/* 지도는 남기고 위의 제목·전체 동선 줄만 없앴다 (2026-09-24). 목록만 스크롤한다. */
-body:not(.explorer-ready) .map-pane { display: none; }
-.explorer-ready .plan-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
-.explorer-ready .explorer { display: grid; grid-template-rows: minmax(180px, 40dvh) minmax(0, 1fr); flex: 1; min-height: 0; }
-.map-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--fill-weak); overflow: hidden; }
-.route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
-.map-caption { padding: 6px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.map-caption .route-message { flex: 1; }
-.route-message { margin: 0; color: var(--text-secondary); font-size: .75rem; overflow-wrap: anywhere; }
-.map-retry { margin: 4px 0 0; cursor: pointer; }
-.map-pin { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bg-primary); border-radius: var(--r-full); background: var(--fill-brand); color: var(--text-alt); font: 600 13px var(--font); cursor: pointer; }
-.map-pin.selected { background: var(--text-primary); outline: 3px solid var(--bg-primary); }
-.explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-top: 12px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
-.explorer-ready .list-scroll { scroll-snap-type: y proximity; scroll-padding-top: 24px; }
-.explorer-ready .list-scroll .item { scroll-snap-align: start; }
-.explorer-ready .list-scroll .day { padding-bottom: var(--timeline-tail, 24px); }
-.day .item-select { cursor: pointer; outline: none; }
-.day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
-.day .item.selected .body { background: var(--blue-50); }
-@media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
 @media (min-width: 1024px) {
-  .plan-page .top { padding: 20px 24px; }
-  .plan-page .top h1 { font-size: 1.375rem; }
-  .explorer-ready .explorer { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px 24px; gap: 24px; grid-template-columns: 400px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
-  .map-pane { grid-column: 2; grid-row: 1; border-radius: var(--r-2xl); }
-  .list-pane { grid-column: 1; grid-row: 1; border: 1px solid var(--line-default); border-radius: var(--r-2xl); overflow: hidden; }
+  body.plan { background: var(--bg-canvas); }
+  .plan-page .top { grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; padding: 20px 24px; }
+  .back {
+    align-self: center; width: auto; padding: 0 14px 0 10px;
+    background: var(--bg-card); font-size: .875rem; font-weight: 600;
+  }
+  .back-label { display: inline; }
+  .plan-page .top h1 { padding-top: 0; font-size: 1.375rem; line-height: 1.3; }
+  .plan-meta { margin-top: 6px; }
+  .explorer-ready .explorer {
+    width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px 24px; gap: 20px;
+    grid-template-columns: 400px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr);
+  }
+  .map-pane { grid-column: 2; grid-row: 1; border-radius: var(--r-3xl); background: var(--bg-card); }
+  .list-pane { grid-column: 1; grid-row: 1; overflow: hidden; border-radius: var(--r-3xl); }
+  .day { padding: 0 16px; }
+  .day-picker, .explorer .tabs { margin: 16px 16px 4px; }
+  .map-caption { padding: 10px 16px; }
 }
 @media (max-height: 600px) and (max-width: 1023px) {
   .plan-page .checked { display: none; }
   .explorer-ready .explorer { grid-template-rows: minmax(120px, 35dvh) minmax(0, 1fr); }
 }
-
-/* 빠르게 두 번 눌러도 화면이 확대되지 않게 한다. 두 손가락 확대는 그대로 된다. */
-html { touch-action: manipulation; }
-button, a, .item-select { touch-action: manipulation; }
-
-/* 날짜 선택 바가 날짜를 이미 보여 주므로 여러 날 플랜에서는 목록 위 날짜 제목을 숨긴다. */
-.explorer-ready .day-picker ~ .list-scroll .day h2,
-.explorer-ready .tabs ~ .list-scroll .day h2 { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
 </style>
+<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17171c" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="assets/dashboard.css">
 <script src="assets/dashboard.js" defer></script>
 </head>
-<body>
-<header class="top"><h1>데이트 플랜</h1><p class="range">함께할 하루, 일정과 장소를 한눈에 봐요.</p></header>
+<body class="home">
+<header class="top home-top"><h1>데이트 플랜</h1><p class="range">함께할 하루, 일정과 장소를 한눈에 봐요.</p></header>
 <nav class="home-switch" aria-label="메인 화면" hidden>
 <button type="button" data-home-view="schedule" aria-pressed="true" aria-controls="schedule-view">일정</button>
 <button type="button" data-home-view="records" aria-pressed="false" aria-controls="records-view">우리의 기록</button>
@@ -439,16 +503,17 @@ button, a, .item-select { touch-action: manipulation; }
 <main>
 <section id="schedule-view" aria-label="데이트 일정">
 
-<ul class="plans" id="plans">
-<li data-start="2026-11-14" data-end="2026-11-18"><a href="2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">삿포로 4박 5일 — 100일 여행</span><span class="d">2026년 11월 14일 (토) – 11/18 (수) · 30개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-10-02" data-end="2026-10-08"><a href="2026-10-02-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">연휴 6박 7일 — 용인 → 구미·대구 → 서울</span><span class="d">2026년 10월 2일 (금) – 10/8 (목) · 35개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-09-25" data-end="2026-09-26"><a href="2026-09-25-%EB%8C%80%EA%B5%AC/"><span class="t">추석 대구 데이트</span><span class="d">2026년 9월 25일 (금) – 9/26 (토) · 8개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-09-19" data-end="2026-09-19"><a href="2026-09-19-%EC%84%9C%EC%9A%B8/"><span class="t">해방촌 토터스와 남산 생일 데이트</span><span class="d">2026년 9월 19일 (토) · 10개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-09-12" data-end="2026-09-12"><a href="2026-09-12-%EB%B6%80%EC%B2%9C/"><span class="t">부평·상동 저녁 데이트</span><span class="d">2026년 9월 12일 (토) · 11개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-09-04" data-end="2026-09-06"><a href="2026-09-04-%EC%88%98%EC%9B%90/"><span class="t">수원 2박 3일 — 마라탕·행궁동·광교</span><span class="d">2026년 9월 4일 (금) – 9/6 (일) · 12개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-08-29" data-end="2026-08-30"><a href="2026-08-29-%EC%84%9C%EC%9A%B8/"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span><span class="t">충무로·종로·익선동 1박 2일</span><span class="d">2026년 8월 29일 (토) – 8/30 (일) · 9개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-<li data-start="2026-08-22" data-end="2026-08-22"><a href="2026-08-22-%EC%84%9C%EC%9A%B8/"><span class="t">압구정 데이트</span><span class="d">2026년 8월 22일 (토) · 6개 일정</span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
-</ul>
+<div class="hero-slot" id="hero" hidden></div>
+<section class="plan-group" aria-labelledby="plans-title"><h2 class="group-title" id="plans-title">전체 데이트<span class="count">8</span></h2><ul class="plans" id="plans">
+<li data-start="2026-11-14" data-end="2026-11-18" data-range="2026년 11월 14일 (토) – 11/18 (수)" data-count="30"><a href="2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"><span class="cal" aria-hidden="true"><span class="cal-m">11월</span><span class="cal-d">14</span></span><span class="plan-main"><span class="t">삿포로 4박 5일 — 100일 여행</span><span class="d"><span class="nw">11/14 (토) – 11/18 (수)</span> · <span class="nw">일정 30개</span></span><span class="plan-check"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-10-02" data-end="2026-10-08" data-range="2026년 10월 2일 (금) – 10/8 (목)" data-count="35"><a href="2026-10-02-%EC%84%9C%EC%9A%B8/"><span class="cal" aria-hidden="true"><span class="cal-m">10월</span><span class="cal-d">2</span></span><span class="plan-main"><span class="t">연휴 6박 7일 — 용인 → 구미·대구 → 서울</span><span class="d"><span class="nw">10/2 (금) – 10/8 (목)</span> · <span class="nw">일정 35개</span></span><span class="plan-check"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-25" data-end="2026-09-26" data-range="2026년 9월 25일 (금) – 9/26 (토)" data-count="8"><a href="2026-09-25-%EB%8C%80%EA%B5%AC/"><span class="cal" aria-hidden="true"><span class="cal-m">9월</span><span class="cal-d">25</span></span><span class="plan-main"><span class="t">추석 대구 데이트</span><span class="d"><span class="nw">9/25 (금) – 9/26 (토)</span> · <span class="nw">일정 8개</span></span><span class="plan-check"></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-19" data-end="2026-09-19" data-range="2026년 9월 19일 (토)" data-count="10"><a href="2026-09-19-%EC%84%9C%EC%9A%B8/"><span class="cal" aria-hidden="true"><span class="cal-m">9월</span><span class="cal-d">19</span></span><span class="plan-main"><span class="t">해방촌 토터스와 남산 생일 데이트</span><span class="d"><span class="nw">9/19 (토)</span> · <span class="nw">일정 10개</span></span><span class="plan-check"></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-12" data-end="2026-09-12" data-range="2026년 9월 12일 (토)" data-count="11"><a href="2026-09-12-%EB%B6%80%EC%B2%9C/"><span class="cal" aria-hidden="true"><span class="cal-m">9월</span><span class="cal-d">12</span></span><span class="plan-main"><span class="t">부평·상동 저녁 데이트</span><span class="d"><span class="nw">9/12 (토)</span> · <span class="nw">일정 11개</span></span><span class="plan-check"></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-09-04" data-end="2026-09-06" data-range="2026년 9월 4일 (금) – 9/6 (일)" data-count="12"><a href="2026-09-04-%EC%88%98%EC%9B%90/"><span class="cal" aria-hidden="true"><span class="cal-m">9월</span><span class="cal-d">4</span></span><span class="plan-main"><span class="t">수원 2박 3일 — 마라탕·행궁동·광교</span><span class="d"><span class="nw">9/4 (금) – 9/6 (일)</span> · <span class="nw">일정 12개</span></span><span class="plan-check"></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-08-29" data-end="2026-08-30" data-range="2026년 8월 29일 (토) – 8/30 (일)" data-count="9"><a href="2026-08-29-%EC%84%9C%EC%9A%B8/"><span class="cal" aria-hidden="true"><span class="cal-m">8월</span><span class="cal-d">29</span></span><span class="plan-main"><span class="t">충무로·종로·익선동 1박 2일</span><span class="d"><span class="nw">8/29 (토) – 8/30 (일)</span> · <span class="nw">일정 9개</span></span><span class="plan-check"><span class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>확인 전</span></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+<li data-start="2026-08-22" data-end="2026-08-22" data-range="2026년 8월 22일 (토)" data-count="6"><a href="2026-08-22-%EC%84%9C%EC%9A%B8/"><span class="cal" aria-hidden="true"><span class="cal-m">8월</span><span class="cal-d">22</span></span><span class="plan-main"><span class="t">압구정 데이트</span><span class="d"><span class="nw">8/22 (토)</span> · <span class="nw">일정 6개</span></span><span class="plan-check"></span></span><span class="plan-side"></span><span class="plan-arrow"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></span></a></li>
+</ul></section>
 </section>
 <section id="records-view" class="records" aria-label="우리의 기록" hidden>
 <div class="records-heading"><div><p class="eyebrow">함께 쌓은 시간</p><h2>우리의 데이트 결산</h2></div><label class="period-label">기간<select id="record-period" aria-label="기록 기간"></select></label></div>
@@ -458,7 +523,7 @@ button, a, .item-select { touch-action: manipulation; }
 <div id="record-stats" class="record-stats" aria-live="polite"></div>
 <section class="record-card" aria-labelledby="category-heading">
 <h3 id="category-heading">데이트 종류</h3>
-<p class="record-note">어떤 데이트를 즐겼을까요? 종류를 누르면 다녀온 곳을 볼 수 있어요. 전체 일정의 맥락을 읽어 분류하며, 같은 날 같은 장소·종류는 한 번으로 세요.</p>
+<p class="record-note">종류를 누르면 다녀온 곳을 볼 수 있어요. 같은 날 같은 장소·종류는 한 번만 세요.</p>
 <p id="classification-status" class="record-note" role="status"></p>
 <div id="category-board" class="category-board" role="group" aria-label="데이트 종류 선택"></div>
 <details class="visit-details">
@@ -468,7 +533,7 @@ button, a, .item-select { touch-action: manipulation; }
 </section>
 <section class="record-card" aria-labelledby="cuisine-heading">
 <h3 id="cuisine-heading">음식 취향</h3>
-<p class="record-note">한식부터 양식까지, 함께 먹은 음식을 모았어요. 식사 일정과 메뉴를 기준으로 나누고, 분류가 어려운 곳은 기타 음식에 담아요.</p>
+<p class="record-note">식사 일정과 메뉴로 나눠요. 나누기 어려운 곳은 기타 음식에 담아요.</p>
 <div id="cuisine-board" class="category-board" role="group" aria-label="음식 종류 선택"></div>
 <details class="visit-details">
 <summary id="cuisine-result-heading" aria-live="polite"></summary>
@@ -487,25 +552,110 @@ button, a, .item-select { touch-action: manipulation; }
               String(now.getMonth() + 1).padStart(2, '0') + '-' +
               String(now.getDate()).padStart(2, '0');
 
-  var list = document.getElementById('plans');
-  if (list) {
-    // 오늘 걸린 플랜은 '재생 중'으로 표시한다. 빌드 시각이 아니라 볼 때 정해진다.
-    Array.prototype.forEach.call(list.children, function (li) {
-      if (li.dataset.start <= today && today <= li.dataset.end) {
-        li.classList.add('now');
-      }
+  function daysBetween(from, to) {
+    var a = from.split('-'), b = to.split('-');
+    return Math.round((Date.UTC(b[0], b[1] - 1, b[2]) - Date.UTC(a[0], a[1] - 1, a[2])) / 864e5);
+  }
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) { node.className = className; }
+    if (text !== undefined) { node.textContent = text; }
+    return node;
+  }
+
+  // 진행 중이면 그 플랜, 아니면 가장 가까운 다음 플랜을 맨 위 카드로 올린다.
+  function showHero(row, ongoing) {
+    var slot = document.getElementById('hero');
+    if (!slot) { return; }
+    var start = row.dataset.start, total = daysBetween(start, row.dataset.end) + 1;
+    var card = el('a', 'hero');
+    card.href = row.querySelector('a').getAttribute('href');
+    var top = el('span', 'hero-top');
+    var figure = el('span', 'hero-figure');
+    var cta = '일정 보기';
+    if (ongoing && total > 1) {
+      var nth = daysBetween(start, today) + 1;
+      top.appendChild(el('span', 'hero-eyebrow', '지금 데이트 중이에요'));
+      figure.appendChild(el('strong', '', nth + '일차'));
+      figure.appendChild(el('span', 'of', '/ ' + total + '일'));
+      cta = '오늘 일정 보기';
+    } else if (ongoing) {
+      top.appendChild(el('span', 'hero-eyebrow', '오늘이 데이트 날이에요'));
+      figure.appendChild(el('strong', '', 'D-day'));
+      cta = '오늘 일정 보기';
+    } else {
+      var left = daysBetween(today, start);
+      top.appendChild(el('span', 'hero-eyebrow', '다음 데이트'));
+      figure.appendChild(el('strong', '', 'D-' + left));
+      if (left === 1) { figure.appendChild(el('span', 'of', '내일이에요')); }
+    }
+    var badge = row.querySelector('.plan-check .checked');
+    if (badge) { top.appendChild(badge.cloneNode(true)); }
+    card.appendChild(top);
+    card.appendChild(figure);
+    card.appendChild(el('span', 'hero-title', row.querySelector('.t').textContent));
+    card.appendChild(el('span', 'hero-meta', row.dataset.range + ' · 일정 ' + row.dataset.count + '개'));
+    if (ongoing && total > 1) {
+      var bar = el('span', 'hero-progress');
+      bar.setAttribute('aria-hidden', 'true');
+      var fill = el('span');
+      fill.style.width = Math.min(100, (daysBetween(start, today) + 1) / total * 100) + '%';
+      bar.appendChild(fill);
+      card.appendChild(bar);
+    }
+    card.appendChild(el('span', 'hero-cta', cta));
+    slot.appendChild(card);
+    slot.hidden = false;
+  }
+
+  // 진행 중 · 다가오는 · 지난 데이트(올해, 그 전은 연도별)로 묶는다. JS가 없으면 서버가 만든 한 묶음이 그대로 보인다.
+  function groupPlans(list) {
+    var rows = Array.prototype.slice.call(list.children);
+    var ongoing = rows.filter(function (li) { return li.dataset.start <= today && today <= li.dataset.end; });
+    var upcoming = rows.filter(function (li) { return li.dataset.start > today; })
+      .sort(function (a, b) { return a.dataset.start < b.dataset.start ? -1 : 1; });
+    var past = rows.filter(function (li) { return li.dataset.end < today; });
+    var hero = ongoing[0] || upcoming[0];
+    if (hero) {
+      showHero(hero, hero === ongoing[0]);
+      // 대시보드가 모든 플랜을 읽으므로 지우지 않고 숨긴다.
+      hero.hidden = true;
+    }
+    upcoming.forEach(function (li) {
+      var side = li.querySelector('.plan-side');
+      side.insertBefore(el('span', 'dday', 'D-' + daysBetween(today, li.dataset.start)), side.firstChild);
     });
 
-    Array.prototype.forEach.call(list.children, function (li) {
-      if (li.dataset.end < today) {
-        li.classList.add('past-plan');
-        var badge = document.createElement('span');
-        badge.className = 'past-label';
-        badge.textContent = '지난 일정';
-        li.querySelector('a').prepend(badge);
-      }
+    var groups = [['진행 중인 데이트', ongoing, false], ['다가오는 데이트', upcoming, false]];
+    var thisYear = today.slice(0, 4);
+    past.forEach(function (li) {
+      var year = li.dataset.start.slice(0, 4);
+      var title = year === thisYear ? '지난 데이트' : year + '년 데이트';
+      var last = groups[groups.length - 1];
+      if (last[0] === title) { last[1].push(li); } else { groups.push([title, [li], true]); }
     });
+
+    var original = list.closest('.plan-group');
+    groups.forEach(function (group, index) {
+      var shown = group[1].filter(function (li) { return !li.hidden; }).length;
+      if (!group[1].length) { return; }
+      var section = el('section', 'plan-group' + (group[2] ? ' is-past' : ''));
+      var heading = el('h2', 'group-title', group[0]);
+      heading.id = 'plan-group-' + index;
+      heading.appendChild(el('span', 'count', String(shown)));
+      section.setAttribute('aria-labelledby', heading.id);
+      var ul = el('ul', 'plans');
+      group[1].forEach(function (li) { ul.appendChild(li); });
+      section.appendChild(heading);
+      section.appendChild(ul);
+      section.hidden = !shown;
+      original.parentNode.insertBefore(section, original);
+    });
+    original.remove();
   }
+
+  var list = document.getElementById('plans');
+  if (list) { groupPlans(list); }
 
   var tabs = document.querySelector('[data-tabs]');
   if (!tabs) { return; }
@@ -516,6 +666,14 @@ button, a, .item-select { touch-action: manipulation; }
   var currentDay;
   var dates = days.map(function (s) { return s.dataset.day; });
   var steps = tabs.querySelectorAll('[data-day-step]');
+
+  // 오늘 날짜를 표시한다. 탭은 점, 날짜 넘기기는 '오늘' 태그다.
+  buttons.forEach(function (b) {
+    if (b.dataset.day === today) { b.classList.add('is-today'); b.setAttribute('aria-current', 'date'); }
+  });
+  labels.forEach(function (label) {
+    if (label.dataset.dayLabel === today) { label.classList.add('is-today'); }
+  });
 
   function show(day) {
     currentDay = day;

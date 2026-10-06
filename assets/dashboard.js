@@ -2,7 +2,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const today = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul' }).format(new Date());
-  const plans = Array.from(document.querySelectorAll('#plans > li'), node => ({
+  const plans = Array.from(document.querySelectorAll('.plans > li[data-start]'), node => ({
     start: node.dataset.start, end: node.dataset.end,
     url: node.querySelector('a').getAttribute('href'), title: node.querySelector('.t').textContent
   }));
@@ -101,18 +101,26 @@
     const cards = [ ['함께한 날', new Set(current.map(d => d.date)).size + '일', '같은 날짜는 한 번만'], ['방문한 장소', data.places.length + '곳', '중복 장소 제외'], ['처음 기록한 곳', fresh + '곳', '전체 일정의 방문 기록 기준'], ['자주 간 지역', data.regions[0]?.[0] || '아직 없어요', data.regions.length ? data.regions[0][1].size + '일 함께했어요' : '이 기간의 방문 지역이 없어요'] ];
     $('record-stats').innerHTML = cards.map(([label, value, note]) => `<div class="stat"><span>${esc(label)}</span><strong>${esc(value)}</strong><small>${esc(note)}</small></div>`).join('');
     $('region-ranking').innerHTML = data.regions.slice(0,3).map(([name, dates]) => `<li>${esc(name)}<span>${dates.size}일</span></li>`).join('') || '<li class="empty-record">다녀온 지역이 여기에 모여요.</li>';
-    $('place-ranking').innerHTML = data.places.slice(0,3).map(p => `<li><a href="${esc(p.url)}">${esc(p.name)}</a><span>${p.dates.size}일</span></li>`).join('') || '<li class="empty-record">우리의 단골을 발견해봐요.</li>';
+    $('place-ranking').innerHTML = data.places.slice(0,3).map(p => `<li><a href="${esc(p.url)}">${esc(p.name)}</a><span>${p.dates.size}일</span></li>`).join('') || '<li class="empty-record">다녀온 장소가 여기에 모여요.</li>';
     $('visited-places').innerHTML = data.places.map(p => `<a href="${esc(p.url)}" title="${esc(p.name)} 데이트 일정 보기">${esc(p.name)} · ${p.dates.size}일</a>`).join('');
     const year = $('record-period').value.slice(0,4);
     $('timeline-heading').textContent = year + '년 월별 함께한 날';
     const counts = Array.from({length:12}, (_,i) => new Set(complete.filter(d => d.date.startsWith(year + '-' + String(i+1).padStart(2,'0'))).map(d => d.date)).size);
-    const max = Math.max(2, Math.ceil(Math.max(...counts) / 2) * 2);
-    const x = i => 28 + i * 28;
-    const y = n => 146 - n / max * 112;
-    const description = counts.map((n, i) => `${i + 1}월 ${n}일`).join(', ');
-    const grid = [0, max / 2, max].map(n => `<line x1="28" y1="${y(n)}" x2="336" y2="${y(n)}" class="chart-grid"/><text x="20" y="${y(n) + 3}" text-anchor="end">${n}</text>`).join('');
-    const points = counts.map((n, i) => `${x(i)},${y(n)}`).join(' ');
-    $('record-timeline').innerHTML = `<svg class="month-chart" viewBox="0 0 360 180" role="img" aria-labelledby="month-chart-title month-chart-desc"><title id="month-chart-title">${year}년 월별 함께한 날</title><desc id="month-chart-desc">${description}. 가로축은 월, 세로축은 함께한 날 수입니다.</desc><text x="8" y="16">일</text>${grid}<polyline points="${points}" class="chart-line"/>${counts.map((n, i) => `<circle cx="${x(i)}" cy="${y(n)}" r="3.5" class="chart-dot"/><text x="${x(i)}" y="${y(n) - 10}" text-anchor="middle" class="chart-value">${n}</text><text x="${x(i)}" y="168" text-anchor="middle">${i + 1}월</text>`).join('')}</svg>`;
+    // 아직 오지 않은 달은 0일이 아니라 모르는 값이라 선을 잇지 않는다.
+    const thisYear = today.slice(0, 4);
+    const lastMonth = year > thisYear ? 0 : year === thisYear ? Number(today.slice(5, 7)) : 12;
+    const nowMonth = year === thisYear ? lastMonth - 1 : -1;
+    const shown = counts.slice(0, lastMonth);
+    const max = Math.max(2, ...shown);
+    const x = i => 22 + i * 28.7;
+    const y = n => 136 - n / max * 100;
+    const description = shown.map((n, i) => `${i + 1}월 ${n}일`).join(', ') || '아직 지난 달이 없어요';
+    const line = shown.map((n, i) => `${x(i)},${y(n)}`).join(' ');
+    const trend = shown.length ? `<polygon points="${x(0)},${y(0)} ${line} ${x(shown.length - 1)},${y(0)}" class="chart-area"/><polyline points="${line}" class="chart-line"/>` : '';
+    const dots = shown.map((n, i) => `<circle cx="${x(i)}" cy="${y(n)}" r="${i === nowMonth ? 4.5 : 3.5}" class="chart-dot${i === nowMonth ? ' is-current' : ''}"/>` +
+      (n ? `<text x="${x(i)}" y="${y(n) - 11}" text-anchor="middle" class="chart-value">${n}</text>` : '')).join('');
+    const labels = counts.map((n, i) => `<text x="${x(i)}" y="158" text-anchor="middle" class="chart-month${i === nowMonth ? ' is-current' : ''}">${i + 1}월</text>`).join('');
+    $('record-timeline').innerHTML = `<svg class="month-chart" viewBox="0 0 360 164" role="img" aria-labelledby="month-chart-title month-chart-desc"><title id="month-chart-title">${year}년 월별 함께한 날</title><desc id="month-chart-desc">${description}. 가로축은 월, 세로축은 함께한 날 수예요.</desc>${trend}${dots}${labels}</svg>`;
     const pending = new Set(current.filter(day => !day.classified).map(day => day.plan.url)).size;
     $('classification-status').textContent = pending ? `${pending}개 일정의 분류가 준비되지 않았어요. 종류·음식 집계에는 분류가 완료된 일정만 포함돼요.` : '전체 일정과 메뉴를 함께 읽어 분류한 결과예요.';
     renderCategories(current);
@@ -190,7 +198,7 @@
     $('map-retry').hidden = true;
     $('record-map').hidden = !located.length;
     if (!located.length) {
-      $('map-status').textContent = places.length ? '좌표가 등록된 장소가 없어요. 아래 장소를 누르면 일정을 볼 수 있어요.' : '이 기간에는 오늘까지 다녀온 장소가 없어요. 다른 기간을 선택해보세요.';
+      $('map-status').textContent = places.length ? '좌표가 등록된 장소가 없어요. 아래 장소를 누르면 일정을 볼 수 있어요.' : '이 기간에는 오늘까지 다녀온 장소가 없어요.';
       return;
     }
     $('map-status').textContent = '방문 지도를 불러오고 있어요.';

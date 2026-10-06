@@ -2,15 +2,19 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%228%22%20fill%3D%22%233182f6%22/%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%3E%3Crect%20x%3D%227%22%20y%3D%229%22%20width%3D%2218%22%20height%3D%2217%22%20rx%3D%223%22/%3E%3Cpath%20d%3D%22M11%206v6%20M21%206v6%20M7%2015h18%20M12%2020l3%203%205-5%22/%3E%3C/g%3E%3C/svg%3E">
 <title>연휴 6박 7일 — 용인 → 구미·대구 → 서울</title>
 <meta name="kakao-maps-js-key" content="b353f7a5f09a5ae5cd662f5735db7bd6">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'">
 <style>/* 토스 디자인 시스템(TDS). 정본은 저장소 루트의 DESIGN.md.
-   원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다. */
+   원문 토큰은 OKLCH지만 브라우저가 못 읽으면 색 선언이 통째로 버려져서 hex로 변환해 뒀다.
+   다크 값은 공개된 alias 표가 없어 추정값이다 (DESIGN.md 「2026-10-06 리뉴얼」). */
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
   /* base — 회색은 전부 차가운 navy 계열이다. 순수 검정은 쓰지 않는다 */
   --white: #ffffff;
@@ -22,37 +26,45 @@
   --grey-500: #87919c;
   --grey-600: #6a7480;
   --grey-700: #4b5765;
+  --grey-800: #2d3a48;
   --grey-900: #141f2c;
 
   /* brand — 문서가 명시한 공식 hex. OKLCH 앵커를 변환하면 미묘하게 어긋난다 */
   --blue-500: #3182f6;
-  --blue-600: #1065cc;
+  --blue-700: #1b64da;
   --blue-50: #eaf5ff;
-
   --green-500: #007738;
   --orange-500: #ff8800;
-  --red-500: #f03848;
-
-  /* badge washed — 공식 토큰이 없어 base hue에서 명도만 올린 추정값이다 */
-  --green-washed: #d7f6df;
-  --orange-washed: #ffe8d2;
-
-  --navy-900: #010a25;
-  --fg-tertiary: rgba(1, 10, 37, .58);
-  --line-subtle: rgba(0, 0, 0, .08);
-  --press-overlay: rgba(0, 0, 0, .26);
 
   /* semantic — product 표면은 base가 아니라 이쪽 이름으로 부른다 */
-  --fill-brand: var(--blue-500);
+  --bg-canvas: var(--grey-100);       /* 카드 뒤 바탕. 토스 홈처럼 회색 위에 흰 카드를 얹는다 */
+  --bg-card: var(--white);
   --fill-secondary: var(--grey-100);
   --fill-weak: var(--grey-50);
+  --fill-pressed: var(--grey-200);
+  --fill-brand: var(--blue-500);
+  --fill-brand-weak: var(--blue-50);
   --text-primary: var(--grey-900);
   --text-secondary: var(--grey-700);
-  --text-tertiary: var(--fg-tertiary);
+  --text-tertiary: rgba(1, 10, 37, .58);
   --text-alt: var(--white);
-  --text-brand: var(--blue-500);
-  --bg-primary: var(--white);
+  /* blue-500 글자는 흰 바탕 대비가 3.7:1이라 작은 글자에는 한 단계 진한 값을 쓴다 */
+  --text-brand: var(--blue-700);
   --line-default: var(--grey-200);
+  --press-overlay: rgba(0, 0, 0, .26);
+  --seg-track: var(--grey-100);
+  --seg-on: var(--white);
+
+  /* badge washed — 공식 토큰이 없어 base hue에서 명도만 올린 추정값이다 */
+  --ok-fg: var(--green-500);
+  --ok-bg: #d7f6df;
+  --warn-fg: #9c5000;
+  --warn-bg: #ffe8d2;
+
+  /* 지도 핀은 테마와 상관없이 밝은 지도 타일 위에 앉는다 */
+  --pin: #141f2c;
+  --pin-on: #3182f6;
+  --pin-ring: #ffffff;
 
   /* rounded ladder */
   --r-xs: 4px; --r-s: 8px; --r-m: 12px; --r-l: 14px;
@@ -61,400 +73,452 @@
   /* elevation — 평면이 기본이고 떠 있는 표면에만 쓴다 */
   --shadow-1: 0 1px 2px rgba(1, 10, 37, .04), 0 1px 1px rgba(1, 10, 37, .04);
   --shadow-2: 0 4px 12px rgba(1, 10, 37, .06), 0 1px 2px rgba(1, 10, 37, .04);
+  --shadow-pin: 0 2px 6px rgba(1, 10, 37, .28);
 
   /* motion — 이 셋 밖으로 나가지 않는다 */
   --ease: cubic-bezier(.22, .61, .36, 1);
   --dur-fast: 120ms;
   --dur-base: 200ms;
+  --dur-slow: 320ms;
 
-  /* TPS는 재배포가 막혀 있어 Pretendard가 1순위 대체다. 웹폰트는 받지 않는다 */
+  /* TPS는 재배포가 막혀 있어 Pretendard가 1순위 대체다. 웹폰트는 렌더링을 막지 않게 받는다 */
   --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
           "SF Pro Text", "SF Pro", "Apple SD Gothic Neo", "Noto Sans KR", Roboto,
           "Helvetica Neue", Arial, sans-serif;
 
   /* 화면 좌우 여백. 원문 룰 오브 섬은 24px인데 시각 칼럼까지 들어가면 폰에서 좁다 */
   --gutter: 20px;
+  --column: 40rem;
+}
+
+/* 밤 데이트에 폰을 켜면 눈이 부시다. 시스템 설정을 따라 어두운 표면으로 바꾼다 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-canvas: #17171c;
+    --bg-card: #202027;
+    --fill-secondary: #2c2c35;
+    --fill-weak: #26262e;
+    --fill-pressed: #3c3c47;
+    --fill-brand-weak: #23324c;
+    --text-primary: #ececee;
+    --text-secondary: #b0b0b8;
+    --text-tertiary: #8a8a93;
+    --text-brand: #64a8ff;
+    --line-default: #34343d;
+    --seg-track: #2c2c35;
+    --seg-on: #45454f;
+    --ok-fg: #2fca73;
+    --ok-bg: #223b33;
+    --warn-fg: #ffb057;
+    --warn-bg: #443121;
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, .3);
+    --shadow-2: 0 4px 12px rgba(0, 0, 0, .32), 0 1px 2px rgba(0, 0, 0, .24);
+  }
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 body {
   margin: 0; padding: 0 0 64px;
-  background: var(--bg-primary); color: var(--text-primary);
+  background: var(--bg-card); color: var(--text-primary);
   /* body-2 — 한글 가독성 때문에 1.5가 표준이다 */
   font: 400 15px/1.5 var(--font);
   letter-spacing: -.005em;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
 }
-
-/* 모바일 단일 컬럼. 태블릿·데스크톱에서도 컬럼을 늘리지 않는다 */
-.top, .day, .places, .plans, .tabs, .empty, details.past {
-  max-width: 38rem; margin-left: auto; margin-right: auto;
-  padding-left: var(--gutter); padding-right: var(--gutter);
-}
+body.home { background: var(--bg-canvas); }
 
 a { color: inherit; text-decoration: none; }
 h1, h2, h3 { word-break: keep-all; overflow-wrap: anywhere; margin: 0; color: var(--text-primary); font-weight: 700; }
 :focus-visible { outline: 2px solid var(--fill-brand); outline-offset: 2px; border-radius: var(--r-s); }
-::selection { background: var(--blue-50); color: var(--text-primary); }
+::selection { background: var(--fill-brand-weak); color: var(--text-primary); }
 
-/* ── 머리말 ─────────────────────────────────────────── */
-.top { padding-top: 32px; padding-bottom: 16px; }
-/* h1 — 28/700/-2% */
-.top h1 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.02em; }
-
-/* top-app-bar 자리의 뒤로가기. button-secondary S */
-.back {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
-  margin-bottom: 24px; border-radius: var(--r-m);
-  background: var(--fill-secondary); color: var(--text-secondary);
-  font-size: .8125rem; font-weight: 600; letter-spacing: 0;
-  transition: background var(--dur-fast) var(--ease);
+.icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.back:active { background: var(--grey-200); }
 
-/* body-2 보조 텍스트 */
-.range { margin: 6px 0 0; color: var(--text-secondary); font-size: .9375rem; }
+/* 빠르게 두 번 눌러도 화면이 확대되지 않게 한다. 두 손가락 확대는 그대로 된다. */
+html { touch-action: manipulation; }
+button, a, .item-select { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* ── 공통 컴포넌트 ─────────────────────────────────── */
 
 /* badge — 22px, 6px radius, washed 배경 + 시맨틱 텍스트 */
-.checked {
-  display: inline-flex; align-items: center; min-height: 22px;
-  margin: 14px 0 0; padding: 2px 8px; border-radius: 6px;
-  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0;
+.checked, .status {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 22px;
+  margin: 0; padding: 2px 8px; border-radius: 6px;
+  background: var(--fill-secondary); color: var(--text-secondary);
+  font-size: .75rem; font-weight: 600; line-height: 1.4; letter-spacing: 0;
+  white-space: nowrap;
 }
-.checked.ok { background: var(--green-washed); color: var(--green-500); }
-.checked.todo { background: var(--orange-washed); color: #b35f00; }
-.empty { color: var(--text-secondary); }
+.checked .icon, .status .icon { width: 14px; height: 14px; }
+.checked.ok, .status.ok { background: var(--ok-bg); color: var(--ok-fg); }
+.checked.todo, .status.risk { background: var(--warn-bg); color: var(--warn-fg); }
 
-/* ── 플랜 목록 (list-row) ───────────────────────────── */
-.plans { margin-top: 16px; margin-bottom: 0; padding-top: 0; list-style: none; }
-.plans li { position: relative; border-radius: var(--r-2xl); background: var(--fill-weak); }
-.plans li + li { margin-top: 12px; }
-.plans a {
-  display: block; padding: 24px 44px 24px 20px; border-radius: var(--r-2xl);
+/* segmented-control — 상호 배타적 단일 선택. 선택된 분절만 흰 표면으로 떠오른다 */
+.home-switch, .tabs {
+  display: flex; gap: 4px; padding: 4px;
+  border-radius: var(--r-l); background: var(--seg-track);
+}
+.home-switch button, .tabs button {
+  position: relative; flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
+  border: 0; border-radius: 10px; background: transparent;
+  color: var(--text-secondary); font: 600 .9375rem/1.25 var(--font); letter-spacing: -.005em;
+  white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-base) var(--ease), color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease);
+}
+.home-switch button[aria-pressed="true"], .tabs button.on {
+  background: var(--seg-on); color: var(--text-primary); box-shadow: var(--shadow-1);
+}
+
+/* button-secondary — 화면에 primary CTA가 하나뿐이라 블루를 쓰지 않는다 */
+.map {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--r-m);
+  background: var(--fill-secondary); color: var(--text-primary);
+  font: 600 .9375rem/1.25 var(--font); letter-spacing: -.005em; cursor: pointer;
   transition: background var(--dur-fast) var(--ease);
 }
-.plan-arrow { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); }
-.plans a:active { background: var(--fill-secondary); }
-/* title-1 18/600 */
-.plans .t {
-  display: block; overflow-wrap: anywhere; word-break: keep-all;
+.map:active { background: var(--fill-pressed); }
+
+/* ── 메인: 머리말 ──────────────────────────────────── */
+.top { width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto; }
+.home-top { padding: 28px 0 20px; }
+/* h1 — 28/700/-2% */
+.home-top h1 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.02em; }
+.home-top .range { margin: 4px 0 0; color: var(--text-secondary); font-size: .9375rem; }
+
+.home-switch { width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto 16px; }
+
+/* ── 메인: 지금·다음 데이트 ───────────────────────── */
+.hero-slot { width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto 12px; }
+.hero {
+  display: block; padding: 24px 22px 22px; border-radius: var(--r-3xl);
+  background: var(--bg-card); color: var(--text-primary);
+}
+.hero-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.hero-eyebrow { color: var(--text-brand); font-size: .875rem; font-weight: 700; letter-spacing: -.005em; }
+/* display — 강조 숫자라 비례폭이 아니라 고정폭으로 맞춘다 */
+.hero-figure { display: flex; align-items: baseline; gap: 6px; margin-top: 10px; }
+.hero-figure strong {
+  font-size: 2.5rem; font-weight: 700; line-height: 1.15; letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+}
+.hero-figure .of { color: var(--text-secondary); font-size: 1.0625rem; font-weight: 600; }
+.hero-title {
+  display: block; margin-top: 14px; word-break: keep-all; overflow-wrap: anywhere;
   font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em;
 }
-/* body-3 13/400 */
-.plans .d {
-  display: block; margin-top: 8px; color: var(--text-secondary);
-  font-size: .8125rem; letter-spacing: 0;
+.hero-meta { display: block; margin-top: 4px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
+.hero-progress {
+  display: block; height: 6px; margin-top: 18px; overflow: hidden;
+  border-radius: var(--r-full); background: var(--fill-secondary);
 }
-.plans .checked { margin: 0 0 8px; }
+.hero-progress > span { display: block; height: 100%; border-radius: inherit; background: var(--fill-brand); }
+/* button-primary L — 이 화면에서 단 하나의 강조 액션이다 */
+.hero-cta {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 4px;
+  min-height: 48px; margin-top: 20px; overflow: hidden; border-radius: var(--r-l);
+  background: var(--fill-brand); color: var(--text-alt);
+  font-size: 1.0625rem; font-weight: 700; letter-spacing: -.005em;
+}
+.hero-cta::after {
+  content: ""; position: absolute; inset: 0; background: var(--press-overlay);
+  opacity: 0; transition: opacity var(--dur-fast) var(--ease);
+}
+.hero:active .hero-cta::after { opacity: 1; }
 
-/* 오늘 걸린 플랜 — brand-weak 행. 이 화면의 유일한 강조다 */
-.plans li.now { background: var(--blue-50); }
-.plans li.now a:active { background: #dcedff; }
-.plans li.now .t { color: var(--text-brand); }
-.plans li.now .t::before {
-  content: "오늘"; display: inline-block; margin-right: 6px; padding: 2px 7px;
-  border-radius: 6px; background: var(--fill-brand); color: var(--text-alt);
-  font-size: .6875rem; font-weight: 600; letter-spacing: 0; vertical-align: 2px;
+/* ── 메인: 플랜 목록 (list-row) ───────────────────── */
+.plan-group, .empty {
+  width: calc(min(var(--column), 100%) - 2 * var(--gutter)); margin: 0 auto 12px;
 }
-.plans li.now .checked { background: var(--white); }
+.plan-group { padding: 6px 0; overflow: hidden; border-radius: var(--r-3xl); background: var(--bg-card); }
+/* list-header */
+.group-title {
+  display: flex; align-items: baseline; gap: 6px; padding: 14px 22px 6px;
+  font-size: 1.0625rem; line-height: 1.4; letter-spacing: -.01em;
+}
+.group-title .count { color: var(--text-tertiary); font-size: .9375rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.empty { padding: 24px 22px; border-radius: var(--r-3xl); background: var(--bg-card); color: var(--text-secondary); }
 
-/* list-footer 성격의 더보기 행 */
-details.past { margin-top: 28px; }
-details.past summary {
-  display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px;
-  border-radius: var(--r-m); background: var(--fill-secondary);
-  color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
-  letter-spacing: -.005em; cursor: pointer; list-style: none;
-}
-details.past summary::after { content: "+"; margin-left: 12px; }
-details.past[open] summary::after { content: "−"; }
-details.past summary::-webkit-details-marker { display: none; }
-details.past summary:active { background: var(--grey-200); }
-details.past .plans { margin-top: 10px; padding-left: 0; padding-right: 0; }
-
-/* ── 날짜 선택 (segmented-control) ──────────────────── */
-.tabs {
-  display: flex; gap: 4px; padding: 4px;
-  border-radius: var(--r-m); background: var(--fill-secondary);
-}
-.tabs button {
-  position: relative; flex: 1 1 0; min-width: 0; min-height: 44px; padding: 0 12px;
-  border: 0; border-radius: var(--r-s); background: transparent;
-  color: var(--text-secondary);
-  font: 600 .8125rem/1.25 var(--font); letter-spacing: 0;
-  white-space: nowrap; cursor: pointer;
-  transition: background 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease);
-}
-/* 선택된 분절만 흰 배경으로 떠오른다 */
-.tabs button.on {
-  background: var(--white); color: var(--text-primary); box-shadow: var(--shadow-1);
-}
-
-/* ── 일정 (list-row) ───────────────────────────────── */
-.day, .places { padding-top: 0; }
-/* h3 22/700 */
-.day h2, .places h2 {
-  margin: 32px 0 4px; font-size: 1.375rem; line-height: 1.3; letter-spacing: -.015em;
-}
-.tabs + .day h2 { margin-top: 20px; }
-
-.item { border-radius: var(--r-xl); }
-.item-select { display: flex; gap: 16px; width: 100%; padding: 20px 12px; border: 0; border-radius: inherit; background: transparent; text-align: left; color: inherit; font: inherit; cursor: pointer; }
-.item .body, .item .label, .item .place, .item .note { display: block; }
-.item + .item { border-top: 1px solid var(--line-default); }
-/* 시각은 고정폭 숫자로. 실시간 데이터 칼럼과 같은 취급이다 */
-.item .time {
-  flex: 0 0 3.25rem; padding-top: 2px;
-  color: var(--text-secondary); font-size: .9375rem; font-weight: 600;
-  font-variant-numeric: tabular-nums; letter-spacing: -.005em;
-}
-.item .body { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
-/* title-1 18/600 */
-.item .label { font-size: 1.125rem; font-weight: 600; line-height: 1.45; letter-spacing: -.01em; }
-.item .place { margin-top: 2px; color: var(--text-secondary); font-size: .9375rem; }
-/* 행 전체가 아니라 장소만 눌리므로 chevron으로 눌린다는 걸 알린다 */
-.item .place a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-weight: 500; }
-
-.item .place a:active { color: var(--text-secondary); }
-.item .status {
-  display: inline-flex; align-items: center; min-height: 22px;
-  margin-top: 8px; padding: 2px 8px; border-radius: 6px;
-  background: var(--fill-secondary); color: var(--text-secondary);
-  font-size: .75rem; font-weight: 500; line-height: 1.4; letter-spacing: 0;
-}
-.item .status.ok { background: var(--green-washed); color: var(--green-500); }
-.item .status.risk { background: var(--orange-washed); color: #b35f00; }
-/* body-3 */
-.item .note { margin-top: 6px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
-
-/* ── 장소 ───────────────────────────────────────────── */
-.places { display: grid; grid-template-columns: 1fr; gap: 16px; }
-.places h2 { grid-column: 1 / -1; margin-bottom: 6px; }
-.place-card {
-  padding: 20px; border-radius: var(--r-2xl); background: var(--fill-weak);
-  scroll-margin-top: 96px;
-}
-.place-card:target { box-shadow: 0 0 0 1.5px var(--fill-brand); }
-/* h4 20/700 */
-.place-card h3 { margin: 0 0 10px; font-size: 1.25rem; line-height: 1.35; letter-spacing: -.015em; }
-
-/* table-row — 라벨/값을 헤어라인으로 가른다 */
-.place-card dl { display: grid; grid-template-columns: 4rem 1fr; margin: 0; }
-.place-card dt {
-  grid-column: 1; padding: 9px 0; color: var(--text-secondary);
-  font-size: .8125rem; font-weight: 500; letter-spacing: 0;
-}
-.place-card dd {
-  grid-column: 2; margin: 0; padding: 9px 0;
-  font-size: .9375rem; overflow-wrap: anywhere;
-}
-.place-card dt:not(:first-of-type),
-.place-card dd:not(:first-of-type) { border-top: 1px solid var(--grey-200); }
-.place-card dd a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-weight: 500; }
-
-/* button-secondary M — 화면에 primary CTA가 없으므로 블루를 쓰지 않는다 */
-.map {
-  display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px;
-  padding: 0 16px; border: 1px solid var(--grey-200); border-radius: var(--r-m);
-  background: var(--white); color: var(--text-primary);
-  font-size: .9375rem; font-weight: 600; letter-spacing: -.005em;
+.plans { margin: 0; padding: 0; list-style: none; }
+.plans a {
+  display: flex; align-items: center; gap: 14px; min-height: 76px; padding: 12px 18px 12px 22px;
   transition: background var(--dur-fast) var(--ease);
 }
-.map:active { background: var(--grey-100); }
+.plans a:active { background: var(--fill-secondary); }
+/* 아바타 자리의 날짜 타일. 44px · radius 14가 list-row의 아바타 규격이다 */
+.cal {
+  display: flex; flex: 0 0 44px; flex-direction: column; align-items: center; justify-content: center;
+  height: 44px; border-radius: var(--r-l); background: var(--fill-secondary);
+  line-height: 1.1; font-variant-numeric: tabular-nums;
+}
+.cal-m { color: var(--text-secondary); font-size: .6875rem; font-weight: 600; letter-spacing: 0; }
+.cal-d { color: var(--text-primary); font-size: 1.0625rem; font-weight: 700; }
+.plan-main { flex: 1 1 auto; min-width: 0; }
+/* title-2 17/600 */
+.plans .t {
+  display: block; overflow-wrap: anywhere; word-break: keep-all;
+  font-size: 1.0625rem; font-weight: 600; line-height: 1.4; letter-spacing: -.01em;
+}
+/* body-3 13/400 */
+.plans .d { display: block; margin-top: 2px; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
+.plans .nw { white-space: nowrap; }
+.plan-check { display: none; }
+.plan-side { display: flex; flex: 0 0 auto; flex-direction: column; align-items: flex-end; gap: 4px; }
+.plan-side:empty { display: none; }
+.dday { color: var(--text-brand); font-size: .9375rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.plan-arrow { display: flex; flex: 0 0 auto; margin-left: -6px; color: var(--text-tertiary); }
 
-.place-card strong, .item .note strong { font-weight: 600; color: var(--text-primary); }
-.place-card code, .item code {
-  padding: 1px 5px; border-radius: var(--r-xs); background: var(--grey-100);
+/* 지난 데이트는 접지 않고 흐린 색으로 둔다. 확인 여부는 이제 의미가 없어 숨긴다 */
+.plan-group.is-past .t, .plan-group.is-past .cal-d { color: var(--text-secondary); }
+.plan-group.is-past .cal { background: var(--fill-weak); }
+.plan-group.is-past .checked { display: none; }
+
+/* ── 상세: 앱 바 ───────────────────────────────────── */
+.plan-page .top {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 8px; align-items: start;
+  width: 100%; max-width: 1440px; padding: 10px var(--gutter) 14px 8px;
+}
+.back {
+  display: inline-flex; grid-row: 1 / span 2; align-items: center; justify-content: center; gap: 4px;
+  width: 44px; height: 44px; border-radius: var(--r-m); color: var(--text-primary);
+  transition: background var(--dur-fast) var(--ease);
+}
+.back:active { background: var(--fill-secondary); }
+.back .icon { width: 24px; height: 24px; }
+.back-label { display: none; }
+.plan-page .top h1 {
+  grid-column: 2; padding-top: 9px;
+  font-size: 1.125rem; line-height: 1.4; letter-spacing: -.015em;
+}
+.plan-meta {
+  grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 4px;
+}
+.plan-page .range { margin: 0; color: var(--text-secondary); font-size: .8125rem; letter-spacing: 0; }
+.range-full { display: none; }
+/* 앱 바에서는 badge 바탕 없이 아이콘과 글자색만 둔다. 지도와 목록이 주인공이다 */
+.plan-page .checked { min-height: 0; padding: 0; background: transparent; font-size: .8125rem; font-weight: 500; }
+.plan-page .checked.ok { color: var(--ok-fg); }
+.plan-page .checked.todo { color: var(--warn-fg); }
+
+/* ── 상세: 지도와 목록 ─────────────────────────────── */
+.list-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg-card); }
+body:not(.explorer-ready) .map-pane { display: none; }
+.explorer-ready .plan-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+.explorer-ready .explorer {
+  display: grid; grid-template-rows: minmax(180px, 40dvh) minmax(0, 1fr); flex: 1; min-height: 0;
+}
+.explorer-ready { padding-bottom: 0; }
+.map-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; overflow: hidden; background: var(--fill-weak); }
+.route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
+/* 카카오 지도 타일은 밝은 한 벌뿐이다. 어두운 화면에서는 눈부심만 살짝 줄인다 */
+@media (prefers-color-scheme: dark) {
+  .route-canvas, #record-map { filter: brightness(.86); }
+}
+.map-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px var(--gutter); }
+.map-caption .route-message { flex: 1 1 12rem; }
+.route-message { margin: 0; color: var(--text-secondary); font-size: .75rem; line-height: 1.45; letter-spacing: 0; overflow-wrap: anywhere; }
+.map-retry { flex: 0 0 auto; min-height: 36px; padding: 0 12px; font-size: .8125rem; }
+
+/* 방문 번호 핀. 겹쳐도 번호가 읽히게 작게 두고, 선택한 핀만 블루로 키운다 */
+.map-pin {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 30px; height: 30px; padding: 0 8px; border: 0; border-radius: var(--r-full);
+  background: var(--pin); color: #ffffff; box-shadow: 0 0 0 2px var(--pin-ring), var(--shadow-pin);
+  font: 700 13px/1 var(--font); font-variant-numeric: tabular-nums; letter-spacing: 0; cursor: pointer;
+  transition: background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+}
+.map-pin.selected { background: var(--pin-on); transform: scale(1.2); }
+
+/* 날짜 넘기기 — 긴 여행은 한 줄짜리 고정 바에서 하루씩 넘긴다 */
+.day-picker {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; flex-shrink: 0;
+  align-items: center; gap: 4px; margin: 12px var(--gutter) 4px; padding: 4px;
+  border-radius: var(--r-l); background: var(--seg-track);
+}
+.day-picker button {
+  display: flex; align-items: center; justify-content: center;
+  min-width: 0; min-height: 44px; border: 0; border-radius: 10px;
+  background: var(--seg-on); color: var(--text-primary); box-shadow: var(--shadow-1); cursor: pointer;
+  transition: opacity var(--dur-base) var(--ease);
+}
+.day-picker button:disabled { opacity: .3; box-shadow: none; cursor: default; }
+.day-picker .day-label {
+  display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 44px; padding: 0 4px;
+  text-align: center; font: 600 .9375rem/1.25 var(--font); letter-spacing: -.005em;
+}
+.day-label [data-day-label] { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 0 6px; }
+.day-label .day-index { color: var(--text-secondary); font-size: .8125rem; font-weight: 500; letter-spacing: 0; }
+.explorer .tabs { flex-shrink: 0; margin: 12px var(--gutter) 4px; }
+.tabs button { font-size: .875rem; }
+/* 오늘 날짜 표시. 탭은 점, 날짜 넘기기는 글자 태그로 둔다 */
+.tabs button.is-today::after {
+  content: ""; position: absolute; top: 7px; right: 8px; width: 5px; height: 5px;
+  border-radius: var(--r-full); background: var(--fill-brand);
+}
+.day-label .is-today::after {
+  content: "오늘"; align-self: center; padding: 1px 6px; border-radius: 6px;
+  background: var(--fill-brand-weak); color: var(--text-brand); font-size: .6875rem; font-weight: 700; letter-spacing: 0;
+}
+
+/* ── 상세: 일정 타임라인 ───────────────────────────── */
+.list-scroll { padding-top: 8px; }
+.explorer-ready .list-scroll {
+  overflow-y: auto; min-height: 0; overscroll-behavior: contain;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  scroll-snap-type: y proximity; scroll-padding-top: 24px;
+}
+.explorer-ready .list-scroll .item { scroll-snap-align: start; }
+.day { padding: 0 var(--gutter); }
+.explorer-ready .list-scroll .day { padding-bottom: var(--timeline-tail, 24px); }
+/* 날짜 제목은 JS가 없을 때만 보인다. 날짜 선택 바가 날짜를 이미 보여 준다 */
+.day h2 { margin: 20px 0 10px 4px; color: var(--text-secondary); font-size: .9375rem; line-height: 1.4; letter-spacing: -.005em; }
+.explorer-ready .day-picker ~ .list-scroll .day h2,
+.explorer-ready .tabs ~ .list-scroll .day h2 { display: none; }
+
+/* 방문 번호를 따라 내려가는 세로 타임라인. 본문 높이는 고정하지 않는다 */
+.day .item { position: relative; padding-bottom: 6px; }
+.day .item:not(:last-child)::before {
+  content: ""; position: absolute; left: 15.5px; top: 44px; bottom: -4px;
+  width: 1px; background: var(--line-default); pointer-events: none;
+}
+.item-select {
+  position: relative; display: flex; align-items: flex-start; gap: 8px;
+  width: 100%; cursor: pointer; outline: none; color: inherit;
+}
+.timeline-node {
+  display: flex; flex: 0 0 32px; align-items: center; justify-content: center;
+  height: 32px; margin-top: 6px; border: 1px solid var(--line-default); border-radius: var(--r-full);
+  background: var(--bg-card); color: var(--text-secondary);
+  font-size: .8125rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0;
+  transition: background var(--dur-slow) var(--ease), color var(--dur-slow) var(--ease), border-color var(--dur-slow) var(--ease);
+}
+.item .body {
+  display: block; flex: 1 1 auto; min-width: 0; padding: 0 12px 12px; overflow-wrap: anywhere;
+  border-radius: var(--r-xl); transition: background var(--dur-base) var(--ease);
+}
+/* 첫 줄 `장소 · 시간 ···· 상태`. 장소 이름이 곧 카카오맵 링크다 */
+.item .head { display: flex; align-items: center; column-gap: 8px; min-height: 44px; }
+.item .head .place {
+  display: inline-flex; flex: 0 1 auto; align-items: center; gap: 4px; min-width: 0; min-height: 44px;
+  color: var(--text-primary); font-size: 1rem; font-weight: 600; line-height: 1.35; letter-spacing: -.01em;
+}
+.item .head a.place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
+.item .head .time {
+  flex-shrink: 0; white-space: nowrap; color: var(--text-secondary);
+  font-size: .875rem; font-weight: 500; font-variant-numeric: tabular-nums;
+}
+.item .head .time::before { content: "·"; margin-right: 8px; color: var(--text-tertiary); }
+.item .head .status { flex-shrink: 0; margin-left: auto; }
+/* 확정은 대부분이라 조용하게, 미확인·리스크만 바탕색으로 눈에 띄게 둔다 */
+.item .head .status.ok { padding-right: 0; background: transparent; }
+.item .note { display: block; margin-top: -2px; color: var(--text-secondary); font-size: .875rem; line-height: 1.55; letter-spacing: -.005em; }
+.item .note .label { display: inline; margin-right: 6px; color: var(--text-primary); font-weight: 600; }
+.item .note strong { font-weight: 600; color: var(--text-primary); }
+.item code, .place-card code {
+  padding: 1px 5px; border-radius: var(--r-xs); background: var(--fill-secondary);
   font-family: inherit; font-variant-numeric: tabular-nums; font-size: .95em;
 }
 
-/* ── 반응형 — 컬럼을 늘리지 않고 여백만 넓힌다 ─────── */
+.day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
+.day .item.selected .body { background: var(--fill-brand-weak); }
+
+/* ── 상세: 장소 카드 (숨김) ────────────────────────
+   화면에는 시간별만 보인다. 전체 플랜 대시보드가 이 카드의 주소·좌표를 읽어서 HTML에만 남긴다 */
+.place-card dl { display: grid; grid-template-columns: 4rem 1fr; margin: 0; }
+.place-card dt { color: var(--text-secondary); font-size: .8125rem; }
+.place-card dd { margin: 0; }
+.place-head { display: flex; align-items: center; gap: 8px; }
+.place-select { flex: 1 1 auto; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; }
+
+/* ── 반응형 ─────────────────────────────────────────── */
 @media (min-width: 641px) {
   :root { --gutter: 24px; }
-  .top { padding-top: 64px; padding-bottom: 24px; }
-  .top h1 { font-size: 2.5rem; }
-  .place-card { padding: 24px; }
+  .range-full { display: inline; }
+  .range-short { display: none; }
+  .home-top { padding: 56px 0 24px; }
+  .home-top h1 { font-size: 2.5rem; letter-spacing: -.02em; }
+  .home-top .range { font-size: 1.0625rem; }
+  .hero { padding: 28px 28px 24px; }
+  .plans a { padding-left: 28px; padding-right: 24px; }
+  .group-title { padding-left: 28px; padding-right: 28px; }
 }
 @media (hover: hover) {
-  .plans a:hover, .back:hover, .map:hover, details.past summary:hover { background: var(--fill-secondary); }
-  .item .place a:hover, .place-card dd a:hover { text-decoration: underline; }
+  .plans a:hover { background: var(--fill-weak); }
+  .back:hover, .map:hover { background: var(--fill-secondary); }
+  .home-switch button:not([aria-pressed="true"]):hover, .tabs button:not(.on):hover { color: var(--text-primary); }
+  .hero:hover .hero-cta::after { opacity: .5; }
+  .item .head a.place:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .day .item:not(.selected) .item-select:hover .body { background: var(--fill-weak); }
+  .day-picker button:not(:disabled):hover { background: var(--fill-weak); }
 }
-[hidden] { display: none !important; }
 @media (max-width: 380px) {
-  .item { gap: 10px; }
-  .item .time { flex-basis: 3rem; }
-  .place-card dl { grid-template-columns: 3.5rem 1fr; }
+  .item .head .place { font-size: .9375rem; }
+  .hero-figure strong { font-size: 2.25rem; }
 }
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-
-.icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
-.back, .map, .checked, .status, .item .place a { gap: 6px; }
-.checked .icon, .status .icon { width: 14px; height: 14px; }
-.item .place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
-
-/* 지도와 목록을 함께 탐색한다. JS가 없으면 원래 문서 흐름으로 읽는다. */
-.explorer-ready { padding-bottom: 0; }
-.plan-page .top { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; width: 100%; max-width: 1440px; padding: 12px 20px; }
-.plan-page .back { grid-row: 1 / 4; align-self: start; justify-content: center; gap: 0; padding: 0; margin: 0; font-size: 0; background: var(--fill-weak); }
-.plan-page .top h1 { grid-column: 2; font-size: 1.125rem; }
-.plan-page .range { grid-column: 2; margin-top: 4px; font-size: .8125rem; }
-.plan-page .checked { grid-column: 2; justify-self: start; margin-top: 4px; }
-.list-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg-primary); }
-.explorer .day, .explorer .places { max-width: none; width: 100%; }
-.explorer .tabs { flex-shrink: 0; max-width: none; margin: 0 20px 8px; }
-.explorer .day h2, .explorer .places h2 { margin: 12px 0; font-size: 1rem; }
-.place-select { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0; border: 0; background: transparent; text-align: left; color: inherit; font: inherit; cursor: pointer; }
-.place-select .icon { color: var(--text-secondary); }
-@media (hover: hover) {
-  .item-select:hover { background: var(--fill-weak); }
-  .place-select:hover { color: var(--blue-600); }
-}
-
-.explorer-ready .place-card:not(.selected) dl,
-.explorer-ready .place-card:not(.selected) > .map { display: none; }
-.explorer-ready .place-card h3 { margin-bottom: 0; }
-
-/* 방문 번호를 따라 올라가는 세로 타임라인. 본문 높이는 고정하지 않는다. */
-.day .item { position: relative; border-radius: 0; padding-bottom: 16px; }
-.day .item + .item { border-top: 0; }
-.day .item:not(:last-child)::before {
-  content: ""; position: absolute; left: 21px; top: 42px; bottom: -2px;
-  width: 1px; background: var(--line-default); pointer-events: none;
-}
-.day .item-select { position: relative; gap: 12px; padding: 0; align-items: flex-start; border-radius: var(--r-xl); }
-.timeline-node {
-  display: flex; flex: 0 0 44px; align-items: center; justify-content: center;
-  height: 44px; border: 1px solid var(--line-default); border-radius: var(--r-full);
-  background: var(--bg-primary); color: var(--text-secondary); font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  transition: background 320ms var(--ease), color 320ms var(--ease), border-color 320ms var(--ease);
-}
-.day .item .body { padding: 16px; border-radius: var(--r-xl); background: var(--fill-weak); transition: background var(--dur-base) var(--ease), transform 320ms var(--ease); }
-.day .item .time { display: block; padding: 0; margin-bottom: 6px; font-size: .8125rem; }
-
-/* Keep long trips in one fixed date-control row, above the scrolling timeline. */
-.day-picker {
-  display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px;
-  flex-shrink: 0; gap: 4px; margin: 0 var(--gutter) 8px;
-  padding: 4px; border-radius: var(--r-m); background: var(--fill-secondary);
-}
-.day-picker button, .day-picker .day-label {
-  min-width: 0; min-height: 44px; border: 0; border-radius: var(--r-s);
-  color: var(--text-primary); background: var(--white); font: 600 .8125rem/1.25 var(--font);
-}
-.day-picker .day-label { display: flex; align-items: center; justify-content: center; padding: 0 4px; text-align: center; background: transparent; }
-.day-picker button { font-size: 1.5rem; cursor: pointer; }
-.day-picker button:disabled { color: var(--text-tertiary); background: transparent; cursor: default; }
-
-.place-card.selected { background: var(--fill-weak); }
-.place-head { display: flex; align-items: center; gap: 8px; }
-.place-head .place-select { flex: 1 1 auto; min-width: 0; }
-.place-map { margin: 0; padding: 0 12px; flex-shrink: 0; font-size: .8125rem; }
-.place-map .icon { width: 16px; height: 16px; }
-
-/* 일정 카드: 첫 줄 `장소 · 시간 ···· 상태`, 둘째 줄 설명. 장소 이름이 카카오맵 링크다. */
-.day .item .head { display: flex; align-items: center; column-gap: 8px; min-height: 44px; }
-.day .item .head .place {
-  display: inline-flex; flex: 0 1 auto; min-width: 0; align-items: center; gap: 4px; min-height: 44px; margin: 0;
-  color: var(--text-primary); font-size: 1.0625rem; font-weight: 600; letter-spacing: -.01em;
-}
-.day .item .head a.place .icon { width: 16px; height: 16px; color: var(--text-tertiary); }
-.day .item .head .time { flex-shrink: 0; white-space: nowrap; margin: 0; padding: 0; color: var(--text-secondary); font-size: .875rem; font-weight: 500; }
-.day .item .head .time::before { content: "·"; margin-right: 8px; color: var(--text-tertiary); }
-.day .item .head .status { flex-shrink: 0; margin: 0 0 0 auto; white-space: nowrap; }
-.day .item .note { margin-top: 2px; }
-.day .item .note .label { display: inline; margin-right: 6px; font-size: inherit; font-weight: 600; color: var(--text-primary); }
-.day .item .body { padding: 4px 16px 12px; }
-@media (hover: hover) { .day .item .head a.place:hover { text-decoration: underline; } }
-
-/* 모바일은 카드를 더 촘촘하게 */
-@media (max-width: 767px) {
-  .places { gap: 8px; }
-  .place-card { padding: 4px 14px; border-radius: var(--r-xl); }
-  .place-card.selected { padding-bottom: 12px; }
-  .place-card h3 { font-size: 1.0625rem; }
-  .place-card dl { grid-template-columns: 3.5rem 1fr; }
-  .place-card dt, .place-card dd { padding: 7px 0; }
-  .day .item { padding-bottom: 8px; }
-  .day .item .body { padding: 2px 12px 10px; }
-  .day .item .head .place { font-size: 1rem; }
-  .day .item-select { gap: 8px; }
-  .timeline-node { flex-basis: 32px; height: 32px; font-size: .8125rem; margin-top: 6px; }
-  .day .item:not(:last-child)::before { left: 15.5px; top: 38px; }
-}
-
-/* 지도는 남기고 위의 제목·전체 동선 줄만 없앴다 (2026-09-24). 목록만 스크롤한다. */
-body:not(.explorer-ready) .map-pane { display: none; }
-.explorer-ready .plan-page { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
-.explorer-ready .explorer { display: grid; grid-template-rows: minmax(180px, 40dvh) minmax(0, 1fr); flex: 1; min-height: 0; }
-.map-pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--fill-weak); overflow: hidden; }
-.route-canvas { flex: 1; min-height: 0; isolation: isolate; background: var(--fill-secondary); }
-.map-caption { padding: 6px 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.map-caption .route-message { flex: 1; }
-.route-message { margin: 0; color: var(--text-secondary); font-size: .75rem; overflow-wrap: anywhere; }
-.map-retry { margin: 4px 0 0; cursor: pointer; }
-.map-pin { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bg-primary); border-radius: var(--r-full); background: var(--fill-brand); color: var(--text-alt); font: 600 13px var(--font); cursor: pointer; }
-.map-pin.selected { background: var(--text-primary); outline: 3px solid var(--bg-primary); }
-.explorer-ready .list-scroll { overflow-y: auto; min-height: 0; overscroll-behavior: contain; padding-top: 12px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }
-.explorer-ready .list-scroll { scroll-snap-type: y proximity; scroll-padding-top: 24px; }
-.explorer-ready .list-scroll .item { scroll-snap-align: start; }
-.explorer-ready .list-scroll .day { padding-bottom: var(--timeline-tail, 24px); }
-.day .item-select { cursor: pointer; outline: none; }
-.day .item.selected .timeline-node { background: var(--fill-brand); border-color: var(--fill-brand); color: var(--text-alt); }
-.day .item.selected .body { background: var(--blue-50); }
-@media (hover: hover) { .day .item-select:hover { background: transparent; } .day .item:not(.selected) .item-select:hover .body { background: var(--fill-secondary); } }
 @media (min-width: 1024px) {
-  .plan-page .top { padding: 20px 24px; }
-  .plan-page .top h1 { font-size: 1.375rem; }
-  .explorer-ready .explorer { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px 24px; gap: 24px; grid-template-columns: 400px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
-  .map-pane { grid-column: 2; grid-row: 1; border-radius: var(--r-2xl); }
-  .list-pane { grid-column: 1; grid-row: 1; border: 1px solid var(--line-default); border-radius: var(--r-2xl); overflow: hidden; }
+  body.plan { background: var(--bg-canvas); }
+  .plan-page .top { grid-template-columns: auto minmax(0, 1fr); column-gap: 16px; padding: 20px 24px; }
+  .back {
+    align-self: center; width: auto; padding: 0 14px 0 10px;
+    background: var(--bg-card); font-size: .875rem; font-weight: 600;
+  }
+  .back-label { display: inline; }
+  .plan-page .top h1 { padding-top: 0; font-size: 1.375rem; line-height: 1.3; }
+  .plan-meta { margin-top: 6px; }
+  .explorer-ready .explorer {
+    width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px 24px; gap: 20px;
+    grid-template-columns: 400px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr);
+  }
+  .map-pane { grid-column: 2; grid-row: 1; border-radius: var(--r-3xl); background: var(--bg-card); }
+  .list-pane { grid-column: 1; grid-row: 1; overflow: hidden; border-radius: var(--r-3xl); }
+  .day { padding: 0 16px; }
+  .day-picker, .explorer .tabs { margin: 16px 16px 4px; }
+  .map-caption { padding: 10px 16px; }
 }
 @media (max-height: 600px) and (max-width: 1023px) {
   .plan-page .checked { display: none; }
   .explorer-ready .explorer { grid-template-rows: minmax(120px, 35dvh) minmax(0, 1fr); }
 }
-
-/* 빠르게 두 번 눌러도 화면이 확대되지 않게 한다. 두 손가락 확대는 그대로 된다. */
-html { touch-action: manipulation; }
-button, a, .item-select { touch-action: manipulation; }
-
-/* 날짜 선택 바가 날짜를 이미 보여 주므로 여러 날 플랜에서는 목록 위 날짜 제목을 숨긴다. */
-.explorer-ready .day-picker ~ .list-scroll .day h2,
-.explorer-ready .tabs ~ .list-scroll .day h2 { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
 </style>
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#202027" media="(prefers-color-scheme: dark)">
 </head>
-<body>
+<body class="plan">
 <div class="plan-page"><header class="top">
-<a class="back" href="../"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 5-7 7 7 7 M5 12h14"/></svg>전체 플랜</a>
+<a class="back" href="../" aria-label="전체 플랜"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 5-7 7 7 7 M5 12h14"/></svg><span class="back-label" aria-hidden="true">전체 플랜</span></a>
 <h1>연휴 6박 7일 — 용인 → 구미·대구 → 서울</h1>
-<p class="range">2026년 10월 2일 (금) – 10/8 (목)</p>
-<p class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>영업시간과 날씨는 아직 확인 전이에요</p>
-</header>
+<div class="plan-meta"><p class="range"><span class="range-full">2026년 10월 2일 (금) – 10/8 (목)</span><span class="range-short">10/2 (금) – 10/8 (목)</span></p>
+<p class="checked todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>영업·날씨 확인 전이에요</p>
+</div></header>
 <main class="explorer"><section class="map-pane" aria-label="동선 지도"><div id="route-map" class="route-canvas" aria-label="카카오 동선 지도"></div><div class="map-caption"><p class="route-message" role="status">지도를 준비하고 있어요.</p><button class="map map-retry" type="button" hidden>다시 연결하기</button></div><noscript>지도를 보려면 자바스크립트를 켜 주세요.</noscript></section><section class="list-pane" aria-label="일정">
-<nav class="day-picker" data-tabs hidden aria-label="일정 날짜" data-start="2026-10-02" data-end="2026-10-08"><button type="button" data-day-step="-1" aria-label="이전 날짜">‹</button><div class="day-label" aria-live="polite" aria-atomic="true">
-<span data-day-label="2026-10-02" hidden>1 / 7일차 · 10/2 (금)</span>
-<span data-day-label="2026-10-03" hidden>2 / 7일차 · 10/3 (토)</span>
-<span data-day-label="2026-10-04" hidden>3 / 7일차 · 10/4 (일)</span>
-<span data-day-label="2026-10-05" hidden>4 / 7일차 · 10/5 (월)</span>
-<span data-day-label="2026-10-06" hidden>5 / 7일차 · 10/6 (화)</span>
-<span data-day-label="2026-10-07" hidden>6 / 7일차 · 10/7 (수)</span>
-<span data-day-label="2026-10-08" hidden>7 / 7일차 · 10/8 (목)</span>
-</div><button type="button" data-day-step="1" aria-label="다음 날짜">›</button></nav>
+<nav class="day-picker" data-tabs hidden aria-label="일정 날짜" data-start="2026-10-02" data-end="2026-10-08"><button type="button" data-day-step="-1" aria-label="이전 날짜"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 5-7 7 7 7"/></svg></button><div class="day-label" aria-live="polite" aria-atomic="true">
+<span data-day-label="2026-10-02" hidden>10/2 (금)<span class="day-index">1 / 7일차</span></span>
+<span data-day-label="2026-10-03" hidden>10/3 (토)<span class="day-index">2 / 7일차</span></span>
+<span data-day-label="2026-10-04" hidden>10/4 (일)<span class="day-index">3 / 7일차</span></span>
+<span data-day-label="2026-10-05" hidden>10/5 (월)<span class="day-index">4 / 7일차</span></span>
+<span data-day-label="2026-10-06" hidden>10/6 (화)<span class="day-index">5 / 7일차</span></span>
+<span data-day-label="2026-10-07" hidden>10/7 (수)<span class="day-index">6 / 7일차</span></span>
+<span data-day-label="2026-10-08" hidden>10/8 (목)<span class="day-index">7 / 7일차</span></span>
+</div><button type="button" data-day-step="1" aria-label="다음 날짜"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg></button></nav>
 <div class="list-scroll"><div id="schedule-panel">
 <section class="day" data-day="2026-10-02">
 <h2>2026년 10월 2일 (금)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.2325464367089, 127.209688045589], &quot;name&quot;: &quot;용인공용버스터미널&quot;, &quot;time&quot;: &quot;18:45&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-1&quot;, &quot;placeId&quot;: &quot;place-27&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:52.528123+00:00&quot;}, {&quot;point&quot;: [37.2350859784862, 127.205815188674], &quot;name&quot;: &quot;탕화쿵푸마라탕 CGV용인점&quot;, &quot;time&quot;: &quot;19:00&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-2&quot;, &quot;placeId&quot;: &quot;place-26&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:56.352281+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.2325464367089, 127.209688045589], &quot;name&quot;: &quot;용인공용버스터미널&quot;, &quot;time&quot;: &quot;18:45&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-0-1&quot;, &quot;placeId&quot;: &quot;place-27&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:10.773599+00:00&quot;}, {&quot;point&quot;: [37.2350859784862, 127.205815188674], &quot;name&quot;: &quot;탕화쿵푸마라탕 CGV용인점&quot;, &quot;time&quot;: &quot;19:00&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-0-2&quot;, &quot;placeId&quot;: &quot;place-26&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:15.770468+00:00&quot;}]"></div>
 <article class="item" id="stop-0-1"><div class="item-select" data-select="stop-0-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="용인공용버스터미널 카카오맵에서 열기" title="용인공용버스터미널 카카오맵에서 열기">용인공용버스터미널<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">18:45</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">만남</strong>준영은 18:09 도착이에요. 마라탕집까지 같이 걸어서 10~11분이에요</span></span></div></article>
 <article class="item" id="stop-0-2"><div class="item-select" data-select="stop-0-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90" aria-label="탕화쿵푸마라탕 CGV용인점 카카오맵에서 열기" title="탕화쿵푸마라탕 CGV용인점 카카오맵에서 열기">탕화쿵푸마라탕 CGV용인점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">19:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">저녁 (마라샹궈)</strong>숙소까지 에버라인으로 32분 (걸어서 24분 포함). 20:35쯤 도착</span></span></div></article>
 </section>
 <section class="day" data-day="2026-10-03">
 <h2>2026년 10월 3일 (토)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;10:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-1&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:55.781644+00:00&quot;}, {&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;12:30&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-2&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:55.781644+00:00&quot;}, {&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;16:30&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-3&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:55.781644+00:00&quot;}, {&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;17:00&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-4&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:55.781644+00:00&quot;}, {&quot;point&quot;: [37.2371318120566, 127.202568694776], &quot;name&quot;: &quot;용인동태탕&amp;쭈꾸미&quot;, &quot;time&quot;: &quot;18:15&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;}, &quot;id&quot;: &quot;stop-1-5&quot;, &quot;placeId&quot;: &quot;place-28&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:52.993393+00:00&quot;}, {&quot;point&quot;: [37.2325464367089, 127.209688045589], &quot;name&quot;: &quot;용인공용버스터미널&quot;, &quot;time&quot;: &quot;19:20&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-1-6&quot;, &quot;placeId&quot;: &quot;place-27&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:52.528123+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;10:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-1&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:15.191446+00:00&quot;}, {&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;12:30&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-2&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:15.191446+00:00&quot;}, {&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;16:30&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-3&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:15.191446+00:00&quot;}, {&quot;point&quot;: [37.294066695953, 127.202128029885], &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;time&quot;: &quot;17:00&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;id&quot;: &quot;stop-1-4&quot;, &quot;placeId&quot;: &quot;place-23&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:15.191446+00:00&quot;}, {&quot;point&quot;: [37.2371318120566, 127.202568694776], &quot;name&quot;: &quot;용인동태탕&amp;쭈꾸미&quot;, &quot;time&quot;: &quot;18:15&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;}, &quot;id&quot;: &quot;stop-1-5&quot;, &quot;placeId&quot;: &quot;place-28&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:11.343445+00:00&quot;}, {&quot;point&quot;: [37.2325464367089, 127.209688045589], &quot;name&quot;: &quot;용인공용버스터미널&quot;, &quot;time&quot;: &quot;19:20&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-1-6&quot;, &quot;placeId&quot;: &quot;place-27&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:10.773599+00:00&quot;}]"></div>
 <article class="item" id="stop-1-1"><div class="item-select" data-select="stop-1-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" aria-label="캐리비안베이 카카오맵에서 열기" title="캐리비안베이 카카오맵에서 열기">캐리비안베이<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">10:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">캐리비안베이</strong>표 2매 예매했어요. 체크아웃하고 짐 들고 가요. 실내 10:00-18:00이에요</span></span></div></article>
 <article class="item" id="stop-1-2"><div class="item-select" data-select="stop-1-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" aria-label="캐리비안베이 카카오맵에서 열기" title="캐리비안베이 카카오맵에서 열기">캐리비안베이<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">12:30</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">점심</strong>안에서 땡기는 걸로 먹어요</span></span></div></article>
 <article class="item" id="stop-1-3"><div class="item-select" data-select="stop-1-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" aria-label="캐리비안베이 카카오맵에서 열기" title="캐리비안베이 카카오맵에서 열기">캐리비안베이<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">16:30</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">샤워·나오기</strong>폐장보다 일찍 나와서 샤워가 덜 붐벼요. 보관함 짐도 찾아요</span></span></div></article>
@@ -464,7 +528,7 @@ button, a, .item-select { touch-action: manipulation; }
 </section>
 <section class="day" data-day="2026-10-04">
 <h2>2026년 10월 4일 (일)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: null, &quot;name&quot;: &quot;사곡역&quot;, &quot;time&quot;: &quot;15:24&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%82%AC%EA%B3%A1%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%82%AC%EA%B3%A1%EC%97%AD&quot;}, &quot;id&quot;: &quot;stop-2-1&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;name&quot;: &quot;이월드&quot;, &quot;time&quot;: &quot;17:00&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;id&quot;: &quot;stop-2-2&quot;, &quot;placeId&quot;: &quot;place-29&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:53.466909+00:00&quot;}, {&quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;name&quot;: &quot;이월드&quot;, &quot;time&quot;: &quot;18:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;id&quot;: &quot;stop-2-3&quot;, &quot;placeId&quot;: &quot;place-29&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:53.466909+00:00&quot;}, {&quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;name&quot;: &quot;이월드&quot;, &quot;time&quot;: &quot;21:30&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;id&quot;: &quot;stop-2-4&quot;, &quot;placeId&quot;: &quot;place-29&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:53.466909+00:00&quot;}, {&quot;point&quot;: [35.8758849492106, 128.596129208483], &quot;name&quot;: &quot;대구역&quot;, &quot;time&quot;: &quot;22:28&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8C%80%EA%B5%AC%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8C%80%EA%B5%AC%EC%97%AD&quot;}, &quot;id&quot;: &quot;stop-2-5&quot;, &quot;placeId&quot;: &quot;place-3&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:47.983774+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: null, &quot;name&quot;: &quot;사곡역&quot;, &quot;time&quot;: &quot;15:24&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%82%AC%EA%B3%A1%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%82%AC%EA%B3%A1%EC%97%AD&quot;}, &quot;id&quot;: &quot;stop-2-1&quot;, &quot;placeId&quot;: &quot;place-0&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;name&quot;: &quot;이월드&quot;, &quot;time&quot;: &quot;17:00&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;id&quot;: &quot;stop-2-2&quot;, &quot;placeId&quot;: &quot;place-29&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:11.917371+00:00&quot;}, {&quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;name&quot;: &quot;이월드&quot;, &quot;time&quot;: &quot;18:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;id&quot;: &quot;stop-2-3&quot;, &quot;placeId&quot;: &quot;place-29&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:11.917371+00:00&quot;}, {&quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;name&quot;: &quot;이월드&quot;, &quot;time&quot;: &quot;21:30&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;id&quot;: &quot;stop-2-4&quot;, &quot;placeId&quot;: &quot;place-29&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:11.917371+00:00&quot;}, {&quot;point&quot;: [35.8758849492106, 128.596129208483], &quot;name&quot;: &quot;대구역&quot;, &quot;time&quot;: &quot;22:28&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8C%80%EA%B5%AC%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8C%80%EA%B5%AC%EC%97%AD&quot;}, &quot;id&quot;: &quot;stop-2-5&quot;, &quot;placeId&quot;: &quot;place-3&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:03.044189+00:00&quot;}]"></div>
 <article class="item" id="stop-2-1"><div class="item-select" data-select="stop-2-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%82%AC%EA%B3%A1%EC%97%AD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%82%AC%EA%B3%A1%EC%97%AD" aria-label="사곡역 카카오맵에서 열기" title="사곡역 카카오맵에서 열기">사곡역<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">15:24</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">대구로 이동</strong>K1759 대구역 16:07, 1호선→2호선 내당역, 걸어서 17분. 16:45쯤 도착</span></span></div></article>
 <article class="item" id="stop-2-2"><div class="item-select" data-select="stop-2-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C" aria-label="이월드 카카오맵에서 열기" title="이월드 카카오맵에서 열기">이월드<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">17:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">이월드 (야간권)</strong>17:00부터 17,500원. 고스트하우스 먼저, 17:30 퍼레이드</span></span></div></article>
 <article class="item" id="stop-2-3"><div class="item-select" data-select="stop-2-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C" aria-label="이월드 카카오맵에서 열기" title="이월드 카카오맵에서 열기">이월드<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">18:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">저녁</strong>안에서 땡기는 걸로 먹어요. 20:00 블러드퀸 전에 끝내요</span></span></div></article>
@@ -473,14 +537,14 @@ button, a, .item-select { touch-action: manipulation; }
 </section>
 <section class="day" data-day="2026-10-05">
 <h2>2026년 10월 5일 (월)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: [36.1165803974652, 128.350432826427], &quot;name&quot;: &quot;제이미버거하우스&quot;, &quot;time&quot;: &quot;12:30&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;}, &quot;id&quot;: &quot;stop-3-1&quot;, &quot;placeId&quot;: &quot;place-1&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:54.839298+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;구미종합터미널&quot;, &quot;time&quot;: &quot;14:50&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-3-2&quot;, &quot;placeId&quot;: &quot;place-4&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5658473568451, 126.990473553367], &quot;name&quot;: &quot;달맞이광장바베큐 본점&quot;, &quot;time&quot;: &quot;20:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-3-3&quot;, &quot;placeId&quot;: &quot;place-11&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:47.525357+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: [36.1165803974652, 128.350432826427], &quot;name&quot;: &quot;제이미버거하우스&quot;, &quot;time&quot;: &quot;12:30&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;}, &quot;id&quot;: &quot;stop-3-1&quot;, &quot;placeId&quot;: &quot;place-1&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:13.956430+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;구미종합터미널&quot;, &quot;time&quot;: &quot;14:50&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-3-2&quot;, &quot;placeId&quot;: &quot;place-4&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5658473568451, 126.990473553367], &quot;name&quot;: &quot;달맞이광장바베큐 본점&quot;, &quot;time&quot;: &quot;20:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-3-3&quot;, &quot;placeId&quot;: &quot;place-11&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:02.458411+00:00&quot;}]"></div>
 <article class="item" id="stop-3-1"><div class="item-select" data-select="stop-3-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4" aria-label="제이미버거하우스 카카오맵에서 열기" title="제이미버거하우스 카카오맵에서 열기">제이미버거하우스<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">12:30</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">점심 (수제버거)</strong>택시로 와요. 터미널까지 걸어서 18분이에요. 14:20엔 일어나요</span></span></div></article>
 <article class="item" id="stop-3-2"><div class="item-select" data-select="stop-3-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="구미종합터미널 카카오맵에서 열기" title="구미종합터미널 카카오맵에서 열기">구미종합터미널<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">14:50</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">서울로 이동</strong>예매 완료. 서울경부 17:50, 숙소까지 지하철 37분, 달맞이까지 걸어서 28분</span></span></div></article>
 <article class="item" id="stop-3-3"><div class="item-select" data-select="stop-3-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90" aria-label="달맞이광장바베큐 본점 카카오맵에서 열기" title="달맞이광장바베큐 본점 카카오맵에서 열기">달맞이광장바베큐 본점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">20:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">저녁 (야장)</strong>숙소까지 걸어서 29~30분이에요. 늦으면 택시도 돼요</span></span></div></article>
 </section>
 <section class="day" data-day="2026-10-06">
 <h2>2026년 10월 6일 (화)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.5475606780587, 127.040120593551], &quot;name&quot;: &quot;미쁘동 성수&quot;, &quot;time&quot;: &quot;12:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;}, &quot;id&quot;: &quot;stop-4-1&quot;, &quot;placeId&quot;: &quot;place-13&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:48.900760+00:00&quot;}, {&quot;point&quot;: [37.5430691557811, 127.041798985514], &quot;name&quot;: &quot;서울숲&quot;, &quot;time&quot;: &quot;13:30&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2&quot;}, &quot;id&quot;: &quot;stop-4-2&quot;, &quot;placeId&quot;: &quot;place-12&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:51.175811+00:00&quot;}, {&quot;point&quot;: [37.5479419391258, 127.046153690563], &quot;name&quot;: &quot;바이닐 성수&quot;, &quot;time&quot;: &quot;15:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;}, &quot;id&quot;: &quot;stop-4-3&quot;, &quot;placeId&quot;: &quot;place-14&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:49.784319+00:00&quot;}, {&quot;point&quot;: [37.5829539369906, 126.999716622892], &quot;name&quot;: &quot;오밀 혜화 대학로&quot;, &quot;time&quot;: &quot;18:00&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;}, &quot;id&quot;: &quot;stop-4-4&quot;, &quot;placeId&quot;: &quot;place-15&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:51.633803+00:00&quot;}, {&quot;point&quot;: [37.5805926127615, 127.006531505857], &quot;name&quot;: &quot;낙산공원&quot;, &quot;time&quot;: &quot;19:30&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;}, &quot;id&quot;: &quot;stop-4-5&quot;, &quot;placeId&quot;: &quot;place-22&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:46.948235+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.5475606780587, 127.040120593551], &quot;name&quot;: &quot;미쁘동 성수&quot;, &quot;time&quot;: &quot;12:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;}, &quot;id&quot;: &quot;stop-4-1&quot;, &quot;placeId&quot;: &quot;place-13&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:04.459840+00:00&quot;}, {&quot;point&quot;: [37.5430691557811, 127.041798985514], &quot;name&quot;: &quot;서울숲&quot;, &quot;time&quot;: &quot;13:30&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2&quot;}, &quot;id&quot;: &quot;stop-4-2&quot;, &quot;placeId&quot;: &quot;place-12&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:07.793009+00:00&quot;}, {&quot;point&quot;: [37.5479419391258, 127.046153690563], &quot;name&quot;: &quot;바이닐 성수&quot;, &quot;time&quot;: &quot;15:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;}, &quot;id&quot;: &quot;stop-4-3&quot;, &quot;placeId&quot;: &quot;place-14&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:05.811955+00:00&quot;}, {&quot;point&quot;: [37.5829539369906, 126.999716622892], &quot;name&quot;: &quot;오밀 혜화 대학로&quot;, &quot;time&quot;: &quot;18:00&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;}, &quot;id&quot;: &quot;stop-4-4&quot;, &quot;placeId&quot;: &quot;place-15&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:09.401128+00:00&quot;}, {&quot;point&quot;: [37.5805926127615, 127.006531505857], &quot;name&quot;: &quot;낙산공원&quot;, &quot;time&quot;: &quot;19:30&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;}, &quot;id&quot;: &quot;stop-4-5&quot;, &quot;placeId&quot;: &quot;place-22&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:01.887470+00:00&quot;}]"></div>
 <article class="item" id="stop-4-1"><div class="item-select" data-select="stop-4-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98" aria-label="미쁘동 성수 카카오맵에서 열기" title="미쁘동 성수 카카오맵에서 열기">미쁘동 성수<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">12:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">점심 (연어국수)</strong>예약 2명. 숙소에서 39분 (11:20 출발이면 11:59). 서울숲까지 걸어서 8분</span></span></div></article>
 <article class="item" id="stop-4-2"><div class="item-select" data-select="stop-4-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2" aria-label="서울숲 카카오맵에서 열기" title="서울숲 카카오맵에서 열기">서울숲<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">13:30</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">서울숲 산책</strong>프로필 사진도 여기서 찍어요. 바이닐까지 걸어서 18~26분, 14:34엔 나와요</span></span></div></article>
 <article class="item" id="stop-4-3"><div class="item-select" data-select="stop-4-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98" aria-label="바이닐 성수 카카오맵에서 열기" title="바이닐 성수 카카오맵에서 열기">바이닐 성수<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">15:00</span><span class="status ok"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 4 4L19 6"/></svg>확정</span></span><span class="note"><strong class="label">LP 카페</strong>입장권 18,900원. 17:20에 나와 지하철 25분이면 혜화예요</span></span></div></article>
@@ -489,7 +553,7 @@ button, a, .item-select { touch-action: manipulation; }
 </section>
 <section class="day" data-day="2026-10-07">
 <h2>2026년 10월 7일 (수)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.5547936484795, 126.91255907443], &quot;name&quot;: &quot;잡을손&quot;, &quot;time&quot;: &quot;12:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90&quot;}, &quot;id&quot;: &quot;stop-5-1&quot;, &quot;placeId&quot;: &quot;place-16&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:54.383007+00:00&quot;}, {&quot;point&quot;: [37.555782204515, 126.910728577563], &quot;name&quot;: &quot;레드버튼 망원역점&quot;, &quot;time&quot;: &quot;13:20&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-5-2&quot;, &quot;placeId&quot;: &quot;place-17&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:48.448377+00:00&quot;}, {&quot;point&quot;: [37.5558884947865, 126.907302221423], &quot;name&quot;: &quot;픽트로스터리 망원점&quot;, &quot;time&quot;: &quot;14:45&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-5-3&quot;, &quot;placeId&quot;: &quot;place-18&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:56.801979+00:00&quot;}, {&quot;point&quot;: [37.5546942444411, 126.894752000993], &quot;name&quot;: &quot;한강버스 망원선착장&quot;, &quot;time&quot;: &quot;16:22&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;}, &quot;id&quot;: &quot;stop-5-4&quot;, &quot;placeId&quot;: &quot;place-19&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:57.275261+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;여의도한강공원&quot;, &quot;time&quot;: &quot;16:50&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&quot;}, &quot;id&quot;: &quot;stop-5-5&quot;, &quot;placeId&quot;: &quot;place-20&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.514065345711, 126.897421262738], &quot;name&quot;: &quot;주락&quot;, &quot;time&quot;: &quot;18:45&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A3%BC%EB%9D%BD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A3%BC%EB%9D%BD&quot;}, &quot;id&quot;: &quot;stop-5-6&quot;, &quot;placeId&quot;: &quot;place-21&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:55.311412+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.5547936484795, 126.91255907443], &quot;name&quot;: &quot;잡을손&quot;, &quot;time&quot;: &quot;12:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90&quot;}, &quot;id&quot;: &quot;stop-5-1&quot;, &quot;placeId&quot;: &quot;place-16&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:13.154916+00:00&quot;}, {&quot;point&quot;: [37.555782204515, 126.910728577563], &quot;name&quot;: &quot;레드버튼 망원역점&quot;, &quot;time&quot;: &quot;13:20&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-5-2&quot;, &quot;placeId&quot;: &quot;place-17&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:03.834379+00:00&quot;}, {&quot;point&quot;: [37.5558884947865, 126.907302221423], &quot;name&quot;: &quot;픽트로스터리 망원점&quot;, &quot;time&quot;: &quot;14:45&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;}, &quot;id&quot;: &quot;stop-5-3&quot;, &quot;placeId&quot;: &quot;place-18&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:16.510961+00:00&quot;}, {&quot;point&quot;: [37.5546942444411, 126.894752000993], &quot;name&quot;: &quot;한강버스 망원선착장&quot;, &quot;time&quot;: &quot;16:22&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;}, &quot;id&quot;: &quot;stop-5-4&quot;, &quot;placeId&quot;: &quot;place-19&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:17.390391+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;여의도한강공원&quot;, &quot;time&quot;: &quot;16:50&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&quot;}, &quot;id&quot;: &quot;stop-5-5&quot;, &quot;placeId&quot;: &quot;place-20&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.514065345711, 126.897421262738], &quot;name&quot;: &quot;주락&quot;, &quot;time&quot;: &quot;18:45&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A3%BC%EB%9D%BD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A3%BC%EB%9D%BD&quot;}, &quot;id&quot;: &quot;stop-5-6&quot;, &quot;placeId&quot;: &quot;place-21&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:14.554356+00:00&quot;}]"></div>
 <article class="item" id="stop-5-1"><div class="item-select" data-select="stop-5-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90" aria-label="잡을손 카카오맵에서 열기" title="잡을손 카카오맵에서 열기">잡을손<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">12:00</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">점심 (한식)</strong>평일이라 예약 없이 가요. 레드버튼까지 걸어서 4분이에요</span></span></div></article>
 <article class="item" id="stop-5-2"><div class="item-select" data-select="stop-5-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90" aria-label="레드버튼 망원역점 카카오맵에서 열기" title="레드버튼 망원역점 카카오맵에서 열기">레드버튼 망원역점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">13:20</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">보드게임</strong>1시간 3,700원. 14:35에 나와 픽트로스터리까지 걸어서 8분이에요</span></span></div></article>
 <article class="item" id="stop-5-3"><div class="item-select" data-select="stop-5-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90" aria-label="픽트로스터리 망원점 카카오맵에서 열기" title="픽트로스터리 망원점 카카오맵에서 열기">픽트로스터리 망원점<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">14:45</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">디저트</strong>15:45에 나와요. 선착장까지 버스 16~19분, 택시 6분이에요</span></span></div></article>
@@ -499,7 +563,7 @@ button, a, .item-select { touch-action: manipulation; }
 </section>
 <section class="day" data-day="2026-10-08">
 <h2>2026년 10월 8일 (목)</h2>
-<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.557214606178, 126.981202140282], &quot;name&quot;: &quot;서울 숙소&quot;, &quot;time&quot;: &quot;11:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;}, &quot;id&quot;: &quot;stop-6-1&quot;, &quot;placeId&quot;: &quot;place-24&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:50.243292+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;경복궁역 물품보관함&quot;, &quot;time&quot;: &quot;11:30&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;}, &quot;id&quot;: &quot;stop-6-2&quot;, &quot;placeId&quot;: &quot;place-6&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5799211538224, 126.96823622082], &quot;name&quot;: &quot;고트델리 서촌&quot;, &quot;time&quot;: &quot;12:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;}, &quot;id&quot;: &quot;stop-6-3&quot;, &quot;placeId&quot;: &quot;place-7&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:45.360847+00:00&quot;}, {&quot;point&quot;: [37.5800929492628, 126.968821786523], &quot;name&quot;: &quot;인왕산 대충유원지&quot;, &quot;time&quot;: &quot;13:15&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;}, &quot;id&quot;: &quot;stop-6-4&quot;, &quot;placeId&quot;: &quot;place-8&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:53.934935+00:00&quot;}, {&quot;point&quot;: [37.5759040910202, 126.976842133821], &quot;name&quot;: &quot;경복궁&quot;, &quot;time&quot;: &quot;15:05&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;}, &quot;id&quot;: &quot;stop-6-5&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:44.771836+00:00&quot;}, {&quot;point&quot;: [37.5753675264983, 126.973321784452], &quot;name&quot;: &quot;미카야&quot;, &quot;time&quot;: &quot;17:00&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;}, &quot;id&quot;: &quot;stop-6-6&quot;, &quot;placeId&quot;: &quot;place-10&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:49.349764+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;경복궁역 물품보관함&quot;, &quot;time&quot;: &quot;17:50&quot;, &quot;number&quot;: 7, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;}, &quot;id&quot;: &quot;stop-6-7&quot;, &quot;placeId&quot;: &quot;place-6&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;time&quot;: &quot;18:40&quot;, &quot;number&quot;: 8, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-6-8&quot;, &quot;placeId&quot;: &quot;place-9&quot;, &quot;checked&quot;: &quot;2026-10-06T01:57:50.691789+00:00&quot;}]"></div>
+<div class="route-data" hidden data-route="[{&quot;point&quot;: [37.557214606178, 126.981202140282], &quot;name&quot;: &quot;서울 숙소&quot;, &quot;time&quot;: &quot;11:00&quot;, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;}, &quot;id&quot;: &quot;stop-6-1&quot;, &quot;placeId&quot;: &quot;place-24&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:06.577374+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;경복궁역 물품보관함&quot;, &quot;time&quot;: &quot;11:30&quot;, &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;}, &quot;id&quot;: &quot;stop-6-2&quot;, &quot;placeId&quot;: &quot;place-6&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5799211538224, 126.96823622082], &quot;name&quot;: &quot;고트델리 서촌&quot;, &quot;time&quot;: &quot;12:00&quot;, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;}, &quot;id&quot;: &quot;stop-6-3&quot;, &quot;placeId&quot;: &quot;place-7&quot;, &quot;checked&quot;: &quot;2026-10-06T13:06:59.756242+00:00&quot;}, {&quot;point&quot;: [37.5800929492628, 126.968821786523], &quot;name&quot;: &quot;인왕산 대충유원지&quot;, &quot;time&quot;: &quot;13:15&quot;, &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;}, &quot;id&quot;: &quot;stop-6-4&quot;, &quot;placeId&quot;: &quot;place-8&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:12.527933+00:00&quot;}, {&quot;point&quot;: [37.5759040910202, 126.976842133821], &quot;name&quot;: &quot;경복궁&quot;, &quot;time&quot;: &quot;15:05&quot;, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;}, &quot;id&quot;: &quot;stop-6-5&quot;, &quot;placeId&quot;: &quot;place-5&quot;, &quot;checked&quot;: &quot;2026-10-06T13:06:59.150900+00:00&quot;}, {&quot;point&quot;: [37.5753675264983, 126.973321784452], &quot;name&quot;: &quot;미카야&quot;, &quot;time&quot;: &quot;17:00&quot;, &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;}, &quot;id&quot;: &quot;stop-6-6&quot;, &quot;placeId&quot;: &quot;place-10&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:05.072263+00:00&quot;}, {&quot;point&quot;: null, &quot;name&quot;: &quot;경복궁역 물품보관함&quot;, &quot;time&quot;: &quot;17:50&quot;, &quot;number&quot;: 7, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;}, &quot;id&quot;: &quot;stop-6-7&quot;, &quot;placeId&quot;: &quot;place-6&quot;, &quot;checked&quot;: &quot;&quot;}, {&quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;time&quot;: &quot;18:40&quot;, &quot;number&quot;: 8, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;id&quot;: &quot;stop-6-8&quot;, &quot;placeId&quot;: &quot;place-9&quot;, &quot;checked&quot;: &quot;2026-10-06T13:07:07.195138+00:00&quot;}]"></div>
 <article class="item" id="stop-6-1"><div class="item-select" data-select="stop-6-1" tabindex="-1"><span class="timeline-node" aria-hidden="true">1</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C" aria-label="서울 숙소 카카오맵에서 열기" title="서울 숙소 카카오맵에서 열기">서울 숙소<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">11:00</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">체크아웃</strong>짐 들고 회현 4호선 → 충무로 3호선, 경복궁역까지 22분이에요</span></span></div></article>
 <article class="item" id="stop-6-2"><div class="item-select" data-select="stop-6-2" tabindex="-1"><span class="timeline-node" aria-hidden="true">2</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8" aria-label="경복궁역 물품보관함 카카오맵에서 열기" title="경복궁역 물품보관함 카카오맵에서 열기">경복궁역 물품보관함<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">11:30</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">짐 맡기기</strong>또타라커 앱으로 빈 칸 확인. 고트델리까지 걸어서 12분이에요</span></span></div></article>
 <article class="item" id="stop-6-3"><div class="item-select" data-select="stop-6-3" tabindex="-1"><span class="timeline-node" aria-hidden="true">3</span><span class="body"><span class="head"><a class="place kakao-open" href="https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C" aria-label="고트델리 서촌 카카오맵에서 열기" title="고트델리 서촌 카카오맵에서 열기">고트델리 서촌<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg></a><span class="time">12:00</span><span class="status todo"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>미확인</span></span><span class="note"><strong class="label">점심 (피자·샌드위치)</strong>둘이면 고트세트가 좋아요. 13:10쯤 나와 대충유원지까지 걸어서 3분이에요</span></span></div></article>
@@ -512,35 +576,35 @@ button, a, .item-select { touch-action: manipulation; }
 </div>
 <section class="places" hidden><h2>장소</h2>
 <article data-location="{&quot;id&quot;: &quot;place-0&quot;, &quot;name&quot;: &quot;사곡역&quot;, &quot;point&quot;: null, &quot;number&quot;: 1, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%82%AC%EA%B3%A1%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%82%AC%EA%B3%A1%EC%97%AD&quot;}, &quot;checked&quot;: &quot;&quot;}" class="place-card" id="place-0"><h3 class="place-head"><button class="place-select" type="button" data-select="place-0" aria-pressed="false" aria-expanded="true">사곡역</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%82%AC%EA%B3%A1%EC%97%AD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%82%AC%EA%B3%A1%EC%97%AD" aria-label="사곡역 카카오맵에서 열기" title="사곡역 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경북 구미시 사곡동</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-1&quot;, &quot;name&quot;: &quot;제이미버거하우스&quot;, &quot;point&quot;: [36.1165803974652, 128.350432826427], &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:54.839298+00:00&quot;}" class="place-card" id="place-1"><h3 class="place-head"><button class="place-select" type="button" data-select="place-1" aria-pressed="false" aria-expanded="true">제이미버거하우스</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4" aria-label="제이미버거하우스 카카오맵에서 열기" title="제이미버거하우스 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경북 구미시 송정대로 108, 상가동 1층 110호 (송정동)</dd><dt>영업시간</dt><dd>월~토 10:40-21:00 (브레이크 15:00-16:40, 라스트오더 14:30·20:30) / 일요일에 쉬어요 — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:07089833436">070-8983-3436</a></dd><dt>가격</dt><dd>약 13,000/인 — 제이미 디럭스 세트 13,000원, 클래식 치즈 세트 12,000원이에요. 세트는 버거+프라이즈+음료예요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-1&quot;, &quot;name&quot;: &quot;제이미버거하우스&quot;, &quot;point&quot;: [36.1165803974652, 128.350432826427], &quot;number&quot;: 2, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:13.956430+00:00&quot;}" class="place-card" id="place-1"><h3 class="place-head"><button class="place-select" type="button" data-select="place-1" aria-pressed="false" aria-expanded="true">제이미버거하우스</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%A0%9C%EC%9D%B4%EB%AF%B8%EB%B2%84%EA%B1%B0%ED%95%98%EC%9A%B0%EC%8A%A4" aria-label="제이미버거하우스 카카오맵에서 열기" title="제이미버거하우스 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경북 구미시 송정대로 108, 상가동 1층 110호 (송정동)</dd><dt>영업시간</dt><dd>월~토 10:40-21:00 (브레이크 15:00-16:40, 라스트오더 14:30·20:30) / 일요일에 쉬어요 — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:07089833436">070-8983-3436</a></dd><dt>가격</dt><dd>약 13,000/인 — 제이미 디럭스 세트 13,000원, 클래식 치즈 세트 12,000원이에요. 세트는 버거+프라이즈+음료예요. 블로그 기준이에요</dd></dl></article>
 <article data-location="{&quot;id&quot;: &quot;place-2&quot;, &quot;name&quot;: &quot;구미역&quot;, &quot;point&quot;: null, &quot;number&quot;: 3, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%97%AD&quot;}, &quot;checked&quot;: &quot;&quot;}" class="place-card" id="place-2"><h3 class="place-head"><button class="place-select" type="button" data-select="place-2" aria-pressed="false" aria-expanded="true">구미역</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%97%AD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%97%AD" aria-label="구미역 카카오맵에서 열기" title="구미역 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경북 구미시 원평동 1008-1 (구미중앙로 76)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-3&quot;, &quot;name&quot;: &quot;대구역&quot;, &quot;point&quot;: [35.8758849492106, 128.596129208483], &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8C%80%EA%B5%AC%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8C%80%EA%B5%AC%EC%97%AD&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:47.983774+00:00&quot;}" class="place-card" id="place-3"><h3 class="place-head"><button class="place-select" type="button" data-select="place-3" aria-pressed="false" aria-expanded="true">대구역</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%8C%80%EA%B5%AC%EC%97%AD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%8C%80%EA%B5%AC%EC%97%AD" aria-label="대구역 카카오맵에서 열기" title="대구역 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>대구 북구 태평로 161</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-3&quot;, &quot;name&quot;: &quot;대구역&quot;, &quot;point&quot;: [35.8758849492106, 128.596129208483], &quot;number&quot;: 4, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8C%80%EA%B5%AC%EC%97%AD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8C%80%EA%B5%AC%EC%97%AD&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:03.044189+00:00&quot;}" class="place-card" id="place-3"><h3 class="place-head"><button class="place-select" type="button" data-select="place-3" aria-pressed="false" aria-expanded="true">대구역</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%8C%80%EA%B5%AC%EC%97%AD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%8C%80%EA%B5%AC%EC%97%AD" aria-label="대구역 카카오맵에서 열기" title="대구역 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>대구 북구 태평로 161</dd></dl></article>
 <article data-location="{&quot;id&quot;: &quot;place-4&quot;, &quot;name&quot;: &quot;구미종합터미널&quot;, &quot;point&quot;: null, &quot;number&quot;: 5, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;checked&quot;: &quot;&quot;}" class="place-card" id="place-4"><h3 class="place-head"><button class="place-select" type="button" data-select="place-4" aria-pressed="false" aria-expanded="true">구미종합터미널</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B5%AC%EB%AF%B8%EC%A2%85%ED%95%A9%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="구미종합터미널 카카오맵에서 열기" title="구미종합터미널 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경북 구미시 송원서로 133 (원평동)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-5&quot;, &quot;name&quot;: &quot;경복궁&quot;, &quot;point&quot;: [37.5759040910202, 126.976842133821], &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:44.771836+00:00&quot;}" class="place-card" id="place-5"><h3 class="place-head"><button class="place-select" type="button" data-select="place-5" aria-pressed="false" aria-expanded="true">경복궁</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81" aria-label="경복궁 카카오맵에서 열기" title="경복궁 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 사직로 161</dd><dt>영업시간</dt><dd>09:00-18:00 (입장마감 17:00) / 화요일에 쉬어요 — 9~10월 기준이에요</dd><dt>가격</dt><dd>3,000/인 — 성인(만 25~64세) 입장료예요 (궁능유적본부 관람요금 안내, 2026-10-02 확인)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-5&quot;, &quot;name&quot;: &quot;경복궁&quot;, &quot;point&quot;: [37.5759040910202, 126.976842133821], &quot;number&quot;: 6, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:06:59.150900+00:00&quot;}" class="place-card" id="place-5"><h3 class="place-head"><button class="place-select" type="button" data-select="place-5" aria-pressed="false" aria-expanded="true">경복궁</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81" aria-label="경복궁 카카오맵에서 열기" title="경복궁 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 사직로 161</dd><dt>영업시간</dt><dd>09:00-18:00 (입장마감 17:00) / 화요일에 쉬어요 — 9~10월 기준이에요</dd><dt>가격</dt><dd>3,000/인 — 성인(만 25~64세) 입장료예요 (궁능유적본부 관람요금 안내, 2026-10-02 확인)</dd></dl></article>
 <article data-location="{&quot;id&quot;: &quot;place-6&quot;, &quot;name&quot;: &quot;경복궁역 물품보관함&quot;, &quot;point&quot;: null, &quot;number&quot;: 7, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8&quot;}, &quot;checked&quot;: &quot;&quot;}" class="place-card" id="place-6"><h3 class="place-head"><button class="place-select" type="button" data-select="place-6" aria-pressed="false" aria-expanded="true">경복궁역 물품보관함</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B2%BD%EB%B3%B5%EA%B6%81%EC%97%AD%20%EB%AC%BC%ED%92%88%EB%B3%B4%EA%B4%80%ED%95%A8" aria-label="경복궁역 물품보관함 카카오맵에서 열기" title="경복궁역 물품보관함 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 내자동 75-4 (경복궁역 3호선 7번 출구 쪽)</dd><dt>영업시간</dt><dd>평일 05:00-24:00 (또타라커 기준이에요. 주말·공휴일은 막차 시간에 따라 자정 전에 닫을 수 있어요)</dd><dt>가격</dt><dd>약 7,400/전체 — 대형 칸 1개를 11:30부터 17:50까지 6시간 남짓 쓰는 값이에요 (4시간 4,400원 + 초과 3시간 3,000원). 칸을 더 쓰면 늘어나요 (또타라커 요금표 검색 결과, 2026-10-02)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-7&quot;, &quot;name&quot;: &quot;고트델리 서촌&quot;, &quot;point&quot;: [37.5799211538224, 126.96823622082], &quot;number&quot;: 8, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:45.360847+00:00&quot;}" class="place-card" id="place-7"><h3 class="place-head"><button class="place-select" type="button" data-select="place-7" aria-pressed="false" aria-expanded="true">고트델리 서촌</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C" aria-label="고트델리 서촌 카카오맵에서 열기" title="고트델리 서촌 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 필운대로5가길 13, 1·2층 (누하동)</dd><dt>영업시간</dt><dd>매일 11:30-21:00 (라스트오더 20:00, 브레이크 없음) — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:050713800815">0507-1380-0815</a></dd><dt>가격</dt><dd>약 18,000/인 — 고트세트(피자+샌드위치+감자튀김+음료 2잔)가 36,500원이에요. 토마토 바질 피자 18,000, 잠봉뵈르 9,500원이에요. 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-8&quot;, &quot;name&quot;: &quot;인왕산 대충유원지&quot;, &quot;point&quot;: [37.5800929492628, 126.968821786523], &quot;number&quot;: 9, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:53.934935+00:00&quot;}" class="place-card" id="place-8"><h3 class="place-head"><button class="place-select" type="button" data-select="place-8" aria-pressed="false" aria-expanded="true">인왕산 대충유원지</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80" aria-label="인왕산 대충유원지 카카오맵에서 열기" title="인왕산 대충유원지 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 필운대로 46, 4층 (누하동)</dd><dt>영업시간</dt><dd>매일 12:00-22:00 (라스트오더 21:30) — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:07078075640">070-7807-5640</a></dd><dt>가격</dt><dd>약 10,000/인 — 음료가 7,000~8,000원(필터커피·거봉녹차·밀크우롱차 7,000, 카페오레 8,000원)이고 바스크 치즈케이크·티라미수가 6,000원이에요. 음료 하나씩에 디저트를 나눠 먹으면 이 정도예요. 블로그 기준이에요 (2026)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-9&quot;, &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;number&quot;: 10, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:50.691789+00:00&quot;}" class="place-card" id="place-9"><h3 class="place-head"><button class="place-select" type="button" data-select="place-9" aria-pressed="false" aria-expanded="true">서울고속버스터미널</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="서울고속버스터미널 카카오맵에서 열기" title="서울고속버스터미널 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 서초구 신반포로 194 (반포동)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-10&quot;, &quot;name&quot;: &quot;미카야&quot;, &quot;point&quot;: [37.5753675264983, 126.973321784452], &quot;number&quot;: 11, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:49.349764+00:00&quot;}" class="place-card" id="place-10"><h3 class="place-head"><button class="place-select" type="button" data-select="place-10" aria-pressed="false" aria-expanded="true">미카야</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%AF%B8%EC%B9%B4%EC%95%BC" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%B9%B4%EC%95%BC" aria-label="미카야 카카오맵에서 열기" title="미카야 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 사직로 130, 적선현대빌딩 지하1층 5호 (적선동)</dd><dt>영업시간</dt><dd>평일 11:00-20:30 (브레이크 14:30-17:00) / 토 11:30-14:00 / 일요일에 쉬어요 — 블로그 기준이에요 (2025-02·2026-09 글)</dd><dt>전화</dt><dd><a href="tel:027224399">02-722-4399 (카카오맵 기준)</a></dd><dt>가격</dt><dd>약 13,000/인 — 돈까스 카레가 13,000원이에요 (2026-09 글). 수제 함박스테이크는 11,000원이었어요 (2025-11 글). 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-11&quot;, &quot;name&quot;: &quot;달맞이광장바베큐 본점&quot;, &quot;point&quot;: [37.5658473568451, 126.990473553367], &quot;number&quot;: 12, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:47.525357+00:00&quot;}" class="place-card" id="place-11"><h3 class="place-head"><button class="place-select" type="button" data-select="place-11" aria-pressed="false" aria-expanded="true">달맞이광장바베큐 본점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90" aria-label="달맞이광장바베큐 본점 카카오맵에서 열기" title="달맞이광장바베큐 본점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 중구 을지로 112-1, 1층</dd><dt>영업시간</dt><dd>일~목 16:00-01:00 / 금·토 16:00-02:00 — 블로그 기준이라 D-1에 확인해요</dd><dt>전화</dt><dd><a href="tel:050714986715">0507-1498-6715</a></dd><dt>가격</dt><dd>약 26,000/인 — 소금 바베큐 기준이에요. 블로그 기준 어림값이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-12&quot;, &quot;name&quot;: &quot;서울숲&quot;, &quot;point&quot;: [37.5430691557811, 127.041798985514], &quot;number&quot;: 13, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:51.175811+00:00&quot;}" class="place-card" id="place-12"><h3 class="place-head"><button class="place-select" type="button" data-select="place-12" aria-pressed="false" aria-expanded="true">서울숲</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2" aria-label="서울숲 카카오맵에서 열기" title="서울숲 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 성동구 뚝섬로 273</dd><dt>가격</dt><dd>0 — 공원이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-13&quot;, &quot;name&quot;: &quot;미쁘동 성수&quot;, &quot;point&quot;: [37.5475606780587, 127.040120593551], &quot;number&quot;: 14, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:48.900760+00:00&quot;}" class="place-card" id="place-13"><h3 class="place-head"><button class="place-select" type="button" data-select="place-13" aria-pressed="false" aria-expanded="true">미쁘동 성수</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98" aria-label="미쁘동 성수 카카오맵에서 열기" title="미쁘동 성수 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 성동구 서울숲2길 11-12, 2층 (성수동1가)</dd><dt>영업시간</dt><dd>매일 11:00-21:00 (라스트오더 20:00, 브레이크 없음)</dd><dt>가격</dt><dd>약 20,000/인 — 미쁘동 18,000, 토마토연어국수도 그 근처예요. 제이타쿠동은 28,000이에요. 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-14&quot;, &quot;name&quot;: &quot;바이닐 성수&quot;, &quot;point&quot;: [37.5479419391258, 127.046153690563], &quot;number&quot;: 15, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:49.784319+00:00&quot;}" class="place-card" id="place-14"><h3 class="place-head"><button class="place-select" type="button" data-select="place-14" aria-pressed="false" aria-expanded="true">바이닐 성수</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98" aria-label="바이닐 성수 카카오맵에서 열기" title="바이닐 성수 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 성동구 아차산로 15-8, 2층 (성수동1가)</dd><dt>영업시간</dt><dd>매일 11:00-23:00 (대관 행사 땐 못 들어가요)</dd><dt>가격</dt><dd>18,900/인 — 입장권이에요. 음료 한 잔이 들어 있고 LP 이용 시간 제한이 없어요. 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-15&quot;, &quot;name&quot;: &quot;오밀 혜화 대학로&quot;, &quot;point&quot;: [37.5829539369906, 126.999716622892], &quot;number&quot;: 16, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:51.633803+00:00&quot;}" class="place-card" id="place-15"><h3 class="place-head"><button class="place-select" type="button" data-select="place-15" aria-pressed="false" aria-expanded="true">오밀 혜화 대학로</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C" aria-label="오밀 혜화 대학로 카카오맵에서 열기" title="오밀 혜화 대학로 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 대명길 35, 2층 (명륜4가)</dd><dt>영업시간</dt><dd>매일 11:30-21:15 (라스트오더 20:30, 평일 브레이크 15:15-16:30)</dd><dt>전화</dt><dd><a href="tel:050713539474">0507-1353-9474 (카카오맵 기준)</a></dd><dt>가격</dt><dd>약 20,000/인 — 러버덕 오므라이스 16,900, 고추장 버터 파스타 17,900이에요. 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-16&quot;, &quot;name&quot;: &quot;잡을손&quot;, &quot;point&quot;: [37.5547936484795, 126.91255907443], &quot;number&quot;: 17, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:54.383007+00:00&quot;}" class="place-card" id="place-16"><h3 class="place-head"><button class="place-select" type="button" data-select="place-16" aria-pressed="false" aria-expanded="true">잡을손</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90" aria-label="잡을손 카카오맵에서 열기" title="잡을손 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 월드컵로10길 15, 1층 (서교동)</dd><dt>영업시간</dt><dd>월~토 11:30-23:00 (라스트오더 22:40) / 일요일에 쉬어요 — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:023227967">02-322-7967</a></dd><dt>가격</dt><dd>미확인</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-17&quot;, &quot;name&quot;: &quot;레드버튼 망원역점&quot;, &quot;point&quot;: [37.555782204515, 126.910728577563], &quot;number&quot;: 18, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:48.448377+00:00&quot;}" class="place-card" id="place-17"><h3 class="place-head"><button class="place-select" type="button" data-select="place-17" aria-pressed="false" aria-expanded="true">레드버튼 망원역점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90" aria-label="레드버튼 망원역점 카카오맵에서 열기" title="레드버튼 망원역점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 월드컵로 74, 원천빌딩 지하1층 (서교동)</dd><dt>영업시간</dt><dd>매일 12:00-24:00 (금·토는 01:00까지) — 블로그 기준이에요 (2026-08-29 글). 예전 글엔 평일 13:00부터라고 나와요</dd><dt>전화</dt><dd><a href="tel:050714683803023323799">0507-1468-3803 (블로그 기준), 02-332-3799 (카카오맵 기준)</a></dd><dt>가격</dt><dd>약 4,500/인 — 1시간 3,700원이고 그 뒤로 2분마다 100원이라 1시간 15분이면 이 정도예요. 간식은 따로 먼저 내요 (블로그 기준, 2026-08-29 글)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-18&quot;, &quot;name&quot;: &quot;픽트로스터리 망원점&quot;, &quot;point&quot;: [37.5558884947865, 126.907302221423], &quot;number&quot;: 19, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:56.801979+00:00&quot;}" class="place-card" id="place-18"><h3 class="place-head"><button class="place-select" type="button" data-select="place-18" aria-pressed="false" aria-expanded="true">픽트로스터리 망원점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90" aria-label="픽트로스터리 망원점 카카오맵에서 열기" title="픽트로스터리 망원점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 월드컵로23길 45, 1층 (망원동)</dd><dt>영업시간</dt><dd>수~금 11:00-19:00 / 토·일 11:00-21:00 (라스트오더 20:30) / 월·화에 쉬어요</dd><dt>가격</dt><dd>약 12,000/인 — 아메리카노 4,900원이고 크림브륄레 토스트를 같이 시키면 이 정도예요. 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-19&quot;, &quot;name&quot;: &quot;한강버스 망원선착장&quot;, &quot;point&quot;: [37.5546942444411, 126.894752000993], &quot;number&quot;: 20, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:57.275261+00:00&quot;}" class="place-card" id="place-19"><h3 class="place-head"><button class="place-select" type="button" data-select="place-19" aria-pressed="false" aria-expanded="true">한강버스 망원선착장</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5" aria-label="한강버스 망원선착장 카카오맵에서 열기" title="한강버스 망원선착장 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 마포나루길 420 (망원한강공원)</dd><dt>영업시간</dt><dd>여의도행 오후 출발은 14:42·15:22·15:52·16:22·17:22·18:02·19:02예요. 망원 → 여의도는 26분이에요 — 한강버스 공식 운항 시간표 (2026-08-15부터 적용, 2026-10-05 확인)</dd><dt>가격</dt><dd>3,000/인 — 성인 편도예요. 교통카드로 내고 지하철·버스 환승 할인이 돼요 (한강버스 요금 안내, 2026-10-05 확인)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-7&quot;, &quot;name&quot;: &quot;고트델리 서촌&quot;, &quot;point&quot;: [37.5799211538224, 126.96823622082], &quot;number&quot;: 8, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:06:59.756242+00:00&quot;}" class="place-card" id="place-7"><h3 class="place-head"><button class="place-select" type="button" data-select="place-7" aria-pressed="false" aria-expanded="true">고트델리 서촌</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EA%B3%A0%ED%8A%B8%EB%8D%B8%EB%A6%AC%20%EC%84%9C%EC%B4%8C" aria-label="고트델리 서촌 카카오맵에서 열기" title="고트델리 서촌 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 필운대로5가길 13, 1·2층 (누하동)</dd><dt>영업시간</dt><dd>매일 11:30-21:00 (라스트오더 20:00, 브레이크 없음) — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:050713800815">0507-1380-0815</a></dd><dt>가격</dt><dd>약 18,000/인 — 고트세트(피자+샌드위치+감자튀김+음료 2잔)가 36,500원이에요. 토마토 바질 피자 18,000, 잠봉뵈르 9,500원이에요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-8&quot;, &quot;name&quot;: &quot;인왕산 대충유원지&quot;, &quot;point&quot;: [37.5800929492628, 126.968821786523], &quot;number&quot;: 9, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:12.527933+00:00&quot;}" class="place-card" id="place-8"><h3 class="place-head"><button class="place-select" type="button" data-select="place-8" aria-pressed="false" aria-expanded="true">인왕산 대충유원지</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9D%B8%EC%99%95%EC%82%B0%20%EB%8C%80%EC%B6%A9%EC%9C%A0%EC%9B%90%EC%A7%80" aria-label="인왕산 대충유원지 카카오맵에서 열기" title="인왕산 대충유원지 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 필운대로 46, 4층 (누하동)</dd><dt>영업시간</dt><dd>매일 12:00-22:00 (라스트오더 21:30) — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:07078075640">070-7807-5640</a></dd><dt>가격</dt><dd>약 10,000/인 — 음료가 7,000~8,000원(필터커피·거봉녹차·밀크우롱차 7,000, 카페오레 8,000원)이고 바스크 치즈케이크·티라미수가 6,000원이에요. 음료 하나씩에 디저트를 나눠 먹으면 이 정도예요. 블로그 기준이에요 (2026)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-9&quot;, &quot;name&quot;: &quot;서울고속버스터미널&quot;, &quot;point&quot;: [37.5064357442307, 127.006834366246], &quot;number&quot;: 10, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:07.195138+00:00&quot;}" class="place-card" id="place-9"><h3 class="place-head"><button class="place-select" type="button" data-select="place-9" aria-pressed="false" aria-expanded="true">서울고속버스터미널</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EA%B3%A0%EC%86%8D%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="서울고속버스터미널 카카오맵에서 열기" title="서울고속버스터미널 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 서초구 신반포로 194 (반포동)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-10&quot;, &quot;name&quot;: &quot;미카야&quot;, &quot;point&quot;: [37.5753675264983, 126.973321784452], &quot;number&quot;: 11, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%B9%B4%EC%95%BC&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:05.072263+00:00&quot;}" class="place-card" id="place-10"><h3 class="place-head"><button class="place-select" type="button" data-select="place-10" aria-pressed="false" aria-expanded="true">미카야</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%AF%B8%EC%B9%B4%EC%95%BC" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%B9%B4%EC%95%BC" aria-label="미카야 카카오맵에서 열기" title="미카야 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 사직로 130, 적선현대빌딩 지하1층 5호 (적선동)</dd><dt>영업시간</dt><dd>평일 11:00-20:30 (브레이크 14:30-17:00) / 토 11:30-14:00 / 일요일에 쉬어요 — 블로그 기준이에요 (2025-02·2026-09 글)</dd><dt>전화</dt><dd><a href="tel:027224399">02-722-4399 (카카오맵 기준)</a></dd><dt>가격</dt><dd>약 13,000/인 — 돈까스 카레가 13,000원이에요 (2026-09 글). 수제 함박스테이크는 11,000원이었어요 (2025-11 글). 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-11&quot;, &quot;name&quot;: &quot;달맞이광장바베큐 본점&quot;, &quot;point&quot;: [37.5658473568451, 126.990473553367], &quot;number&quot;: 12, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:02.458411+00:00&quot;}" class="place-card" id="place-11"><h3 class="place-head"><button class="place-select" type="button" data-select="place-11" aria-pressed="false" aria-expanded="true">달맞이광장바베큐 본점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%8B%AC%EB%A7%9E%EC%9D%B4%EA%B4%91%EC%9E%A5%EB%B0%94%EB%B2%A0%ED%81%90%20%EB%B3%B8%EC%A0%90" aria-label="달맞이광장바베큐 본점 카카오맵에서 열기" title="달맞이광장바베큐 본점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 중구 을지로 112-1, 1층</dd><dt>영업시간</dt><dd>일~목 16:00-01:00 / 금·토 16:00-02:00 — 블로그 기준이라 D-1에 확인해요</dd><dt>전화</dt><dd><a href="tel:050714986715">0507-1498-6715</a></dd><dt>가격</dt><dd>약 26,000/인 — 소금 바베큐 기준이에요. 블로그 기준 어림값이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-12&quot;, &quot;name&quot;: &quot;서울숲&quot;, &quot;point&quot;: [37.5430691557811, 127.041798985514], &quot;number&quot;: 13, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:07.793009+00:00&quot;}" class="place-card" id="place-12"><h3 class="place-head"><button class="place-select" type="button" data-select="place-12" aria-pressed="false" aria-expanded="true">서울숲</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%EC%88%B2" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%EC%88%B2" aria-label="서울숲 카카오맵에서 열기" title="서울숲 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 성동구 뚝섬로 273</dd><dt>가격</dt><dd>0 — 공원이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-13&quot;, &quot;name&quot;: &quot;미쁘동 성수&quot;, &quot;point&quot;: [37.5475606780587, 127.040120593551], &quot;number&quot;: 14, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:04.459840+00:00&quot;}" class="place-card" id="place-13"><h3 class="place-head"><button class="place-select" type="button" data-select="place-13" aria-pressed="false" aria-expanded="true">미쁘동 성수</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%AF%B8%EC%81%98%EB%8F%99%20%EC%84%B1%EC%88%98" aria-label="미쁘동 성수 카카오맵에서 열기" title="미쁘동 성수 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 성동구 서울숲2길 11-12, 2층 (성수동1가)</dd><dt>영업시간</dt><dd>매일 11:00-21:00 (라스트오더 20:00, 브레이크 없음)</dd><dt>가격</dt><dd>약 20,000/인 — 미쁘동 18,000, 토마토연어국수도 그 근처예요. 제이타쿠동은 28,000이에요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-14&quot;, &quot;name&quot;: &quot;바이닐 성수&quot;, &quot;point&quot;: [37.5479419391258, 127.046153690563], &quot;number&quot;: 15, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:05.811955+00:00&quot;}" class="place-card" id="place-14"><h3 class="place-head"><button class="place-select" type="button" data-select="place-14" aria-pressed="false" aria-expanded="true">바이닐 성수</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%B0%94%EC%9D%B4%EB%8B%90%20%EC%84%B1%EC%88%98" aria-label="바이닐 성수 카카오맵에서 열기" title="바이닐 성수 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 성동구 아차산로 15-8, 2층 (성수동1가)</dd><dt>영업시간</dt><dd>매일 11:00-23:00 (대관 행사 땐 못 들어가요)</dd><dt>가격</dt><dd>18,900/인 — 입장권이에요. 음료 한 잔이 들어 있고 LP 이용 시간 제한이 없어요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-15&quot;, &quot;name&quot;: &quot;오밀 혜화 대학로&quot;, &quot;point&quot;: [37.5829539369906, 126.999716622892], &quot;number&quot;: 16, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:09.401128+00:00&quot;}" class="place-card" id="place-15"><h3 class="place-head"><button class="place-select" type="button" data-select="place-15" aria-pressed="false" aria-expanded="true">오밀 혜화 대학로</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%98%A4%EB%B0%80%20%ED%98%9C%ED%99%94%20%EB%8C%80%ED%95%99%EB%A1%9C" aria-label="오밀 혜화 대학로 카카오맵에서 열기" title="오밀 혜화 대학로 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 대명길 35, 2층 (명륜4가)</dd><dt>영업시간</dt><dd>매일 11:30-21:15 (라스트오더 20:30, 평일 브레이크 15:15-16:30)</dd><dt>전화</dt><dd><a href="tel:050713539474">0507-1353-9474 (카카오맵 기준)</a></dd><dt>가격</dt><dd>약 20,000/인 — 러버덕 오므라이스 16,900, 고추장 버터 파스타 17,900이에요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-16&quot;, &quot;name&quot;: &quot;잡을손&quot;, &quot;point&quot;: [37.5547936484795, 126.91255907443], &quot;number&quot;: 17, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:13.154916+00:00&quot;}" class="place-card" id="place-16"><h3 class="place-head"><button class="place-select" type="button" data-select="place-16" aria-pressed="false" aria-expanded="true">잡을손</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9E%A1%EC%9D%84%EC%86%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9E%A1%EC%9D%84%EC%86%90" aria-label="잡을손 카카오맵에서 열기" title="잡을손 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 월드컵로10길 15, 1층 (서교동)</dd><dt>영업시간</dt><dd>월~토 11:30-23:00 (라스트오더 22:40) / 일요일에 쉬어요 — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:023227967">02-322-7967</a></dd><dt>가격</dt><dd>미확인</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-17&quot;, &quot;name&quot;: &quot;레드버튼 망원역점&quot;, &quot;point&quot;: [37.555782204515, 126.910728577563], &quot;number&quot;: 18, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:03.834379+00:00&quot;}" class="place-card" id="place-17"><h3 class="place-head"><button class="place-select" type="button" data-select="place-17" aria-pressed="false" aria-expanded="true">레드버튼 망원역점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%A0%88%EB%93%9C%EB%B2%84%ED%8A%BC%20%EB%A7%9D%EC%9B%90%EC%97%AD%EC%A0%90" aria-label="레드버튼 망원역점 카카오맵에서 열기" title="레드버튼 망원역점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 월드컵로 74, 원천빌딩 지하1층 (서교동)</dd><dt>영업시간</dt><dd>매일 12:00-24:00 (금·토는 01:00까지) — 블로그 기준이에요 (2026-08-29 글). 예전 글엔 평일 13:00부터라고 나와요</dd><dt>전화</dt><dd><a href="tel:050714683803023323799">0507-1468-3803 (블로그 기준), 02-332-3799 (카카오맵 기준)</a></dd><dt>가격</dt><dd>약 4,500/인 — 1시간 3,700원이고 그 뒤로 2분마다 100원이라 1시간 15분이면 이 정도예요. 간식은 따로 먼저 내요 (블로그 기준, 2026-08-29 글)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-18&quot;, &quot;name&quot;: &quot;픽트로스터리 망원점&quot;, &quot;point&quot;: [37.5558884947865, 126.907302221423], &quot;number&quot;: 19, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:16.510961+00:00&quot;}" class="place-card" id="place-18"><h3 class="place-head"><button class="place-select" type="button" data-select="place-18" aria-pressed="false" aria-expanded="true">픽트로스터리 망원점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%94%BD%ED%8A%B8%EB%A1%9C%EC%8A%A4%ED%84%B0%EB%A6%AC%20%EB%A7%9D%EC%9B%90%EC%A0%90" aria-label="픽트로스터리 망원점 카카오맵에서 열기" title="픽트로스터리 망원점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 월드컵로23길 45, 1층 (망원동)</dd><dt>영업시간</dt><dd>수~금 11:00-19:00 / 토·일 11:00-21:00 (라스트오더 20:30) / 월·화에 쉬어요</dd><dt>가격</dt><dd>약 12,000/인 — 아메리카노 4,900원이고 크림브륄레 토스트를 같이 시키면 이 정도예요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-19&quot;, &quot;name&quot;: &quot;한강버스 망원선착장&quot;, &quot;point&quot;: [37.5546942444411, 126.894752000993], &quot;number&quot;: 20, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:17.390391+00:00&quot;}" class="place-card" id="place-19"><h3 class="place-head"><button class="place-select" type="button" data-select="place-19" aria-pressed="false" aria-expanded="true">한강버스 망원선착장</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%95%9C%EA%B0%95%EB%B2%84%EC%8A%A4%20%EB%A7%9D%EC%9B%90%EC%84%A0%EC%B0%A9%EC%9E%A5" aria-label="한강버스 망원선착장 카카오맵에서 열기" title="한강버스 망원선착장 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 마포구 마포나루길 420 (망원한강공원)</dd><dt>영업시간</dt><dd>여의도행 오후 출발은 14:42·15:22·15:52·16:22·17:22·18:02·19:02예요. 망원 → 여의도는 26분이에요 — 한강버스 공식 운항 시간표 (2026-08-15부터 적용, 2026-10-05 확인)</dd><dt>가격</dt><dd>3,000/인 — 성인 편도예요. 교통카드로 내고 지하철·버스 환승 할인이 돼요 (한강버스 요금 안내, 2026-10-05 확인)</dd></dl></article>
 <article data-location="{&quot;id&quot;: &quot;place-20&quot;, &quot;name&quot;: &quot;여의도한강공원&quot;, &quot;point&quot;: null, &quot;number&quot;: 21, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90&quot;}, &quot;checked&quot;: &quot;&quot;}" class="place-card" id="place-20"><h3 class="place-head"><button class="place-select" type="button" data-select="place-20" aria-pressed="false" aria-expanded="true">여의도한강공원</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%97%AC%EC%9D%98%EB%8F%84%ED%95%9C%EA%B0%95%EA%B3%B5%EC%9B%90" aria-label="여의도한강공원 카카오맵에서 열기" title="여의도한강공원 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 영등포구 여의도동 85 일대 (카카오맵 기준)</dd><dt>가격</dt><dd>0 — 공원이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-21&quot;, &quot;name&quot;: &quot;주락&quot;, &quot;point&quot;: [37.514065345711, 126.897421262738], &quot;number&quot;: 22, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A3%BC%EB%9D%BD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A3%BC%EB%9D%BD&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:55.311412+00:00&quot;}" class="place-card" id="place-21"><h3 class="place-head"><button class="place-select" type="button" data-select="place-21" aria-pressed="false" aria-expanded="true">주락</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%A3%BC%EB%9D%BD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%A3%BC%EB%9D%BD" aria-label="주락 카카오맵에서 열기" title="주락 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 영등포구 도림로126길 11, 1층 (문래동3가)</dd><dt>영업시간</dt><dd>화~일 17:00-24:00 (라스트오더 23:00) / 월요일에 쉬어요 — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:0269561906">02-6956-1906</a></dd><dt>가격</dt><dd>약 30,000/인 — 묵은지파스타 15,000, 훈제보쌈 21,000, 한우육회 27,000원에 전통주 한 병 나누면 이 정도예요. 블로그 기준 어림값이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-22&quot;, &quot;name&quot;: &quot;낙산공원&quot;, &quot;point&quot;: [37.5805926127615, 127.006531505857], &quot;number&quot;: 23, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:46.948235+00:00&quot;}" class="place-card" id="place-22"><h3 class="place-head"><button class="place-select" type="button" data-select="place-22" aria-pressed="false" aria-expanded="true">낙산공원</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90" aria-label="낙산공원 카카오맵에서 열기" title="낙산공원 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 낙산길 41</dd><dt>가격</dt><dd>0 — 공원이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-23&quot;, &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;point&quot;: [37.294066695953, 127.202128029885], &quot;number&quot;: 24, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:55.781644+00:00&quot;}" class="place-card" id="place-23"><h3 class="place-head"><button class="place-select" type="button" data-select="place-23" aria-pressed="false" aria-expanded="true">캐리비안베이</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" aria-label="캐리비안베이 카카오맵에서 열기" title="캐리비안베이 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 포곡읍 에버랜드로 199</dd><dt>영업시간</dt><dd>10/3(토) 실내 10:00-18:00 / 실외 운영 안 함</dd><dt>가격</dt><dd>미확인</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-24&quot;, &quot;name&quot;: &quot;서울 숙소&quot;, &quot;point&quot;: [37.557214606178, 126.981202140282], &quot;number&quot;: 25, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:50.243292+00:00&quot;}" class="place-card" id="place-24"><h3 class="place-head"><button class="place-select" type="button" data-select="place-24" aria-pressed="false" aria-expanded="true">서울 숙소</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C" aria-label="서울 숙소 카카오맵에서 열기" title="서울 숙소 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 중구 퇴계로12길 54-3</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-25&quot;, &quot;name&quot;: &quot;용인 숙소&quot;, &quot;point&quot;: [37.2876101320569, 127.213524289704], &quot;number&quot;: 26, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:52.072665+00:00&quot;}" class="place-card" id="place-25"><h3 class="place-head"><button class="place-select" type="button" data-select="place-25" aria-pressed="false" aria-expanded="true">용인 숙소</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C" aria-label="용인 숙소 카카오맵에서 열기" title="용인 숙소 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 포곡읍 전대로 126</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-26&quot;, &quot;name&quot;: &quot;탕화쿵푸마라탕 CGV용인점&quot;, &quot;point&quot;: [37.2350859784862, 127.205815188674], &quot;number&quot;: 27, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:56.352281+00:00&quot;}" class="place-card" id="place-26"><h3 class="place-head"><button class="place-select" type="button" data-select="place-26" aria-pressed="false" aria-expanded="true">탕화쿵푸마라탕 CGV용인점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90" aria-label="탕화쿵푸마라탕 CGV용인점 카카오맵에서 열기" title="탕화쿵푸마라탕 CGV용인점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 금령로 86, 시네마건물 2층 210호 (김량장동)</dd><dt>영업시간</dt><dd>매일 10:30-22:00 (라스트오더는 21:10 또는 21:30 — 블로그마다 달라요, D-1에 확인해요)</dd><dt>전화</dt><dd><a href="tel:010555013490507135213490313226888">010-5550-1349 (카카오맵 기준, 블로그엔 0507-1352-1349·031-322-6888도 있어요)</a></dd><dt>가격</dt><dd>약 3,300/100g — 마라샹궈 100g당 가격이에요 (강남직영점 블로그 기준, 지점마다 다를 수 있어요)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-27&quot;, &quot;name&quot;: &quot;용인공용버스터미널&quot;, &quot;point&quot;: [37.2325464367089, 127.209688045589], &quot;number&quot;: 28, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:52.528123+00:00&quot;}" class="place-card" id="place-27"><h3 class="place-head"><button class="place-select" type="button" data-select="place-27" aria-pressed="false" aria-expanded="true">용인공용버스터미널</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="용인공용버스터미널 카카오맵에서 열기" title="용인공용버스터미널 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 중부대로 1486 (김량장동)</dd><dt>가격</dt><dd>24,800/인 — 구미행 우등 시외버스예요 (asamaru 시외버스 시간표, 2026-09-12 갱신본)</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-28&quot;, &quot;name&quot;: &quot;용인동태탕&amp;쭈꾸미&quot;, &quot;point&quot;: [37.2371318120566, 127.202568694776], &quot;number&quot;: 29, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:52.993393+00:00&quot;}" class="place-card" id="place-28"><h3 class="place-head"><button class="place-select" type="button" data-select="place-28" aria-pressed="false" aria-expanded="true">용인동태탕&amp;쭈꾸미</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8" aria-label="용인동태탕&amp;쭈꾸미 카카오맵에서 열기" title="용인동태탕&amp;쭈꾸미 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 금학로 349, 1층 (김량장동)</dd><dt>영업시간</dt><dd>매일 10:00-21:00 / 화요일은 10:00-15:00 — 블로그 기준이라 D-1에 확인해요</dd><dt>전화</dt><dd><a href="tel:050713799859">0507-1379-9859</a></dd><dt>가격</dt><dd>12,000/인 — 동태섞어탕·동태맑은탕·알탕 보통이에요. 특은 15,000이고, 동태탕 2인+활쭈꾸미 2인 세트는 40,000이에요. 블로그 기준이에요</dd></dl></article>
-<article data-location="{&quot;id&quot;: &quot;place-29&quot;, &quot;name&quot;: &quot;이월드&quot;, &quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;number&quot;: 30, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;checked&quot;: &quot;2026-10-06T01:57:53.466909+00:00&quot;}" class="place-card" id="place-29"><h3 class="place-head"><button class="place-select" type="button" data-select="place-29" aria-pressed="false" aria-expanded="true">이월드</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C" aria-label="이월드 카카오맵에서 열기" title="이월드 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>대구 달서구 두류공원로 200</dd><dt>영업시간</dt><dd>10/4(일) 10:00-22:00 (eworld.kr 운영시간 API, 2026-10-03 확인. 10/3에 등록된 값이에요). 10/4는 17:00 야간권으로 들어가 폐장 22:00까지 있을 수 있어요 (야간권은 17:00부터 폐장까지, 이월드 공식 요금 안내)</dd><dt>가격</dt><dd>17,500/인 — 야간 자유이용권(17:00~) 정가 35,000원에서 네이버페이 현장결제 본인 50%예요. 이월드 공식 「이달의 혜택」 기준이에요 (2026-10-03 확인)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-21&quot;, &quot;name&quot;: &quot;주락&quot;, &quot;point&quot;: [37.514065345711, 126.897421262738], &quot;number&quot;: 22, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%A3%BC%EB%9D%BD&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%A3%BC%EB%9D%BD&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:14.554356+00:00&quot;}" class="place-card" id="place-21"><h3 class="place-head"><button class="place-select" type="button" data-select="place-21" aria-pressed="false" aria-expanded="true">주락</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%A3%BC%EB%9D%BD" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%A3%BC%EB%9D%BD" aria-label="주락 카카오맵에서 열기" title="주락 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 영등포구 도림로126길 11, 1층 (문래동3가)</dd><dt>영업시간</dt><dd>화~일 17:00-24:00 (라스트오더 23:00) / 월요일에 쉬어요 — 블로그 기준이에요</dd><dt>전화</dt><dd><a href="tel:0269561906">02-6956-1906</a></dd><dt>가격</dt><dd>약 30,000/인 — 묵은지파스타 15,000, 훈제보쌈 21,000, 한우육회 27,000원에 전통주 한 병 나누면 이 정도예요. 블로그 기준 어림값이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-22&quot;, &quot;name&quot;: &quot;낙산공원&quot;, &quot;point&quot;: [37.5805926127615, 127.006531505857], &quot;number&quot;: 23, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:01.887470+00:00&quot;}" class="place-card" id="place-22"><h3 class="place-head"><button class="place-select" type="button" data-select="place-22" aria-pressed="false" aria-expanded="true">낙산공원</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EB%82%99%EC%82%B0%EA%B3%B5%EC%9B%90" aria-label="낙산공원 카카오맵에서 열기" title="낙산공원 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 종로구 낙산길 41</dd><dt>가격</dt><dd>0 — 공원이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-23&quot;, &quot;name&quot;: &quot;캐리비안베이&quot;, &quot;point&quot;: [37.294066695953, 127.202128029885], &quot;number&quot;: 24, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:15.191446+00:00&quot;}" class="place-card" id="place-23"><h3 class="place-head"><button class="place-select" type="button" data-select="place-23" aria-pressed="false" aria-expanded="true">캐리비안베이</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%BA%90%EB%A6%AC%EB%B9%84%EC%95%88%EB%B2%A0%EC%9D%B4" aria-label="캐리비안베이 카카오맵에서 열기" title="캐리비안베이 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 포곡읍 에버랜드로 199</dd><dt>영업시간</dt><dd>10/3(토) 실내 10:00-18:00 / 실외 운영 안 함</dd><dt>가격</dt><dd>미확인</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-24&quot;, &quot;name&quot;: &quot;서울 숙소&quot;, &quot;point&quot;: [37.557214606178, 126.981202140282], &quot;number&quot;: 25, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:06.577374+00:00&quot;}" class="place-card" id="place-24"><h3 class="place-head"><button class="place-select" type="button" data-select="place-24" aria-pressed="false" aria-expanded="true">서울 숙소</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%84%9C%EC%9A%B8%20%EC%88%99%EC%86%8C" aria-label="서울 숙소 카카오맵에서 열기" title="서울 숙소 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>서울 중구 퇴계로12길 54-3</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-25&quot;, &quot;name&quot;: &quot;용인 숙소&quot;, &quot;point&quot;: [37.2876101320569, 127.213524289704], &quot;number&quot;: 26, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:10.023490+00:00&quot;}" class="place-card" id="place-25"><h3 class="place-head"><button class="place-select" type="button" data-select="place-25" aria-pressed="false" aria-expanded="true">용인 숙소</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%20%EC%88%99%EC%86%8C" aria-label="용인 숙소 카카오맵에서 열기" title="용인 숙소 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 포곡읍 전대로 126</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-26&quot;, &quot;name&quot;: &quot;탕화쿵푸마라탕 CGV용인점&quot;, &quot;point&quot;: [37.2350859784862, 127.205815188674], &quot;number&quot;: 27, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:15.770468+00:00&quot;}" class="place-card" id="place-26"><h3 class="place-head"><button class="place-select" type="button" data-select="place-26" aria-pressed="false" aria-expanded="true">탕화쿵푸마라탕 CGV용인점</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%ED%83%95%ED%99%94%EC%BF%B5%ED%91%B8%EB%A7%88%EB%9D%BC%ED%83%95%20CGV%EC%9A%A9%EC%9D%B8%EC%A0%90" aria-label="탕화쿵푸마라탕 CGV용인점 카카오맵에서 열기" title="탕화쿵푸마라탕 CGV용인점 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 금령로 86, 시네마건물 2층 210호 (김량장동)</dd><dt>영업시간</dt><dd>매일 10:30-22:00 (라스트오더는 21:10 또는 21:30 — 블로그마다 달라요, D-1에 확인해요)</dd><dt>전화</dt><dd><a href="tel:010555013490507135213490313226888">010-5550-1349 (카카오맵 기준, 블로그엔 0507-1352-1349·031-322-6888도 있어요)</a></dd><dt>가격</dt><dd>약 3,300/100g — 마라샹궈 100g당 가격이에요 (강남직영점 블로그 기준, 지점마다 다를 수 있어요)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-27&quot;, &quot;name&quot;: &quot;용인공용버스터미널&quot;, &quot;point&quot;: [37.2325464367089, 127.209688045589], &quot;number&quot;: 28, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:10.773599+00:00&quot;}" class="place-card" id="place-27"><h3 class="place-head"><button class="place-select" type="button" data-select="place-27" aria-pressed="false" aria-expanded="true">용인공용버스터미널</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EA%B3%B5%EC%9A%A9%EB%B2%84%EC%8A%A4%ED%84%B0%EB%AF%B8%EB%84%90" aria-label="용인공용버스터미널 카카오맵에서 열기" title="용인공용버스터미널 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 중부대로 1486 (김량장동)</dd><dt>가격</dt><dd>24,800/인 — 구미행 우등 시외버스예요 (asamaru 시외버스 시간표, 2026-09-12 갱신본)</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-28&quot;, &quot;name&quot;: &quot;용인동태탕&amp;쭈꾸미&quot;, &quot;point&quot;: [37.2371318120566, 127.202568694776], &quot;number&quot;: 29, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:11.343445+00:00&quot;}" class="place-card" id="place-28"><h3 class="place-head"><button class="place-select" type="button" data-select="place-28" aria-pressed="false" aria-expanded="true">용인동태탕&amp;쭈꾸미</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9A%A9%EC%9D%B8%EB%8F%99%ED%83%9C%ED%83%95%26%EC%AD%88%EA%BE%B8%EB%AF%B8" aria-label="용인동태탕&amp;쭈꾸미 카카오맵에서 열기" title="용인동태탕&amp;쭈꾸미 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>경기 용인시 처인구 금학로 349, 1층 (김량장동)</dd><dt>영업시간</dt><dd>매일 10:00-21:00 / 화요일은 10:00-15:00 — 블로그 기준이라 D-1에 확인해요</dd><dt>전화</dt><dd><a href="tel:050713799859">0507-1379-9859</a></dd><dt>가격</dt><dd>12,000/인 — 동태섞어탕·동태맑은탕·알탕 보통이에요. 특은 15,000이고, 동태탕 2인+활쭈꾸미 2인 세트는 40,000이에요. 블로그 기준이에요</dd></dl></article>
+<article data-location="{&quot;id&quot;: &quot;place-29&quot;, &quot;name&quot;: &quot;이월드&quot;, &quot;point&quot;: [35.8540582987146, 128.564714227979], &quot;number&quot;: 30, &quot;links&quot;: {&quot;web&quot;: &quot;https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C&quot;, &quot;mobile&quot;: &quot;https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C&quot;}, &quot;checked&quot;: &quot;2026-10-06T13:07:11.917371+00:00&quot;}" class="place-card" id="place-29"><h3 class="place-head"><button class="place-select" type="button" data-select="place-29" aria-pressed="false" aria-expanded="true">이월드</button><a class="map place-map kakao-open" href="https://map.kakao.com/link/search/%EC%9D%B4%EC%9B%94%EB%93%9C" data-mobile-href="https://m.map.kakao.com/scheme/search?q=%EC%9D%B4%EC%9B%94%EB%93%9C" aria-label="이월드 카카오맵에서 열기" title="이월드 카카오맵에서 열기"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18-6 3V6l6-3 6 3 6-3v15l-6 3-6-3V3 M15 6v15"/></svg>지도</a></h3><dl><dt>주소</dt><dd>대구 달서구 두류공원로 200</dd><dt>영업시간</dt><dd>10/4(일) 10:00-22:00 (eworld.kr 운영시간 API, 2026-10-03 확인. 10/3에 등록된 값이에요). 10/4는 17:00 야간권으로 들어가 폐장 22:00까지 있을 수 있어요 (야간권은 17:00부터 폐장까지, 이월드 공식 요금 안내)</dd><dt>가격</dt><dd>17,500/인 — 야간 자유이용권(17:00~) 정가 35,000원에서 네이버페이 현장결제 본인 50%예요. 이월드 공식 「이달의 혜택」 기준이에요 (2026-10-03 확인)</dd></dl></article>
 </section>
 </div></section></main></div>
 <script>(function () {
@@ -550,25 +614,110 @@ button, a, .item-select { touch-action: manipulation; }
               String(now.getMonth() + 1).padStart(2, '0') + '-' +
               String(now.getDate()).padStart(2, '0');
 
-  var list = document.getElementById('plans');
-  if (list) {
-    // 오늘 걸린 플랜은 '재생 중'으로 표시한다. 빌드 시각이 아니라 볼 때 정해진다.
-    Array.prototype.forEach.call(list.children, function (li) {
-      if (li.dataset.start <= today && today <= li.dataset.end) {
-        li.classList.add('now');
-      }
+  function daysBetween(from, to) {
+    var a = from.split('-'), b = to.split('-');
+    return Math.round((Date.UTC(b[0], b[1] - 1, b[2]) - Date.UTC(a[0], a[1] - 1, a[2])) / 864e5);
+  }
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) { node.className = className; }
+    if (text !== undefined) { node.textContent = text; }
+    return node;
+  }
+
+  // 진행 중이면 그 플랜, 아니면 가장 가까운 다음 플랜을 맨 위 카드로 올린다.
+  function showHero(row, ongoing) {
+    var slot = document.getElementById('hero');
+    if (!slot) { return; }
+    var start = row.dataset.start, total = daysBetween(start, row.dataset.end) + 1;
+    var card = el('a', 'hero');
+    card.href = row.querySelector('a').getAttribute('href');
+    var top = el('span', 'hero-top');
+    var figure = el('span', 'hero-figure');
+    var cta = '일정 보기';
+    if (ongoing && total > 1) {
+      var nth = daysBetween(start, today) + 1;
+      top.appendChild(el('span', 'hero-eyebrow', '지금 데이트 중이에요'));
+      figure.appendChild(el('strong', '', nth + '일차'));
+      figure.appendChild(el('span', 'of', '/ ' + total + '일'));
+      cta = '오늘 일정 보기';
+    } else if (ongoing) {
+      top.appendChild(el('span', 'hero-eyebrow', '오늘이 데이트 날이에요'));
+      figure.appendChild(el('strong', '', 'D-day'));
+      cta = '오늘 일정 보기';
+    } else {
+      var left = daysBetween(today, start);
+      top.appendChild(el('span', 'hero-eyebrow', '다음 데이트'));
+      figure.appendChild(el('strong', '', 'D-' + left));
+      if (left === 1) { figure.appendChild(el('span', 'of', '내일이에요')); }
+    }
+    var badge = row.querySelector('.plan-check .checked');
+    if (badge) { top.appendChild(badge.cloneNode(true)); }
+    card.appendChild(top);
+    card.appendChild(figure);
+    card.appendChild(el('span', 'hero-title', row.querySelector('.t').textContent));
+    card.appendChild(el('span', 'hero-meta', row.dataset.range + ' · 일정 ' + row.dataset.count + '개'));
+    if (ongoing && total > 1) {
+      var bar = el('span', 'hero-progress');
+      bar.setAttribute('aria-hidden', 'true');
+      var fill = el('span');
+      fill.style.width = Math.min(100, (daysBetween(start, today) + 1) / total * 100) + '%';
+      bar.appendChild(fill);
+      card.appendChild(bar);
+    }
+    card.appendChild(el('span', 'hero-cta', cta));
+    slot.appendChild(card);
+    slot.hidden = false;
+  }
+
+  // 진행 중 · 다가오는 · 지난 데이트(올해, 그 전은 연도별)로 묶는다. JS가 없으면 서버가 만든 한 묶음이 그대로 보인다.
+  function groupPlans(list) {
+    var rows = Array.prototype.slice.call(list.children);
+    var ongoing = rows.filter(function (li) { return li.dataset.start <= today && today <= li.dataset.end; });
+    var upcoming = rows.filter(function (li) { return li.dataset.start > today; })
+      .sort(function (a, b) { return a.dataset.start < b.dataset.start ? -1 : 1; });
+    var past = rows.filter(function (li) { return li.dataset.end < today; });
+    var hero = ongoing[0] || upcoming[0];
+    if (hero) {
+      showHero(hero, hero === ongoing[0]);
+      // 대시보드가 모든 플랜을 읽으므로 지우지 않고 숨긴다.
+      hero.hidden = true;
+    }
+    upcoming.forEach(function (li) {
+      var side = li.querySelector('.plan-side');
+      side.insertBefore(el('span', 'dday', 'D-' + daysBetween(today, li.dataset.start)), side.firstChild);
     });
 
-    Array.prototype.forEach.call(list.children, function (li) {
-      if (li.dataset.end < today) {
-        li.classList.add('past-plan');
-        var badge = document.createElement('span');
-        badge.className = 'past-label';
-        badge.textContent = '지난 일정';
-        li.querySelector('a').prepend(badge);
-      }
+    var groups = [['진행 중인 데이트', ongoing, false], ['다가오는 데이트', upcoming, false]];
+    var thisYear = today.slice(0, 4);
+    past.forEach(function (li) {
+      var year = li.dataset.start.slice(0, 4);
+      var title = year === thisYear ? '지난 데이트' : year + '년 데이트';
+      var last = groups[groups.length - 1];
+      if (last[0] === title) { last[1].push(li); } else { groups.push([title, [li], true]); }
     });
+
+    var original = list.closest('.plan-group');
+    groups.forEach(function (group, index) {
+      var shown = group[1].filter(function (li) { return !li.hidden; }).length;
+      if (!group[1].length) { return; }
+      var section = el('section', 'plan-group' + (group[2] ? ' is-past' : ''));
+      var heading = el('h2', 'group-title', group[0]);
+      heading.id = 'plan-group-' + index;
+      heading.appendChild(el('span', 'count', String(shown)));
+      section.setAttribute('aria-labelledby', heading.id);
+      var ul = el('ul', 'plans');
+      group[1].forEach(function (li) { ul.appendChild(li); });
+      section.appendChild(heading);
+      section.appendChild(ul);
+      section.hidden = !shown;
+      original.parentNode.insertBefore(section, original);
+    });
+    original.remove();
   }
+
+  var list = document.getElementById('plans');
+  if (list) { groupPlans(list); }
 
   var tabs = document.querySelector('[data-tabs]');
   if (!tabs) { return; }
@@ -579,6 +728,14 @@ button, a, .item-select { touch-action: manipulation; }
   var currentDay;
   var dates = days.map(function (s) { return s.dataset.day; });
   var steps = tabs.querySelectorAll('[data-day-step]');
+
+  // 오늘 날짜를 표시한다. 탭은 점, 날짜 넘기기는 '오늘' 태그다.
+  buttons.forEach(function (b) {
+    if (b.dataset.day === today) { b.classList.add('is-today'); b.setAttribute('aria-current', 'date'); }
+  });
+  labels.forEach(function (label) {
+    if (label.dataset.dayLabel === today) { label.classList.add('is-today'); }
+  });
 
   function show(day) {
     currentDay = day;
