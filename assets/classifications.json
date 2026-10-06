@@ -840,13 +840,11 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "ed539a320bedb9e6f2ff1db41b5274b64f76b9f3fda89d4cf890028c927fdb53",
+      "fingerprint": "3174c4289e7f421847de48cc423f26948361014f6591a0bddf12758f5b3c12b2",
       "rows": [
         {
           "id": "0:0",
-          "categories": [
-            "other"
-          ],
+          "categories": [],
           "cuisine": null
         },
         {
@@ -854,7 +852,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "asian"
+          "cuisine": "other"
         },
         {
           "id": "1:0",
@@ -957,7 +955,8 @@
         {
           "id": "4:2",
           "categories": [
-            "other"
+            "play",
+            "cafe"
           ],
           "cuisine": null
         },
@@ -966,7 +965,7 @@
           "categories": [
             "food"
           ],
-          "cuisine": "western"
+          "cuisine": "other"
         },
         {
           "id": "4:4",
@@ -978,44 +977,57 @@
         {
           "id": "5:0",
           "categories": [
+            "other"
+          ],
+          "cuisine": null
+        },
+        {
+          "id": "5:1",
+          "categories": [
             "food"
           ],
           "cuisine": "korean"
         },
         {
-          "id": "5:1",
+          "id": "5:2",
           "categories": [
             "board"
           ],
           "cuisine": null
         },
         {
-          "id": "5:2",
+          "id": "5:3",
           "categories": [
             "cafe"
           ],
           "cuisine": null
         },
         {
-          "id": "5:3",
-          "categories": [
-            "other"
-          ],
+          "id": "5:4",
+          "categories": [],
           "cuisine": null
         },
         {
-          "id": "5:4",
+          "id": "5:5",
           "categories": [
             "walk"
           ],
           "cuisine": null
         },
         {
-          "id": "5:5",
+          "id": "5:6",
           "categories": [
-            "food"
+            "food",
+            "drink"
           ],
           "cuisine": "korean"
+        },
+        {
+          "id": "5:7",
+          "categories": [
+            "walk"
+          ],
+          "cuisine": null
         },
         {
           "id": "6:0",
@@ -1044,7 +1056,8 @@
         {
           "id": "6:4",
           "categories": [
-            "walk"
+            "walk",
+            "culture"
           ],
           "cuisine": null
         },
@@ -1067,24 +1080,15 @@
         }
       ],
       "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-06T13:16:11.478814+00:00",
+      "generated_at": "2026-10-06T17:04:40.756958+00:00",
       "activities": [
-        {
-          "key": "[\"2026-10-02\", \"용인공용버스터미널\", \"other\"]",
-          "date": "2026-10-02",
-          "name": "용인공용버스터미널",
-          "activity": "만남",
-          "category": "other",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
           "date": "2026-10-02",
           "name": "탕화쿵푸마라탕 CGV용인점",
           "activity": "저녁 (마라샹궈)",
           "category": "food",
-          "cuisine": "asian",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1169,11 +1173,20 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-06\", \"바이닐 성수\", \"other\"]",
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"play\"]",
           "date": "2026-10-06",
           "name": "바이닐 성수",
           "activity": "LP 카페",
-          "category": "other",
+          "category": "play",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-06\", \"바이닐 성수\", \"cafe\"]",
+          "date": "2026-10-06",
+          "name": "바이닐 성수",
+          "activity": "LP 카페",
+          "category": "cafe",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1183,7 +1196,7 @@
           "name": "오밀 혜화 대학로",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "western",
+          "cuisine": "other",
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1192,6 +1205,15 @@
           "name": "낙산공원",
           "activity": "야경",
           "category": "walk",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"뚜레쥬르 본점\", \"other\"]",
+          "date": "2026-10-07",
+          "name": "뚜레쥬르 본점",
+          "activity": "빵 사기",
+          "category": "other",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
@@ -1223,15 +1245,6 @@
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
-          "key": "[\"2026-10-07\", \"한강버스 망원선착장\", \"other\"]",
-          "date": "2026-10-07",
-          "name": "한강버스 망원선착장",
-          "activity": "한강버스 (여의도행)",
-          "category": "other",
-          "cuisine": null,
-          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
-        },
-        {
           "key": "[\"2026-10-07\", \"여의도한강공원\", \"walk\"]",
           "date": "2026-10-07",
           "name": "여의도한강공원",
@@ -1247,6 +1260,24 @@
           "activity": "저녁 (한식주점)",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"주락\", \"drink\"]",
+          "date": "2026-10-07",
+          "name": "주락",
+          "activity": "저녁 (한식주점)",
+          "category": "drink",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-07\", \"N서울타워\", \"walk\"]",
+          "date": "2026-10-07",
+          "name": "N서울타워",
+          "activity": "야경",
+          "category": "walk",
+          "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
         {
@@ -1273,6 +1304,15 @@
           "name": "경복궁",
           "activity": "궁궐 산책",
           "category": "walk",
+          "cuisine": null,
+          "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
+        },
+        {
+          "key": "[\"2026-10-08\", \"경복궁\", \"culture\"]",
+          "date": "2026-10-08",
+          "name": "경복궁",
+          "activity": "궁궐 산책",
+          "category": "culture",
           "cuisine": null,
           "url": "2026-10-02-%EC%84%9C%EC%9A%B8/"
         },
