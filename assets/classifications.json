@@ -2,54 +2,6 @@
   "version": 1,
   "plans": {
     "2026-08-22-서울": {
-      "fingerprint": "8635c7c2fe4c2a9d36da298dd020e6041083e97547054f7832ea0f0751699b15",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
-        },
-        {
-          "id": "0:1",
-          "categories": [
-            "movie"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:2",
-          "categories": [
-            "food",
-            "play"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "0:3",
-          "categories": [
-            "escape"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:4",
-          "categories": [
-            "drink"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:5",
-          "categories": [
-            "stay"
-          ],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-13T10:09:25.335368+00:00",
       "activities": [
         {
           "key": "[\"2026-08-22\", \"규카츠정 압구정로데오점\", \"food\"]",
@@ -117,72 +69,6 @@
       ]
     },
     "2026-08-29-서울": {
-      "fingerprint": "c69cf8d17b69c09a51f898d15535f172e15bc9e18deadf5052c45a09bd499395",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [
-            "drink"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:1",
-          "categories": [
-            "stay"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "1:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:2",
-          "categories": [
-            "escape"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:3",
-          "categories": [
-            "cafe"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:4",
-          "categories": [
-            "other"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:5",
-          "categories": [
-            "stay"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:6",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "korean"
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-13T10:09:30.661747+00:00",
       "activities": [
         {
           "key": "[\"2026-08-29\", \"하얀집 3호점\", \"drink\"]",
@@ -259,93 +145,6 @@
       ]
     },
     "2026-09-04-수원": {
-      "fingerprint": "cde08ac20a8230762936e2acb70264d0070f6d77edff639b144e543f8fb317d7",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "asian"
-        },
-        {
-          "id": "0:1",
-          "categories": [
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:2",
-          "categories": [
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "western"
-        },
-        {
-          "id": "1:1",
-          "categories": [
-            "culture"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:2",
-          "categories": [
-            "cafe"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:3",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:4",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "korean"
-        },
-        {
-          "id": "1:5",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "2:0",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "2:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
-        },
-        {
-          "id": "2:2",
-          "categories": [],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-13T10:09:33.238859+00:00",
       "activities": [
         {
           "key": "[\"2026-09-04\", \"진향원 마라탕\", \"food\"]",
@@ -449,79 +248,6 @@
       ]
     },
     "2026-09-12-부천": {
-      "fingerprint": "785da247ceaee2e3883de15f95cca6bdfde46c3b16526e572209cdced3db7698",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:1",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:2",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:3",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:4",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "asian"
-        },
-        {
-          "id": "0:5",
-          "categories": [
-            "culture"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:6",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:7",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:8",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:9",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:10",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:11",
-          "categories": [],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-13T10:09:35.233309+00:00",
       "activities": [
         {
           "key": "[\"2026-09-12\", \"상동호수공원\", \"walk\"]",
@@ -553,75 +279,6 @@
       ]
     },
     "2026-09-19-서울": {
-      "fingerprint": "fd8c1d602463034fa2b81e27a58630ca892083e94aa32602d210f6a616521c25",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "asian"
-        },
-        {
-          "id": "0:2",
-          "categories": [
-            "culture"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:3",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "western"
-        },
-        {
-          "id": "0:4",
-          "categories": [
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:5",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:6",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "western"
-        },
-        {
-          "id": "0:7",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:8",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "0:9",
-          "categories": [],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-19T17:26:05.054328+00:00",
       "activities": [
         {
           "key": "[\"2026-09-19\", \"노야 용산아이파크\", \"food\"]",
@@ -689,72 +346,6 @@
       ]
     },
     "2026-09-25-대구": {
-      "fingerprint": "08293e418426f88425c5bbbcb1b3661825bde12ddc4f36a3dc2d2f972978d634",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:1",
-          "categories": [
-            "food",
-            "cafe"
-          ],
-          "cuisine": "western"
-        },
-        {
-          "id": "0:2",
-          "categories": [
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:3",
-          "categories": [
-            "walk",
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:4",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "0:5",
-          "categories": [
-            "drink"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
-        },
-        {
-          "id": "1:1",
-          "categories": [
-            "board"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:2",
-          "categories": [],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-25T03:53:23.878327+00:00",
       "activities": [
         {
           "key": "[\"2026-09-25\", \"덴토\", \"food\"]",
@@ -840,247 +431,6 @@
       ]
     },
     "2026-10-02-서울": {
-      "fingerprint": "3174c4289e7f421847de48cc423f26948361014f6591a0bddf12758f5b3c12b2",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:0",
-          "categories": [
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:2",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "1:3",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "1:4",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:5",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "2:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "2:1",
-          "categories": [
-            "play"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "2:2",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "2:3",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "2:4",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "3:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "western"
-        },
-        {
-          "id": "3:1",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "3:2",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "4:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
-        },
-        {
-          "id": "4:1",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "4:2",
-          "categories": [
-            "play",
-            "cafe"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "4:3",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "4:4",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "5:0",
-          "categories": [
-            "other"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "5:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "korean"
-        },
-        {
-          "id": "5:2",
-          "categories": [
-            "board"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "5:3",
-          "categories": [
-            "cafe"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "5:4",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "5:5",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "5:6",
-          "categories": [
-            "food",
-            "drink"
-          ],
-          "cuisine": "korean"
-        },
-        {
-          "id": "5:7",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "6:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "6:1",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "6:2",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "western"
-        },
-        {
-          "id": "6:3",
-          "categories": [
-            "cafe"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "6:4",
-          "categories": [
-            "walk",
-            "culture"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "6:5",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
-        },
-        {
-          "id": "6:6",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "6:7",
-          "categories": [],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-10-06T17:04:40.756958+00:00",
       "activities": [
         {
           "key": "[\"2026-10-02\", \"탕화쿵푸마라탕 CGV용인점\", \"food\"]",
@@ -1328,223 +678,6 @@
       ]
     },
     "2026-11-14-삿포로": {
-      "fingerprint": "0ef4351d34f8d367aafbb3d1af2fb00c938ddc7e289f47494e7c1b71d7b5a77e",
-      "rows": [
-        {
-          "id": "0:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:1",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:2",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:3",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:4",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "0:5",
-          "categories": [
-            "stay"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "0:6",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:1",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:2",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:3",
-          "categories": [
-            "other"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "1:4",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "1:5",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "2:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "2:1",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "2:2",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "2:3",
-          "categories": [
-            "stay"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "2:4",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "2:5",
-          "categories": [
-            "other"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "3:0",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "3:1",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "3:2",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "3:3",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "3:4",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "3:5",
-          "categories": [
-            "food"
-          ],
-          "cuisine": "japanese"
-        },
-        {
-          "id": "3:6",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "3:7",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "3:8",
-          "categories": [
-            "food",
-            "drink"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "3:9",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "3:10",
-          "categories": [
-            "walk"
-          ],
-          "cuisine": null
-        },
-        {
-          "id": "4:0",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "4:1",
-          "categories": [],
-          "cuisine": null
-        },
-        {
-          "id": "4:2",
-          "categories": [
-            "food",
-            "other"
-          ],
-          "cuisine": "other"
-        },
-        {
-          "id": "4:3",
-          "categories": [],
-          "cuisine": null
-        }
-      ],
-      "model": "gpt-5.4-mini-2026-03-17",
-      "generated_at": "2026-09-23T14:41:51.496270+00:00",
       "activities": [
         {
           "key": "[\"2026-11-14\", \"도미인 프리미엄 삿포로\", \"stay\"]",
@@ -1561,70 +694,88 @@
           "name": "징기스칸 다루마",
           "activity": "저녁 (징기스칸)",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-15\", \"니조시장\", \"food\"]",
+          "key": "[\"2026-11-15\", \"청의 호수\", \"walk\"]",
           "date": "2026-11-15",
-          "name": "니조시장",
-          "activity": "아침 (해산물 덮밥)",
-          "category": "food",
-          "cuisine": "other",
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-15\", \"오도리공원\", \"walk\"]",
-          "date": "2026-11-15",
-          "name": "오도리공원",
-          "activity": "산책",
+          "name": "청의 호수",
+          "activity": "청의 호수·흰수염 폭포",
           "category": "walk",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-15\", \"미정\", \"food\", \"1:2\"]",
+          "key": "[\"2026-11-15\", \"준페이\", \"food\"]",
           "date": "2026-11-15",
-          "name": "미정",
-          "activity": "점심",
+          "name": "준페이",
+          "activity": "점심 (에비동)",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-15\", \"삿포로 맥주박물관\", \"other\"]",
+          "key": "[\"2026-11-15\", \"비에이 크리스마스트리 나무\", \"walk\"]",
           "date": "2026-11-15",
-          "name": "삿포로 맥주박물관",
-          "activity": "맥주 투어",
-          "category": "other",
-          "cuisine": null,
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-15\", \"삿포로 비루엔\", \"food\"]",
-          "date": "2026-11-15",
-          "name": "삿포로 비루엔",
-          "activity": "저녁 (징기스칸+맥주 무제한)",
-          "category": "food",
-          "cuisine": "other",
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-15\", \"미정\", \"walk\", \"1:5\"]",
-          "date": "2026-11-15",
-          "name": "미정",
-          "activity": "스스키노 산책",
+          "name": "비에이 크리스마스트리 나무",
+          "activity": "나홀로 나무",
           "category": "walk",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-16\", \"미정\", \"food\", \"2:1\"]",
+          "key": "[\"2026-11-15\", \"사계채의 언덕\", \"walk\"]",
+          "date": "2026-11-15",
+          "name": "사계채의 언덕",
+          "activity": "탁신관·사계채 언덕",
+          "category": "walk",
+          "cuisine": null,
+          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
+        },
+        {
+          "key": "[\"2026-11-15\", \"스프카레 가라쿠\", \"food\"]",
+          "date": "2026-11-15",
+          "name": "스프카레 가라쿠",
+          "activity": "저녁 (스프카레)",
+          "category": "food",
+          "cuisine": "japanese",
+          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
+        },
+        {
+          "key": "[\"2026-11-15\", \"삿포로 모이와산 로프웨이\", \"walk\"]",
+          "date": "2026-11-15",
+          "name": "삿포로 모이와산 로프웨이",
+          "activity": "야경",
+          "category": "walk",
+          "cuisine": null,
+          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
+        },
+        {
+          "key": "[\"2026-11-15\", \"파르페 커피 술 사토\", \"cafe\"]",
+          "date": "2026-11-15",
+          "name": "파르페 커피 술 사토",
+          "activity": "디저트 (시메파르페)",
+          "category": "cafe",
+          "cuisine": null,
+          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
+        },
+        {
+          "key": "[\"2026-11-16\", \"니조시장\", \"food\"]",
           "date": "2026-11-16",
-          "name": "미정",
-          "activity": "점심",
+          "name": "니조시장",
+          "activity": "아침 겸 점심 (카이센동)",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
+          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
+        },
+        {
+          "key": "[\"2026-11-16\", \"기타카로 삿포로 본관\", \"cafe\"]",
+          "date": "2026-11-16",
+          "name": "기타카로 삿포로 본관",
+          "activity": "디저트 (슈크림·바움쿠헨)",
+          "category": "cafe",
+          "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
@@ -1642,41 +793,23 @@
           "name": "누쿠모리노야도 후루카와",
           "activity": "저녁",
           "category": "food",
-          "cuisine": "other",
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-16\", \"누쿠모리노야도 후루카와\", \"other\"]",
-          "date": "2026-11-16",
-          "name": "누쿠모리노야도 후루카와",
-          "activity": "전세탕",
-          "category": "other",
-          "cuisine": null,
+          "cuisine": "japanese",
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
           "key": "[\"2026-11-17\", \"누쿠모리노야도 후루카와\", \"food\"]",
           "date": "2026-11-17",
           "name": "누쿠모리노야도 후루카와",
-          "activity": "아침 온천·조식",
+          "activity": "조식·아침 온천",
           "category": "food",
-          "cuisine": "other",
+          "cuisine": "japanese",
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-17\", \"조잔케이 후타미 현수교\", \"walk\"]",
+          "key": "[\"2026-11-17\", \"와카도리지다이 나루토 본점\", \"food\"]",
           "date": "2026-11-17",
-          "name": "조잔케이 후타미 현수교",
-          "activity": "산책",
-          "category": "walk",
-          "cuisine": null,
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-17\", \"미정\", \"food\", \"3:5\"]",
-          "date": "2026-11-17",
-          "name": "미정",
-          "activity": "점심 (스시)",
+          "name": "와카도리지다이 나루토 본점",
+          "activity": "점심 (닭 반 마리 튀김)",
           "category": "food",
           "cuisine": "japanese",
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
@@ -1685,8 +818,17 @@
           "key": "[\"2026-11-17\", \"오타루 사카이마치 거리\", \"walk\"]",
           "date": "2026-11-17",
           "name": "오타루 사카이마치 거리",
-          "activity": "산책·쇼핑",
+          "activity": "사카이마치 거리 구경",
           "category": "walk",
+          "cuisine": null,
+          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
+        },
+        {
+          "key": "[\"2026-11-17\", \"르타오 본점\", \"cafe\"]",
+          "date": "2026-11-17",
+          "name": "르타오 본점",
+          "activity": "디저트 (치즈케이크)",
+          "category": "cafe",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
@@ -1718,11 +860,11 @@
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
         {
-          "key": "[\"2026-11-17\", \"삿포로 모이와산 로프웨이\", \"walk\"]",
+          "key": "[\"2026-11-17\", \"온센료칸 유엔 삿포로\", \"stay\"]",
           "date": "2026-11-17",
-          "name": "삿포로 모이와산 로프웨이",
-          "activity": "야경",
-          "category": "walk",
+          "name": "온센료칸 유엔 삿포로",
+          "activity": "체크인·온천",
+          "category": "stay",
           "cuisine": null,
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         },
@@ -1730,18 +872,9 @@
           "key": "[\"2026-11-18\", \"삿포로 신치토세공항\", \"food\"]",
           "date": "2026-11-18",
           "name": "삿포로 신치토세공항",
-          "activity": "점심·쇼핑",
+          "activity": "점심 (라멘)·쇼핑",
           "category": "food",
-          "cuisine": "other",
-          "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
-        },
-        {
-          "key": "[\"2026-11-18\", \"삿포로 신치토세공항\", \"other\"]",
-          "date": "2026-11-18",
-          "name": "삿포로 신치토세공항",
-          "activity": "점심·쇼핑",
-          "category": "other",
-          "cuisine": null,
+          "cuisine": "japanese",
           "url": "2026-11-14-%EC%82%BF%ED%8F%AC%EB%A1%9C/"
         }
       ]

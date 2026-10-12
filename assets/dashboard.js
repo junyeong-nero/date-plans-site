@@ -194,7 +194,8 @@
   async function drawMap(places) {
     const version = ++revision;
     markers.forEach(m => m.setMap(null)); markers = [];
-    const located = places.filter(p => Array.isArray(p.point) && p.point.length === 2 && p.point.every(Number.isFinite));
+    // 방문 지도는 카카오 지도라 구글맵 링크로 적은 해외 장소는 빼고 목록에만 둔다 (2026-10-12).
+    const located = places.filter(p => p.provider !== 'google' && Array.isArray(p.point) && p.point.length === 2 && p.point.every(Number.isFinite));
     $('map-retry').hidden = true;
     $('record-map').hidden = !located.length;
     if (!located.length) {
@@ -221,7 +222,7 @@
       });
       if (located.length === 1) { map.setCenter(new k.LatLng(...located[0].point)); map.setLevel(5); }
       else map.setBounds(bounds);
-      $('map-status').textContent = `${located.length}곳을 지도에 표시했어요.${places.length > located.length ? ' 좌표가 없는 장소는 목록에서 볼 수 있어요.' : ''} 장소를 누르면 데이트 일정으로 이동해요.`;
+      $('map-status').textContent = `${located.length}곳을 지도에 표시했어요.${places.length > located.length ? ' 지도에 없는 장소는 목록에서 볼 수 있어요.' : ''} 장소를 누르면 데이트 일정으로 이동해요.`;
     } catch {
       if (version !== revision) return;
       $('record-map').hidden = true;
