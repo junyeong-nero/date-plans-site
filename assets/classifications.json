@@ -680,20 +680,20 @@
     "2026-10-17-대전": {
       "activities": [
         {
-          "key": "[\"2026-10-17\", \"소제동 철도관사촌\", \"walk\"]",
+          "key": "[\"2026-10-17\", \"성심당 본점\", \"cafe\"]",
           "date": "2026-10-17",
-          "name": "소제동 철도관사촌",
-          "activity": "아침 산책",
-          "category": "walk",
+          "name": "성심당 본점",
+          "activity": "빵 사기",
+          "category": "cafe",
           "cuisine": null,
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         },
         {
-          "key": "[\"2026-10-17\", \"풍류소제\", \"cafe\"]",
+          "key": "[\"2026-10-17\", \"스텝업\", \"play\"]",
           "date": "2026-10-17",
-          "name": "풍류소제",
-          "activity": "카페",
-          "category": "cafe",
+          "name": "스텝업",
+          "activity": "액티비티",
+          "category": "play",
           "cuisine": null,
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         },
@@ -707,29 +707,20 @@
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         },
         {
-          "key": "[\"2026-10-17\", \"스텝업\", \"play\"]",
+          "key": "[\"2026-10-17\", \"풍류소제\", \"cafe\"]",
           "date": "2026-10-17",
-          "name": "스텝업",
-          "activity": "액티비티",
-          "category": "play",
-          "cuisine": null,
-          "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
-        },
-        {
-          "key": "[\"2026-10-17\", \"대전근현대사전시관\", \"culture\"]",
-          "date": "2026-10-17",
-          "name": "대전근현대사전시관",
-          "activity": "전시",
-          "category": "culture",
-          "cuisine": null,
-          "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
-        },
-        {
-          "key": "[\"2026-10-17\", \"성심당 본점\", \"cafe\"]",
-          "date": "2026-10-17",
-          "name": "성심당 본점",
-          "activity": "빵 사기 (선택)",
+          "name": "풍류소제",
+          "activity": "카페",
           "category": "cafe",
+          "cuisine": null,
+          "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
+        },
+        {
+          "key": "[\"2026-10-17\", \"메가박스 대전중앙로\", \"movie\"]",
+          "date": "2026-10-17",
+          "name": "메가박스 대전중앙로",
+          "activity": "영화 (룩백)",
+          "category": "movie",
           "cuisine": null,
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         },
@@ -749,6 +740,15 @@
           "activity": "저녁",
           "category": "food",
           "cuisine": "korean",
+          "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
+        },
+        {
+          "key": "[\"2026-10-17\", \"소제동 철도관사촌\", \"walk\"]",
+          "date": "2026-10-17",
+          "name": "소제동 철도관사촌",
+          "activity": "밤 산책",
+          "category": "walk",
+          "cuisine": null,
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         }
       ]
