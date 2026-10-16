@@ -707,9 +707,9 @@
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         },
         {
-          "key": "[\"2026-10-17\", \"풍류소제\", \"cafe\"]",
+          "key": "[\"2026-10-17\", \"카페사나고\", \"cafe\"]",
           "date": "2026-10-17",
-          "name": "풍류소제",
+          "name": "카페사나고",
           "activity": "카페",
           "category": "cafe",
           "cuisine": null,
@@ -731,6 +731,15 @@
           "activity": "저녁 (텐동)",
           "category": "food",
           "cuisine": "japanese",
+          "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
+        },
+        {
+          "key": "[\"2026-10-17\", \"풍류소제\", \"cafe\"]",
+          "date": "2026-10-17",
+          "name": "풍류소제",
+          "activity": "저녁 카페",
+          "category": "cafe",
+          "cuisine": null,
           "url": "2026-10-17-%EB%8C%80%EC%A0%84/"
         },
         {
